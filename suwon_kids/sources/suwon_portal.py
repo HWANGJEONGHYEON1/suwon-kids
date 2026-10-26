@@ -1,4 +1,5 @@
 """수원특례시 행사축제포털 (https://www.suwon.go.kr/culture/index.do)."""
+import html
 import json
 import re
 from datetime import date
@@ -22,6 +23,23 @@ def fetch_list(max_pages: int = 10) -> list[dict]:
         total = d.get('totalPage') or 1
         page += 1
     return rows
+
+
+def _cell(page: str, label: str) -> str:
+    m = re.search(rf'<th[^>]*>\s*{label}\s*</th>\s*<td[^>]*>(.*?)</td>', page, re.S)
+    if not m:
+        return ''
+    text = re.sub(r'<[^>]+>', ' ', re.sub(r'<br\s*/?>', '\n', m.group(1), flags=re.I))
+    return re.sub(r'[ \t\xa0]+', ' ', html.unescape(text)).strip()
+
+
+def parse_detail(page: str) -> dict:
+    body = '\n'.join(x for x in (_cell(page, '행사개요'), _cell(page, '행사내용')) if x)
+    return {'host': _cell(page, '주최기관'), 'body': body}
+
+
+def fetch_detail(seq: str) -> dict:
+    return parse_detail(http.get(f'{BASE}ingCultureView.do?ctrSeqNo={seq}').decode('utf-8', 'replace'))
 
 
 def to_event(row: dict) -> Event:

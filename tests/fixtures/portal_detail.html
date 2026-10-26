@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, minimum-scale=1.0, user-scalable=yes" />
+<meta name="keywords" content="수원시 행사축제포털" />
+<meta name="description" content="수원시 행사축제포털" />
+<link rel="stylesheet" href="/resources/web/culture/css/sub.css" />
+<link rel="stylesheet" href="/resources/web/culture/css/sub_mobile.css" />
+<!--[if lt IE 9]><script src="/resources/common_sw/js/html5.js"></script><![endif]-->
+<script src="/resources/common_sw/js/jquery-1.11.1.min.js"></script>
+<script src="/resources/common_sw/jquery_calendar/jquery-ui-1.10.1.min.js"></script>
+<script src="/resources/common_sw/js/jquery.responsive.min.js"></script>
+<script src="/resources/web/culture/js/jquery.grid-a-licious.js"></script>
+<script src="/resources/web/culture/js/common.js"></script>
+<script src="/resources/web/culture/js/sub.js"></script>
+<title>수원시 행사축제포털</title>
+<script src="/resources/common_sw/js/jquery-migrate-1.4.1.min.js"></script>
+<script src="/resources/web/common/js/suwon.js"></script>
+
+<link rel="stylesheet" href="/resources/common_sw/css/program.css" />
+<link rel="stylesheet" href="/resources/common_sw/css/program_media.css" />
+<script src="/resources/common_sw/js/program.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('[name="q_searchDatePart"]').bind('change', function(){
+        var dates = jsSetDatePart($(this).val());
+        if($(this).val() == 'week'){
+	        $('[name="q_startDt"]').val(dates[0]);
+	        $('[name="q_endDt"]').val(dates[6]);
+        }else if($(this).val() == 'month'){
+            $('[name="q_startDt"]').val(dates[0]);
+	        $('[name="q_endDt"]').val(dates[1]);
+        }else{
+            $('[name="q_startDt"]').val('');
+	        $('[name="q_endDt"]').val('');
+        }
+    });
+});
+var jsFormatKorDate = function(date){
+    var yyyy = date.getFullYear();
+    var mm = Number(date.getMonth()) + 1;
+    var dd = date.getDate();
+    mm = String(mm).length === 1 ? '0' + mm : mm;
+    dd = String(dd).length === 1 ? '0' + dd : dd;
+    return yyyy + '-' + mm + '-' + dd;
+};
+var jsSetDatePart = function(t){
+    var currentDay = new Date();
+    var theYear = currentDay.getFullYear();
+    var theMonth = currentDay.getMonth();
+    var theDate = currentDay.getDate();
+    var theDayOfWeek = currentDay.getDay();
+    var returnDates = [];
+    if(t == 'week'){
+	    for(var i = 0; i < 7; i++){
+	        var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+	        returnDates[i] = jsFormatKorDate(resultDay);
+	    }
+    }else if(t == 'month'){
+        console.log(theMonth);
+        var firstDate = new Date(theYear, theMonth, 1);
+        var lastDate = new Date(theYear, (theMonth + 1), 0);
+        returnDates[0] = jsFormatKorDate(firstDate);
+        returnDates[1] = jsFormatKorDate(lastDate);
+    }
+    return returnDates;
+};
+//로그인 페이지 이동(되돌아올 주소를 포함)
+function globalLogin(href) {
+	if(href) {
+		$("#globalLoginForm").attr("action",href);
+	}
+	$("#globalLoginForm").attr("target","_self");
+	$("#globalLoginForm").submit();
+};
+</script>
+
+
+<script>
+//<![CDATA[
+	$(document).ready(function(){
+	});
+	
+	// 상세
+	var goView = function(ctrSeqNo, viewType){
+	    var num = "", viewPage = "ingCultureView.do";
+	    if('' == 'end'){
+	        viewPage = "endCultureView.do";
+	    }else if("" == "best") {
+	        if(viewType == "prev") num = parseInt('') + 1;
+	        else if(viewType == "next") num = parseInt('') - 1;
+	        viewPage = "bestCultureView.do";
+	    }else if("" == "sch") {
+	        viewPage = "schCultureView.do";
+	    }
+		$("#dataForm input[name=ctrSeqNo]").val(ctrSeqNo);
+		$("#dataForm input[name=num]").val(num);
+		document.dataForm.action = viewPage;
+		document.dataForm.submit();
+	};
+
+	// 목록
+	var goList = function(){
+	    var action = "index.do";
+	    if('' == 'sch'){
+	        action = "smartSearchList.do";
+	    }
+	    var addQueryString = $("#smartForm").serialize();
+	    document.location.href = action + '?' + addQueryString;
+	};
+
+	//좋아요 클릭  
+	var jsGoodAction = function(){
+		$.post("ND_goodAction.do", {
+		    ctrSeqNo : "2155"
+		}, function(result){
+		    if(result.result == true){
+		        alert("좋아요!");
+				$("#goodCnt").text(result.value);
+		    }else{
+		        alert(result.message);
+			}
+		}, 'json');
+	};
+
+	//바로가기
+	var goUrl = function(url){
+	    if(url == ""){
+	        alert("URL 정보가 없습니다.");
+	        return;
+	    }
+		var href = url;
+		var openNewWindow = window.open("about:blank");
+		openNewWindow.location.href = href;
+	};
+//]]>	
+</script>
+<script>
+try{
+    var ksjsSrc = '//developers.kakao.com/sdk/js/kakao.min.js';
+    document.write('<script src="' + ksjsSrc + '"><\/script>');
+}catch(e){console.log('kakao sdk initialize error');}
+</script>
+<script>
+function pstTwitter(msg, url) { 
+    msg = document.title;
+    url = document.location.href;
+	var href = "http://twitter.com/home?status=" + encodeURIComponent(msg) + " " + encodeURIComponent(url);
+	var a = window.open(href, 'twitter', '');
+	if ( a ) {
+		a.focus();
+	}
+	return false;
+}
+	
+function pstFaceBook(msg, url) { 
+    msg = document.title;
+    url = document.location.href;
+	//var href = "http://www.facebook.com/sharer.php?v=4&src=bm&u=" + url + "&t=" + encodeURIComponent(msg); 	    
+	var href = "http://www.facebook.com/sharer/sharer.php?t=" + encodeURIComponent(msg) + "&u=" + encodeURIComponent(url);
+	var a = window.open(href, 'facebookPopup', '');
+	if ( a ) {
+		a.focus();
+	}
+	return false;
+}
+/* function pstKakaoStory(msg, url) { 
+    msg = document.title;
+    url = document.location.href;
+    try{
+    	Kakao.init('0bda7a6fc2e50f102c9b02003b70968a');
+    }catch(e){console.log('kakao story initialize error');}
+	Kakao.Story.share({
+		url: url,
+		text: msg
+	});
+	return false;
+} */
+function pstKakaoTalk(msg, url) { 
+    msg = document.title;
+    url = document.location.href;
+    try{
+    	Kakao.init('0bda7a6fc2e50f102c9b02003b70968a');
+    }catch(e){console.log('kakao talk initialize error');}
+	Kakao.Link.sendDefault({
+		objectType: 'feed',
+		content: {
+		    title: msg,
+		    description: '',
+		    imageUrl: 'https://www.suwon.go.kr/resources/web/common/images/suwonsymbol.jpg',
+		    link: {
+		        mobileWebUrl: url,
+		        webUrl: url
+		    }
+		}
+	});
+	return false;
+}
+</script>
+
+<meta property="og:title" content="2026 수원 통닭거리 축제" />
+<meta property="og:description" content="○ 일 시 : 2026. 10. 16.(금) ~ 10. 18.(일)【3일간】
+※ 개막식(공식행사) : 10. 16.(금) 18:30 ~ / 화성행궁 광장 특설무대" />
+<meta property="og:url" content="http://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2155&amp;listType=" />
+<script type="text/javascript" src="/resources/web/popup/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+//쿠기이름 가져옴
+var getCookieName = function(domain, seq) {
+    return "popup_" +  domain + "_" + seq;
+};
+
+var jsClose = function(divName) {
+    $("#" + divName).remove();
+};
+
+$(document).ready(function(){
+
+});
+//]]>
+</script>
+<!-- 접속로그 수집영역 START -->
+<script type="text/javascript">
+//<![CDATA[
+	var anlzSessionId = 'anlzPageId';
+	var anlzClientIp = '';
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+	var anlzSearchEngine = new Array();
+	var anlzMobileOS = new Array();
+ 
+	anlzSearchEngine.push('daum.net');
+anlzSearchEngine.push('nate.com');
+anlzSearchEngine.push('naver.com');
+anlzSearchEngine.push('bing.com');
+anlzSearchEngine.push('yahoo.com');
+anlzSearchEngine.push('yahoo.co.kr');
+anlzSearchEngine.push('google.com');
+anlzSearchEngine.push('google.co.kr');
+anlzMobileOS.push('iPad');
+anlzMobileOS.push('iPhone');
+anlzMobileOS.push('Android');
+
+//]]>
+</script>
+<script type="text/javascript">CTX_PATH="";</script>
+<script type="text/javascript" src="/resources/web/popup/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/resources/intra/analyze/tracking/js/detector.js"></script>
+<script type="text/javascript" src="/resources/intra/analyze/tracking/js/tracker.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+$().ready(function(){ 
+	var logMenuCd = 'sw-www-culture-01';
+	var logMenuYn = 'N';
+	var logMenuURI = "/culture/ingCultureView.do";
+	var logMenuQueryStr = "";
+	var logMenuGubun = "";
+	var logGubunCd = "";
+	var logSeqNo = "";
+      
+	 
+
+	//인기컨텐츠 로그 기록 (시정소식, 행사/축제, 교육)
+	if(logMenuCd == 'www04-01' || logMenuCd == 'civil_05' || logMenuCd == 'eco06' || logMenuCd == 'welfare05' || logMenuCd == 'culture04'
+	   || logMenuCd == 'env_05' || logMenuCd == 'city05' || logMenuCd == 'traffic05' || logMenuCd == 'cityCreate_04' || logMenuCd == 'healthPolicies_04') {
+	     		    
+	}
+   
+	if(logMenuYn == 'Y') {
+	    $.ajax({
+             type:        "POST",
+             url:         "/web/popularityContents/ND_logInsert.do",
+             data:        "menuCd="+logMenuCd+"&menuGubun="+logMenuGubun+"&gubunCd="+logGubunCd+"&seqNo="+logSeqNo+"&queryStr="+encodeURIComponent(logMenuQueryStr),
+             dataType:    "json",
+             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+             //async:       false,
+             success:     function(data) {},
+             error:       function () {}
+		});
+	}
+});
+//]]>
+</script>
+<!-- 접속로그 수집영역 END   --></head>
+<body id="sub">
+<form name="globalLoginForm" id="globalLoginForm" method="post" action="/passni/jsp/index.jsp">
+	<input type="hidden" name="appId" value="devSuwonKr" />
+	<input type="hidden" name="retUrl" value="https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2155&amp;" />
+	<input type="hidden" name="URL" value="https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2155&amp;" />
+	<input type="submit" style="display:none; " />
+</form>
+<div class="accessibility">
+	<a href="#container">본문 바로가기</a>
+</div>
+<div id="wrapper">
+	<header id="header">
+		<div class="header_box">
+			<div class="wrap">
+				<h1 class="logo">
+					<a href="/culture/index.do">수원특례시 행사축제포털</a>
+				</h1>
+			</div>
+		</div>
+		<div class="lnbbox">
+			<nav class="nav" data-menu-type="1" data-menu-top-background="full" data-menu-bottom-background="full">
+				<h2 class="skip">메뉴</h2>
+				<div class="depth1 clearfix" data-menu-depth="1">
+					<ul class="depth1_list clearfix" data-menu-list="1">
+						<li class="depth1_item active"><a href="index.do" class="depth1_text" data-menu-text="1"><span>전체</span></a></li>
+						<li class="depth1_item "><a href="index.do?q_groupCd=19" class="depth1_text" data-menu-text="1"><span>행사/축제</span></a></li>
+						<li class="depth1_item "><a href="index.do?q_groupCd=23" class="depth1_text" data-menu-text="1"><span>공연</span></a></li>
+						<li class="depth1_item "><a href="index.do?q_groupCd=21" class="depth1_text" data-menu-text="1"><span>전시</span></a></li>
+						<li class="depth1_item "><a href="index.do?q_groupCd=25" class="depth1_text" data-menu-text="1"><span>강연</span></a></li>
+						<li class="depth1_item "><a href="index.do?q_groupCd=1390" class="depth1_text" data-menu-text="1"><span>스포츠</span></a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<div class="searchbox">
+			<div class="wrap">
+				<div class="search">
+					<form id="smartForm" name="smartForm" method="get" action="smartSearchList.do">
+					<input type="hidden" name="q_groupCd" value="" />
+					<input type="hidden" name="q_year" value="" />
+					<input type="hidden" name="q_month" value="" />
+					<input type="hidden" name="q_currPage" value="" />
+					<input type="hidden" name="q_rowPerPage" value="" />
+						<fieldset>
+							<legend>행사 검색 양식</legend>
+							<div class="search_con clearfix">
+								<div class="listbox list01">
+									<select name="q_ingYn" title="상태" class="search_select">
+										<option value="0"  selected="selected">진행중</option>
+										<option value="1" >종료</option>
+									</select>
+									<select name="q_searchDatePart" title="일정" class="search_select">
+										<option value="">전체</option>
+										<option value="week" >이주의 행사</option>
+										<option value="month" >이달의 행사</option>
+									</select>
+								</div><!-- //.listbox -->
+								<div class="listbox list02">
+									<span class="lable_title">행사기간</span>
+									<span class="periodbox">
+										<label for="q_startDt" class="skip">기간선택시작일</label>
+										<input type="text" id="q_startDt" name="q_startDt" value="" class="period_input start_date" />
+										<label for="q_endDt" class="skip">기간선택종료일</label>
+										<input type="text" id="q_endDt" name="q_endDt" value="" class="period_input end_date" />
+										<button type="button" class="calendar_btn">달력선택</button>
+										<span class="calendarbox"></span>
+									</span>
+								</div><!-- //.listbox -->
+								<div class="listbox list03">
+									<label for="q_cultureNm" class="lable_title">행사명</label>
+									<input type="text" id="q_cultureNm" name="q_cultureNm" value="" class="search_text" />
+									<input type="submit" value="검색" />
+								</div><!-- //.listbox -->
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</header>
+    <!-- //header -->
+
+    <hr />
+    
+    <div id="container">
+				<main id="colgroup" class="colgroup">
+					<article>
+						<div class="wrap">
+							<div id="contents">
+								
+
+						<div class="eventview">
+							<div class="p-wrap bbs bbs__view">
+								<div class="bbs_titlebox">
+									<h2 class="title">2026 수원 통닭거리 축제</h2>
+									<div class="snsbox">
+										<a href="javascript:pstFaceBook('2026 수원 통닭거리 축제', document.location.href);" class="p-icon p-icon__facebook">페이스북 공유</a>
+										<a href="javascript:pstTwitter('2026 수원 통닭거리 축제', document.location.href);" class="p-icon p-icon__twitter">트위터 공유</a>
+										<a href="javascript:pstKakaoTalk('2026 수원 통닭거리 축제', document.location.href);" class="p-icon p-icon__share_kakaotalk">카카오톡 공유</a>
+									</div>
+								</div>
+								<div class="viewbox">
+									<table class="p-table view_table block" data-table="rwd" data-tabletype="block" data-breakpoint="760">
+										<caption>2026 수원 통닭거리 축제 상세보기 - 행사기간, 행사장소, 포스터, 상세내용</caption>
+										<colgroup>
+											<col /><!-- css로 제어함 -->
+											<col /><!-- css로 제어함 -->
+										</colgroup>
+										<tbody class="p-table--th-left">
+											<tr>
+												<th scope="row">행사기간</th>
+												<td>2026-10-16 ~ 2026-10-18</td>
+											</tr>
+											<tr>
+												<th scope="row">행사시간</th>
+												<td>
+													01:00 ~ 01:00</td>
+											</tr>
+											<tr>
+												<th scope="row">행사장소</th>
+												<td>
+													<div class="placebox">
+														<span class="placetext">화성행궁광장 및 통닭거리 일대</span>
+														<button type="button" class="place_btn">장소보기</button>
+														<div class="place_layer"><!-- 장소보기레이어 -->
+															<div class="curtain"></div>
+															<div class="layerbox">
+																<div class="titlebox">
+																	<div class="title">2026 수원 통닭거리 축제</div>
+																	<button type="button" class="close">닫기</button>
+																</div>
+																<div id="map" class="mapbox"></div>
+															</div>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">주차시설</th>
+												<td>
+													무</td>
+											</tr>
+											<tr>
+												<th scope="row">연락처</th>
+												<td>
+													031-5191-2121</td>
+											</tr>
+											<tr>
+												<th scope="row">행사개요</th>
+												<td>
+													○ 일 시 : 2026. 10. 16.(금) ~ 10. 18.(일)【3일간】<br />※ 개막식(공식행사) : 10. 16.(금) 18:30 ~ / 화성행궁 광장 특설무대</td>
+											</tr>
+											<tr>
+												<th scope="row">행사내용</th>
+												<td>
+													<div class="detailbox">
+														○ 일&nbsp;&nbsp;&nbsp; 시 : 2026. 10. 16.(금) ~ 10. 18.(일) 【3일간】<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ※ 개막식(공식행사) : 10. 16.(금) 18:30 ~ / 화성행궁 광장 특설무대<br />
+&nbsp; ○ 장 &nbsp;&nbsp;&nbsp; 소 : 수원 화성행궁 광장 및 수원 통닭거리 일원<br />
+&nbsp;&nbsp;○ 주최/주관 : 수원특례시 / 행궁문화거리 상인회<br />
+&nbsp;&nbsp;○ 주요내용<br />
+&nbsp; &nbsp; &bull;&nbsp;행궁광장 : 공식행사(개막식&middot;축하공연), 홍보부스, 시민 참여이벤트 등<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 10. 16.(금) 19:00 : 축하공연(손태진, 경서, 비보이즈, 이하린)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 10. 17.(토) 16:30 : 축하공연(R.ef, 스페이스A)<br />
+&nbsp; &nbsp; &bull;&nbsp;통닭거리 : 야장(야외취식존) 운영, 체험부스, 버스킹공연 등
+<div><img alt="2026년 수원 통닭거리 축제" src="/webcontent/ckeditor/2026/9/21/473ccbac-29ce-48fe-920d-e5bd8b6bb754.jpg" /></div>
+</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">요금정보</th>
+												<td>
+													무료</td>
+											</tr>
+											<tr>
+												<th scope="row">주관기관</th>
+												<td>
+													행궁문화거리 상인회</td>
+											</tr>
+											<tr>
+												<th scope="row">주최기관</th>
+												<td>
+													수원특례시</td>
+											</tr>
+											<tr>
+												<th scope="row">객석수</th>
+												<td>
+													2000 석
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">도로통제</th>
+												<td>
+													없음</td>
+											</tr>
+											</tbody>
+									</table>
+									<!-- 공공누리 표출 영역 -->
+									<div id="su_table_btn_area2"></div>
+									<!-- //공공누리 표출 영역 -->
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bda7a6fc2e50f102c9b02003b70968a"></script>
+<script>
+var lat = 37.2818820191942;
+var lng = 127.014394463798;
+var mapContainer = document.getElementById('map'), // 지도의 중심좌표
+    mapOption = { 
+        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    }; 
+
+var map;
+
+function CreateMap() {
+	map = new kakao.maps.Map(mapContainer, mapOption);
+}
+
+// 지도에 마커를 표시합니다 
+var marker;
+
+function CreateMarker() {
+	marker = new kakao.maps.Marker({
+		map: map, 
+		position: new kakao.maps.LatLng(lat, lng)
+	});
+	var mapTypeControl = new kakao.maps.MapTypeControl();
+	map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+	var zoomControl = new kakao.maps.ZoomControl();
+	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+}
+
+
+// 커스텀 오버레이에 표시할 컨텐츠 입니다
+// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+// 별도의 이벤트 메소드를 제공하지 않습니다 
+var content = '<div class="infowindow">' + 
+            '    <div class="info">' + 
+            '        <div class="infotitlebox">' + 
+            '            <div class="infotitle">화성행궁광장 및 통닭거리 일대</div>' + 
+            '            <button type="button" class="infoclose" onclick="closeOverlay();" title="닫기">닫기</button>' + 
+            '        </div>' + 
+            '        <div class="infobox">' + 
+            '            <ul class="desc">' + 
+            '                <li><em>주소 : </em>경기도 수원시 팔달구 정조로 825 (남창동)</li>'; 
+            
+            content += '            </ul>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>';
+
+// 마커 위에 커스텀오버레이를 표시합니다
+// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+var overlay;
+
+function CreateOverlay(latitude, longitude, ThisText) {
+	overlay = new kakao.maps.CustomOverlay({
+		content: content,
+		map: map,
+		position: marker.getPosition()       
+	});
+	// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+	kakao.maps.event.addListener(marker, 'click', function() {
+		overlay.setMap(map);
+	});
+}
+
+// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+function closeOverlay() {
+	overlay.setMap(null);     
+}
+
+$(function() {
+	$('.placebox .place_btn').on('click', function(){
+		var $this = $(this),
+			$ParentBox = $this.parents('.placebox'),
+			$PlaceLayer = $ParentBox.find('.place_layer');
+		$PlaceLayer.fadeIn();
+		CreateMap();
+		CreateMarker();
+		CreateOverlay();
+	});
+	$('.place_layer .curtain, .place_layer .layerbox .close').on('click', function(){
+		var $this = $(this),
+			$Layer = $this.parents('.place_layer'),
+			ParentBox = $this.parents('.placebox'),
+			$FocusAnchor = $Layer.siblings('.place_btn');
+		$Layer.fadeOut();
+		$('#map').empty();
+		$FocusAnchor.focus();
+	});
+});
+</script>
+</div><!-- //.viewbox -->
+								<div class="buttonbox">
+									<button type="button" class="p__btn grey top_go">위로</button>
+									<button type="button" title="새창" class="p__btn orange" onclick="window.print();">인쇄</button>
+									<a href="#" onclick="goList();" class="p__btn black">목록</a>
+								</div><!-- //.buttonbox -->
+								<div class="postmove">
+									<ul>
+										<li class="prev">
+											<a href="#" onclick="goView(2153, 'prev');">
+												<span class="move_title">
+													<span class="movetext">이전글</span>
+												</span>
+												<span class="textbox">
+													<span class="text">
+														<span class="board_title">수원시립합창단 제196회 정기연주회 | 합창음악극 &lt;행복시계방&gt;</span>
+														<span class="board_text">기간 : 2026-10-15(목) ~ 2026-10-15(목) | 장소 : 수원SK아트리움</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li class="next">
+											<a href="#" onclick="goView(2162, 'next');">
+												<span class="move_title">
+													<span class="movetext">다음글</span>
+												</span>
+												<span class="textbox">
+													<span class="text">
+														<span class="board_title">수원시립교향악단 제305회 정기연주회</span>
+														<span class="board_text">기간 : 2026-10-20(화) ~ 2026-10-20(화) | 장소 : 수원SK아트리움</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										</ul>
+								</div><!-- //.postmove -->
+							</div>
+						</div>
+
+<form id="dataForm" name="dataForm" method="get" action="cultureView.do">
+	<input type="hidden" id="ctrSeqNo" name="ctrSeqNo" value="2155" />
+	<input type="hidden" id="listType" name="listType" value="" />
+	<input type="hidden" id="num" name="num" value="" />
+	<input type="hidden" name="q_rowPerPage" id="q_rowPerPage" value="10" />
+<input type="hidden" name="q_pagePerPage" id="q_pagePerPage" value="10" />
+<input type="hidden" name="q_currPage" id="q_currPage" value="1" />
+</form>
+
+<!--SNS 폼 S-->
+							    <!--SNS 폼 E-->
+							
+							    <!--satisfaction_survey S-->
+								<!--// 만족도 조사 및 담당부서 둘다 노출 -->
+
+        <div class="satisfaction">
+	            <p class="skip">콘텐츠 만족도 조사</p>
+	            <div class="satisfaction_list clearfix">
+	                <p class="question">이 페이지에서 제공하는 정보에 대하여 어느 정도 만족하셨습니까?</p>
+	                <form id="frmSatisfy" name="frmSatisfy" method="post" action="/web/satisfy/ND_InsertAction.do" onsubmit="return js_Submit();">
+					<input type="hidden" name="menuCode" value="sw-www-culture-01"/>
+					<input type="hidden" name="domainCd" value="1"/>
+	                    <fieldset>
+	                        <legend>만족도 조사</legend>
+	                        <div class="input_radio">
+	                        	<span class="item">
+	                            	<input type="radio" id="itemNo_5" name="itemNo" value="5" /> <label for="itemNo_5">매우만족</label>
+	                            </span>
+	                            <span class="item">
+			                		<input type="radio" id="itemNo_4" name="itemNo" value="4" /> <label for="itemNo_4">만족</label>
+			                	</span>
+			                	<span class="item">
+			                		<input type="radio" id="itemNo_3" name="itemNo" value="3" /> <label for="itemNo_3">보통</label>
+			                	</span>
+			                	<span class="item">
+			                		<input type="radio" id="itemNo_2" name="itemNo" value="2" /> <label for="itemNo_2">불만족</label>
+			                	</span>
+			                	<span class="item">
+			                		<input type="radio" id="itemNo_1" name="itemNo" value="1" /> <label for="itemNo_1">매우불만족</label>
+			                	</span>
+	                        </div>
+	                        <div class="opinion">
+	                            <span class="aa comment"><input type="text" name="comments" maxlength="100" title="의견을 입력해 주세요" placeholder="의견을 입력해 주세요" value="" readonly="readonly" /></span>
+	                            <span class="aa"><input type="submit" value="평가하기" /></span>
+	                        </div>
+	                    </fieldset>
+	                </form>
+	            </div>
+	            <p class="skip">담당자 정보</p>
+		            <div class="manager_info clearfix">
+		                <p class="skip">담당자 정보</p>
+		                <ul class="clearfix">
+		                    <li><span>담당부서</span> 정보통신과</li><li><span>전화번호</span> 1899-3300</li></ul>
+		            </div>
+		        </div>
+            <script>
+            $(document).ready(function(){
+                var isLogin = false;
+                var commentsEle = $("#frmSatisfy input[name='comments']");
+                if(!isLogin){
+                    commentsEle.on('click', function(){
+                        alert('의견글은 로그인 후 등록 가능 합니다.');
+                        return false;
+                    });
+                }else{
+                    commentsEle.prop('readonly', false);
+                }
+            });
+            var js_Submit = function() {
+                var itemNoVal = $("#frmSatisfy input[name='itemNo']:checked").val();
+                if(!itemNoVal) {
+                    alert("만족도 항목을 선택하세요.");
+                    $("#frmSatisfy input[name='itemNo']").eq(0).focus();
+                    return false;
+                }
+                
+                var commentsEle = $("#frmSatisfy input[name='comments']");
+                var commentsVal = $.trim(commentsEle.val());
+                if(commentsVal != "" && (commentsVal.length <= 10 || commentsVal.length >= 100)) {
+                    alert("의견글은 10자 이상 100자 이내로 등록하여 주세요.");
+                    commentsEle.focus();
+                    return false;
+                }
+               
+                /* if(itemNoVal == "2" || itemNoVal == "1") {
+                    if(commentsVal == "" || commentsVal.length <= 10) {
+                        alert("불만족 사유를 10자 이상으로 등록하여 주세요.");
+                        commentsEle.focus();
+                        return false;
+                    }
+                } */
+                $.ajax({
+                    url   : $("#frmSatisfy").attr("action"),
+                    type     : "POST",
+                    dataType : "json",
+                    data	 : $("#frmSatisfy").serialize(),
+                    success  : function(response){
+                        if(response.result) {
+                            alert("만족도 평가를 등록하였습니다.");
+                            location.reload();
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                });
+                return false;
+            };
+            </script>
+        <!--satisfaction_survey E-->
+							    
+							    <!--공공누리 S-->
+							    <div id="koglView" class="kogl_wrap">
+			<!-- 공공누리 제4유형 : 출처표시 + 상업적이용금지 + 변경금지 --> 
+					<a href="http://www.kogl.or.kr/open/info/license_info/all.do" target="_blank" title="새창열림">	
+					<img src="/resources/web/common/images/img_opentype04.jpg" alt="공공누리 공공저작물 자유이용허락-출처표시,상업용금지,변경금지" />
+					</a>
+					<span class="txt"><strong>수원시청</strong>이 창작한 <strong>행사축제</strong> 저작물은 "공공누리" 출처표시-상업적이용금지-변경금지 조건에 따라 이용 할 수 있습니다.</span>
+				</div>
+	<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+    var koglStyle = '';
+    koglStyle += '<style type="text/css">';
+    koglStyle += ' .kogl_wrap {display:none;clear:both;overflow:hidden;margin-top:10px;padding:10px;border:1px solid #b2b2b2;background-color:#fff;}';
+    koglStyle += ' .kogl_wrap a {float:left;margin-right:10px;}';
+    koglStyle += ' .kogl_wrap span {line-height:20px;}';
+    koglStyle += '@media all and (max-width:500px){';
+    koglStyle += ' .kogl_wrap a {width:100%;display:block;margin-right:0;float:none;clear:both;text-align:center;}';
+    koglStyle += ' .kogl_wrap span {display:block;clear:both;line-height:20px;}';
+    koglStyle += '}';
+    koglStyle += '</style>';
+    $('head').append(koglStyle);
+	var koglData = {};
+	var koglHTML = '';
+	var insertPositionId = '';
+	var insertAB = '';
+	
+			koglData = {domainCd:'1', menuType:'url', menuCode:'sw-www-culture-01'};
+			insertPositionId = '#su_table_btn_area2';
+			insertAB = 'before';
+		
+	if($.trim($('#koglView').html()) != ''){
+		if(insertPositionId != '' && $(insertPositionId).length > 0){
+			if(insertPositionId == '#su_table_area_view'){
+			    if($('#su_write_pageing').length > 0){
+					insertPositionId = '#su_write_pageing';
+					insertAB = 'after';
+				}else if($('#su_table_area_view').length == 0){
+					insertPositionId = '#table_area_view';
+				}
+			}
+			if(insertAB == '' || insertAB == 'append'){
+				$(insertPositionId).append($('#koglView'));
+			}else if(insertAB == 'after'){
+				$('#koglView').insertAfter(insertPositionId);
+			}else if(insertAB == 'before'){
+				$('#koglView').insertBefore(insertPositionId);
+			}
+		}else{
+			$('#print_area').append($('#koglView'));
+		}
+		$('#koglView').show();
+	}
+});
+//]]>
+</script><!--공공누리 E-->
+							</div>
+						</div>
+					</article>
+				</main>
+			</div>
+    	<footer id="footer">
+		<div class="footer_top">
+			<div class="wrap">
+				<div class="footer_nav">
+					<ul class="clearfix">
+						<li><a href="http://www.suwon.go.kr/sw-www/sw-www_09/sw-www_09_02.jsp" target="_blank" title="새창열림">저작권정책</a></li>
+						<li class="personal"><a href="http://www.suwon.go.kr/sw-www/sw-www_09/sw-www_09_01.jsp" target="_blank" title="새창열림">개인정보처리방침</a></li>
+						<li><a href="http://www.suwon.go.kr/sw-www/www05/www05-01/www05-01-18.jsp" target="_blank" title="새창열림">찾아오시는 길</a></li>
+						<li><a href="http://www.suwon.go.kr/sw-www/www05/www05-02/www05-02-02.jsp" target="_blank" title="새창열림">청사안내(당직실)</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer_box">
+			<div class="wrap">
+				<div class="footer_con">
+					<div class="footer_logo"><img src="/resources/web/culture/images/common/footer_logo.png" alt="수원특례시" /></div>
+					<address class="address"><span class="address_text">(16490) 경기도 수원시 팔달구 효원로 241(인계동)</span> <span class="tel">수원시 휴먼콜센터 : 1899-3300</span></address>
+					<p class="copyright">Copyrightⓒ 2019 SUWON SPECIAL CITY All Rights Reserved.</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+    <!-- //footer -->
+    
+</div>
+
+<!--번역사이트 등-->
+<!--번역사이트 등 E-->
+
+<!--구글 추적코드 등-->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYP27H7VGF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYP27H7VGF');
+</script>
+<!--구글 추적코드 등 E-->
+	
+</body>
+</html>
