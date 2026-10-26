@@ -18,6 +18,9 @@ class AreaTest(unittest.TestCase):
     def test_area_haenggung(self):
         self.assertEqual(areas.assign(ev('화성행궁광장')), '행궁동')
 
+    def test_area_hwaseong_museum(self):
+        self.assertEqual(areas.assign(ev('수원화성박물관')), '행궁동')
+
     def test_area_gwanggyo(self):
         self.assertEqual(areas.assign(ev('광교호수공원')), '광교')
 

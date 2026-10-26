@@ -40,7 +40,7 @@ def one_line(ev: Event, body: str, gen=ai.generate) -> str | None:
         s = gen(PROMPT.format(title=ev.title, body=body[:3000])).strip().splitlines()[0].strip(' "\'')
     except (ai.AIError, IndexError):
         return None
-    if not s or len(s) > MAX_LEN or not verified(s, f'{ev.title}\n{body}'):
+    if not s or s == ev.title or len(s) > MAX_LEN or not verified(s, f'{ev.title}\n{body}'):
         return None
     return s
 

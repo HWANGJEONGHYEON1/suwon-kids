@@ -36,6 +36,9 @@ class OneLineTest(unittest.TestCase):
     def test_one_line_rejects_unverified(self):
         self.assertIsNone(summarize.one_line(EV, SRC, gen=FakeGen('아이유 무료 공연')))
 
+    def test_one_line_same_as_title(self):
+        self.assertIsNone(summarize.one_line(EV, SRC, gen=FakeGen('제3회 문화도시 수원 페스티벌')))
+
     def test_one_line_too_long(self):
         self.assertIsNone(summarize.one_line(EV, SRC, gen=FakeGen('공연 ' * 30)))
 

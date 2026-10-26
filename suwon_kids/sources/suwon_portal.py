@@ -11,7 +11,7 @@ BASE = 'https://www.suwon.go.kr/culture/'
 
 
 def parse_date(s: str | None) -> date | None:
-    m = re.match(r'(\d{4})-(\d{2})-(\d{2})', s or '')
+    m = re.match(r'(\d{4})-?(\d{2})-?(\d{2})', s or '')
     return date(*map(int, m.groups())) if m else None
 
 
@@ -40,6 +40,11 @@ def parse_detail(page: str) -> dict:
 
 def fetch_detail(seq: str) -> dict:
     return parse_detail(http.get(f'{BASE}ingCultureView.do?ctrSeqNo={seq}').decode('utf-8', 'replace'))
+
+
+def to_events(rows: list[dict]) -> list[Event]:
+    """날짜를 못 읽는 행은 건너뛴다."""
+    return [to_event(r) for r in rows if parse_date(r.get('startDt'))]
 
 
 def to_event(row: dict) -> Event:
