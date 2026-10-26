@@ -1,27 +1,10 @@
 {
- "updated": "2026-10-26T23:40",
+ "updated": "2026-10-26T23:56",
  "week": [
   "2026-10-26",
   "2026-11-01"
  ],
  "events": [
-  {
-   "id": "suwon:2163",
-   "source": "suwon",
-   "title": "10월 행사달력(문화/예술/체육)",
-   "start": "2026-10-02",
-   "end": "2026-10-31",
-   "time": null,
-   "place": "수원시청",
-   "address": "",
-   "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2163",
-   "target": "누구나",
-   "host": "수원시",
-   "summary": null,
-   "area": "기타",
-   "image": null,
-   "festival": false
-  },
   {
    "id": "suwon:2138",
    "source": "suwon",
@@ -34,7 +17,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2138",
    "target": "누구나",
    "host": "공원녹지사업소 수목원과",
-   "summary": "동화 식물 전시, 화분 만들기, 어린이예술단 공연, 가을꽃축제",
+   "summary": "동화 접목 식물 전시 및 어린이예술단 문화공연",
    "area": "장안구",
    "image": null,
    "festival": false
@@ -104,23 +87,6 @@
    "host": "경기아트센터",
    "summary": null,
    "area": "팔달구",
-   "image": null,
-   "festival": false
-  },
-  {
-   "id": "suwon:2180",
-   "source": "suwon",
-   "title": "2026년 수원화성박물관 학술대회 <어울림의 화성성역>",
-   "start": "2026-10-30",
-   "end": "2026-10-30",
-   "time": null,
-   "place": "수원화성박물관 다목적강당",
-   "address": "",
-   "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2180",
-   "target": "누구나",
-   "host": "수원화성박물관",
-   "summary": "수원화성박물관 특별기획전시 연계 학술대회",
-   "area": "행궁동",
    "image": null,
    "festival": false
   },
@@ -221,7 +187,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2172",
    "target": "누구나",
    "host": "수원시",
-   "summary": "전통 채색 기법을 배워 나만의 민화 작품 완성",
+   "summary": "전통 민화 체험 및 작품 완성",
    "area": "기타",
    "image": null,
    "festival": false
@@ -238,7 +204,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2168",
    "target": "누구나",
    "host": "수원시",
-   "summary": "팔색길 걷기 문화행사, 버스킹 공연, 홍보 및 체험부스 운영",
+   "summary": "홍보 및 체험부스 운영 및 버스킹 공연",
    "area": "광교",
    "image": null,
    "festival": false
@@ -342,23 +308,6 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2149",
    "target": "누구나",
    "host": "수원박물관",
-   "summary": null,
-   "area": "기타",
-   "image": null,
-   "festival": false
-  },
-  {
-   "id": "suwon:2158",
-   "source": "suwon",
-   "title": "2026년 수원시민 인권아카데미",
-   "start": "2026-10-14",
-   "end": "2026-11-18",
-   "time": null,
-   "place": "수원시청 중회의실(별관1층)",
-   "address": "",
-   "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2158",
-   "target": "누구나",
-   "host": "수원시 인권담당관",
    "summary": null,
    "area": "기타",
    "image": null,
