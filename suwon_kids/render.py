@@ -53,5 +53,5 @@ def page(events: list[Event], long_events: list[Event], updated: datetime, week:
     return (f'<!doctype html><html lang="ko"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{TITLE}</title>'
             f'<style>{CSS}</style></head><body><main><h1>{TITLE}</h1>{week_line}{body}{long_html}'
-            f'<footer>마지막 갱신 {updated:%Y-%m-%d %H:%M} · 출처: 수원특례시 행사축제포털, 스타필드 수원</footer>'
+            f'<footer>마지막 갱신 {updated:%Y-%m-%d %H:%M} · 출처: 수원특례시 행사축제포털, 스타필드 수원, 경기아트센터</footer>'
             f'</main></body></html>')
