@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T23:33",
+ "updated": "2026-10-26T23:40",
  "week": [
   "2026-10-26",
   "2026-11-01"
@@ -34,7 +34,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2138",
    "target": "누구나",
    "host": "공원녹지사업소 수목원과",
-   "summary": "동화 접목 식물 전시 및 어린이예술단 문화공연",
+   "summary": "동화 식물 전시, 화분 만들기, 어린이예술단 공연, 가을꽃축제",
    "area": "장안구",
    "image": null,
    "festival": false
@@ -221,7 +221,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2172",
    "target": "누구나",
    "host": "수원시",
-   "summary": "전통 민화 체험 및 작품 완성",
+   "summary": "전통 채색 기법을 배워 나만의 민화 작품 완성",
    "area": "기타",
    "image": null,
    "festival": false
@@ -238,7 +238,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2168",
    "target": "누구나",
    "host": "수원시",
-   "summary": "팔색길 사진전, 버스킹 공연, 홍보 및 체험부스 운영",
+   "summary": "팔색길 걷기 문화행사, 버스킹 공연, 홍보 및 체험부스 운영",
    "area": "광교",
    "image": null,
    "festival": false
