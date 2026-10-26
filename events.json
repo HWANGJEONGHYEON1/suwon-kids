@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-26T23:56",
+ "updated": "2026-10-27T05:01",
  "week": [
-  "2026-10-26",
+  "2026-10-27",
   "2026-11-01"
  ],
  "events": [
@@ -17,7 +17,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2138",
    "target": "누구나",
    "host": "공원녹지사업소 수목원과",
-   "summary": "동화 접목 식물 전시 및 어린이예술단 문화공연",
+   "summary": "동화를 접목한 특별한 식물 전시, 프로그램, 문화공연",
    "area": "장안구",
    "image": null,
    "festival": false
@@ -119,7 +119,7 @@
    "url": "https://www.starfield.co.kr/suwon/eventBenefit/events",
    "target": "누구나",
    "host": null,
-   "summary": null,
+   "summary": "비눗방울맨",
    "area": "스타필드 수원",
    "image": "https://www.starfield.co.kr/cdn/starfield_09/evt/20260928/IM20260928031300407446.jpg",
    "festival": false
@@ -204,7 +204,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2168",
    "target": "누구나",
    "host": "수원시",
-   "summary": "홍보 및 체험부스 운영 및 버스킹 공연",
+   "summary": "제2회 팔색길 걷기 문화행사, 버스킹 공연, 홍보 및 체험부스",
    "area": "광교",
    "image": null,
    "festival": false
