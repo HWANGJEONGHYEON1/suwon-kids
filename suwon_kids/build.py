@@ -39,6 +39,10 @@ def _poster_line(ev: Event, poster: dict) -> str | None:
     return line[:summarize.MAX_LEN] or None
 
 
+def ev_unknown_festival(ev: Event) -> bool:
+    return ev.host == '확인 못 함'
+
+
 def _write(path: Path, text: str):
     tmp = path.with_suffix(path.suffix + '.tmp')
     tmp.write_text(text, encoding='utf-8')
@@ -64,7 +68,9 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
                 ev.host, bodies[ev.id] = d['host'] or None, d['body']
             except Exception as e:
                 errors.setdefault('detail', f'{type(e).__name__}: {e}')
-    kept = [e for e in found if filters.keep(e)]
+                if filters.FESTIVAL.search(ev.title):
+                    ev.host = '확인 못 함'  # 상세를 못 읽은 축제는 빠뜨리지 않는다 (실패 기준 2)
+    kept = [e for e in found if filters.keep(e) or ev_unknown_festival(e)]
     for ev in kept:
         ev.area = areas.assign(ev)
     kept = dedupe.merge(kept)

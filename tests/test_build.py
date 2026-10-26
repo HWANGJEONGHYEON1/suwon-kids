@@ -94,3 +94,26 @@ class PosterLineTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ReviewFixBuildTest(unittest.TestCase):
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp())
+
+    def test_poster_fetch_error_does_not_crash(self):
+        import urllib.error
+
+        def bad_gen(prompt, image_url=None):
+            raise urllib.error.URLError('reset')
+        r = build.run(TODAY, self.dir, {'starfield': lambda: [ev('키즈', 'starfield', image='https://img/x.jpg')]},
+                      detail=detail, gen=bad_gen, poster_cache=self.dir / 'p.json')
+        self.assertTrue(r['ok'])
+
+    def test_detail_failure_keeps_festival(self):
+        def bad_detail(seq):
+            raise OSError('down')
+        r = build.run(TODAY, self.dir, {'suwon': lambda: [ev('통닭거리 축제', target='성인')]},
+                      detail=bad_detail, gen=gen, poster_cache=self.dir / 'p.json')
+        data = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))
+        self.assertEqual([x['title'] for x in data['events']], ['통닭거리 축제'])
+        self.assertIn('detail', r['errors'])

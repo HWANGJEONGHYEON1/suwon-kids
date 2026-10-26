@@ -33,7 +33,11 @@ def generate(prompt: str, image_url: str | None = None) -> str:
     parts = [{'text': prompt}]
     if image_url:
         mime = 'image/png' if image_url.lower().endswith('.png') else 'image/jpeg'
-        parts.append({'inlineData': {'mimeType': mime, 'data': base64.b64encode(http.get(image_url)).decode()}})
+        try:
+            img = http.get(image_url)
+        except OSError as e:  # urllib 오류는 모두 OSError
+            raise AIError(f'이미지 받기 실패: {type(e).__name__}') from None
+        parts.append({'inlineData': {'mimeType': mime, 'data': base64.b64encode(img).decode()}})
     req = urllib.request.Request(
         f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}',
         json.dumps({'contents': [{'parts': parts}], 'generationConfig': {'temperature': 0}}).encode(),

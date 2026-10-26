@@ -3,7 +3,7 @@ import re
 
 from suwon_kids.models import Event
 
-EXCLUDE_WORDS = ('모집', '수강생', '경로', '채용', '참가자')
+EXCLUDE_WORDS = ('모집', '수강생', '경로', '채용', '참가자', '학술', '아카데미', '행사달력', '포럼', '세미나', '설명회')
 KID_TARGETS = ('어린이', '누구나')
 FESTIVAL = re.compile(r'축제|페스티벌|페스타|문화제|야행|마켓|장터')
 

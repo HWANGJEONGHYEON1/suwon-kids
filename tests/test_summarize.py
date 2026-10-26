@@ -70,3 +70,22 @@ class PosterTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ReviewFixTest(unittest.TestCase):
+    def test_verified_latin_name(self):
+        self.assertFalse(summarize.verified('BTS 무료 공연', SRC))
+
+    def test_verified_date_and_price(self):
+        self.assertFalse(summarize.verified('11.2 불꽃 축제', SRC))
+        self.assertFalse(summarize.verified('5,000원 체험', SRC))
+
+    def test_poster_second_read_uses_different_prompt(self):
+        prompts = []
+
+        def gen(prompt, image_url=None):
+            prompts.append(prompt)
+            return json.dumps(POSTER)
+        summarize.read_poster('u9', {}, gen=gen)
+        self.assertEqual(len(prompts), 2)
+        self.assertNotEqual(prompts[0], prompts[1])

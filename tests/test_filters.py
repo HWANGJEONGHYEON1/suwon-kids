@@ -51,3 +51,9 @@ class FilterTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ReviewFixFilterTest(unittest.TestCase):
+    def test_non_kid_titles_dropped(self):
+        for t in ('2026년 수원시민 인권아카데미', '수원화성박물관 학술대회', '10월 행사달력(문화/예술/체육)'):
+            self.assertFalse(filters.keep(ev(t, '누구나')), t)
