@@ -1,0 +1,52 @@
+{
+ "currPage": 1,
+ "totalNum": 1867,
+ "totalPage": 623,
+ "dataList": [
+  {
+   "ctrSeqNo": 2095,
+   "cultureNm": "2026 수원광교박물관 테마전시 <고문서로 만나는 조선의 일상>",
+   "startDt": "2026-06-26(금)",
+   "endDt": "2027-05-30(일)",
+   "startTime": null,
+   "endTime": null,
+   "ctrLocation": "수원광교박물관",
+   "baseAddr": null,
+   "detailAddr": null,
+   "ctrTarget": "누구나",
+   "thumbImage": "/upload/culture/2026/6/23/f78d1809-9a0c-4f5e-8627-174e7982aaf3.jpg",
+   "dongNm": null,
+   "guNm": null
+  },
+  {
+   "ctrSeqNo": 2076,
+   "cultureNm": "2026년 열린문화공간 후소 테마전시 <수원의 영화, 수원의 극장>",
+   "startDt": "2026-05-14(목)",
+   "endDt": "2027-03-28(일)",
+   "startTime": null,
+   "endTime": null,
+   "ctrLocation": "열린문화공간 후소",
+   "baseAddr": null,
+   "detailAddr": null,
+   "ctrTarget": "누구나",
+   "thumbImage": "/upload/culture/2026/5/12/f1ec6ff5-8757-4bfd-8b9a-610d007f3ae8.jpg",
+   "dongNm": null,
+   "guNm": null
+  },
+  {
+   "ctrSeqNo": 2028,
+   "cultureNm": "2026 수원시립미술관 소장품전 《블랑 블랙 파노라마》",
+   "startDt": "2026-02-12(목)",
+   "endDt": null,
+   "startTime": null,
+   "endTime": null,
+   "ctrLocation": "수원시립미술관",
+   "baseAddr": null,
+   "detailAddr": null,
+   "ctrTarget": "누구나",
+   "thumbImage": "/upload/culture/2026/2/3/3636becc-5de3-43ad-a648-473c99899da6.jpg",
+   "dongNm": null,
+   "guNm": null
+  }
+ ]
+}
