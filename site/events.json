@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T23:26",
+ "updated": "2026-10-26T23:33",
  "week": [
   "2026-10-26",
   "2026-11-01"
@@ -34,7 +34,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2138",
    "target": "누구나",
    "host": "공원녹지사업소 수목원과",
-   "summary": "동화를 접목한 특별한 식물 전시와 어린이예술단 문화공연",
+   "summary": "동화 접목 식물 전시 및 어린이예술단 문화공연",
    "area": "장안구",
    "image": null,
    "festival": false
@@ -51,8 +51,25 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2171",
    "target": "누구나",
    "host": "수원시",
-   "summary": "시민예술교육 및 경기공유학교 연계 프로그램 운영",
+   "summary": "시민예술교육과 경기공유학교 연계 프로그램 운영",
    "area": "기타",
+   "image": null,
+   "festival": false
+  },
+  {
+   "id": "ggac:SM000204",
+   "source": "ggac",
+   "title": "2026 경기리베라오케스트라 피날레콘서트 <OUR SYMPHONY: 우리의 교향곡>",
+   "start": "2026-10-27",
+   "end": "2026-10-27",
+   "time": null,
+   "place": "경기아트센터 대극장",
+   "address": "경기도 수원시 팔달구 효원로 307",
+   "url": "https://www.ggac.or.kr/ggac/M0000155/show/view.do?idx=SM000204",
+   "target": "누구나",
+   "host": "경기아트센터",
+   "summary": null,
+   "area": "팔달구",
    "image": null,
    "festival": false
   },
@@ -74,6 +91,23 @@
    "festival": false
   },
   {
+   "id": "ggac:SM000198",
+   "source": "ggac",
+   "title": "퓨전마당놀이 <춘향전>",
+   "start": "2026-10-29",
+   "end": "2026-10-30",
+   "time": null,
+   "place": "경기아트센터 소극장",
+   "address": "경기도 수원시 팔달구 효원로 307",
+   "url": "https://www.ggac.or.kr/ggac/M0000155/show/view.do?idx=SM000198",
+   "target": "누구나",
+   "host": "경기아트센터",
+   "summary": null,
+   "area": "팔달구",
+   "image": null,
+   "festival": false
+  },
+  {
    "id": "suwon:2180",
    "source": "suwon",
    "title": "2026년 수원화성박물관 학술대회 <어울림의 화성성역>",
@@ -87,6 +121,23 @@
    "host": "수원화성박물관",
    "summary": "수원화성박물관 특별기획전시 연계 학술대회",
    "area": "행궁동",
+   "image": null,
+   "festival": false
+  },
+  {
+   "id": "ggac:SM000102",
+   "source": "ggac",
+   "title": "경기필 마스터피스 시리즈 V <말러 교향곡 1번> 수원",
+   "start": "2026-10-30",
+   "end": "2026-10-30",
+   "time": null,
+   "place": "경기아트센터 대극장",
+   "address": "경기도 수원시 팔달구 효원로 307",
+   "url": "https://www.ggac.or.kr/ggac/M0000155/show/view.do?idx=SM000102",
+   "target": "누구나",
+   "host": "경기아트센터",
+   "summary": null,
+   "area": "팔달구",
    "image": null,
    "festival": false
   },
@@ -125,6 +176,40 @@
    "festival": true
   },
   {
+   "id": "ggac:SM000199",
+   "source": "ggac",
+   "title": "[경기도 공연장 상주단체 육성지원사업 UP STAGE : 경기] 콘서트 오페라 '모차르트 마술피리'",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "time": null,
+   "place": "경기아트센터 대극장",
+   "address": "경기도 수원시 팔달구 효원로 307",
+   "url": "https://www.ggac.or.kr/ggac/M0000155/show/view.do?idx=SM000199",
+   "target": "누구나",
+   "host": "경기아트센터",
+   "summary": null,
+   "area": "팔달구",
+   "image": null,
+   "festival": false
+  },
+  {
+   "id": "ggac:SM000212",
+   "source": "ggac",
+   "title": "[청소년 창작 뮤지컬 경기틴즈 : 과천문화재단] 뮤지컬 서툰 아이들",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "time": null,
+   "place": "경기아트센터 소극장",
+   "address": "경기도 수원시 팔달구 효원로 307",
+   "url": "https://www.ggac.or.kr/ggac/M0000155/show/view.do?idx=SM000212",
+   "target": "누구나",
+   "host": "경기아트센터",
+   "summary": null,
+   "area": "팔달구",
+   "image": null,
+   "festival": false
+  },
+  {
    "id": "suwon:2172",
    "source": "suwon",
    "title": "예절교육관 주말 체험 〈민화, 우리 그림을 그리다〉",
@@ -136,7 +221,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2172",
    "target": "누구나",
    "host": "수원시",
-   "summary": "복숭아 소과도 전통 민화 작품 완성 체험",
+   "summary": "전통 민화 체험 및 작품 완성",
    "area": "기타",
    "image": null,
    "festival": false
@@ -153,7 +238,7 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2168",
    "target": "누구나",
    "host": "수원시",
-   "summary": "팔색길 걷기 문화행사 및 체험부스 운영",
+   "summary": "팔색길 사진전, 버스킹 공연, 홍보 및 체험부스 운영",
    "area": "광교",
    "image": null,
    "festival": false
@@ -412,6 +497,23 @@
    "host": "경기도여성비전센터, 경기여성단체연합",
    "summary": null,
    "area": "행궁동",
+   "image": null,
+   "festival": false
+  },
+  {
+   "id": "ggac:SM000099",
+   "source": "ggac",
+   "title": "경기필하모닉 2026 하반기",
+   "start": "2026-06-01",
+   "end": "2026-12-31",
+   "time": null,
+   "place": "경기아트센터 대극장",
+   "address": "경기도 수원시 팔달구 효원로 307",
+   "url": "https://www.ggac.or.kr/ggac/M0000155/show/view.do?idx=SM000099",
+   "target": "누구나",
+   "host": "경기아트센터",
+   "summary": null,
+   "area": "팔달구",
    "image": null,
    "festival": false
   },
