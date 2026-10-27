@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-27T23:14",
+ "updated": "2026-10-28T05:00",
  "week": [
-  "2026-10-27",
+  "2026-10-28",
   "2026-11-01"
  ],
  "events": [
@@ -17,9 +17,12 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2138",
    "target": "누구나",
    "host": "공원녹지사업소 수목원과",
-   "summary": "동화를 접목한 특별한 식물 전시, 야간산책, 체험, 어린이예술단 공연",
+   "summary": "동화 접목 식물 전시 및 어린이예술단 문화공연",
    "area": "장안구",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -34,26 +37,12 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2171",
    "target": "누구나",
    "host": "수원시",
-   "summary": "시민예술교육과 경기공유학교 연계 프로그램 운영",
+   "summary": "시민예술교육 및 경기공유학교 연계 프로그램 운영",
    "area": "기타",
    "image": null,
-   "festival": false
-  },
-  {
-   "id": "ggac:SM000204",
-   "source": "ggac",
-   "title": "2026 경기리베라오케스트라 피날레콘서트 <OUR SYMPHONY: 우리의 교향곡>",
-   "start": "2026-10-27",
-   "end": "2026-10-27",
-   "time": null,
-   "place": "경기아트센터 대극장",
-   "address": "경기도 수원시 팔달구 효원로 307",
-   "url": "https://www.ggac.or.kr/ggac/M0000155/show/view.do?idx=SM000204",
-   "target": "누구나",
-   "host": "경기아트센터",
-   "summary": null,
-   "area": "팔달구",
-   "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -71,6 +60,9 @@
    "summary": "읽고 쓰는 삶 오후 2시",
    "area": "스타필드 수원",
    "image": "https://www.starfield.co.kr/cdn/starfield_09/evt/20261019/IM20261019032915479748.jpg",
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -88,6 +80,9 @@
    "summary": null,
    "area": "팔달구",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -105,6 +100,9 @@
    "summary": null,
    "area": "팔달구",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -122,6 +120,9 @@
    "summary": "비눗방울맨",
    "area": "스타필드 수원",
    "image": "https://www.starfield.co.kr/cdn/starfield_09/evt/20260928/IM20260928031300407446.jpg",
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -139,23 +140,9 @@
    "summary": "분장대회, 축하공연, 부대행사",
    "area": "행궁동",
    "image": null,
-   "festival": true
-  },
-  {
-   "id": "suwon:2157",
-   "source": "suwon",
-   "title": "2026 홀리스타 페스티벌",
-   "start": "2026-10-31",
-   "end": "2026-10-31",
-   "time": null,
-   "place": "화성행궁광장",
-   "address": "",
-   "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2157",
-   "target": "누구나",
-   "host": "(재)천주교수원교구유지재단",
-   "summary": "분장대회, 축하공연, 부대행사",
-   "area": "행궁동",
-   "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": true
   },
   {
@@ -173,6 +160,9 @@
    "summary": null,
    "area": "팔달구",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -190,40 +180,9 @@
    "summary": null,
    "area": "팔달구",
    "image": null,
-   "festival": false
-  },
-  {
-   "id": "kopis:PF293198",
-   "source": "kopis",
-   "title": "멜로우TV: Run it up, 팀 나빠",
-   "start": "2026-10-31",
-   "end": "2026-11-01",
-   "time": "토요일 ~ 일요일(11:00,14:00,16:30)",
-   "place": "용인시평생학습관 (여성회관)",
-   "address": "경기도 용인시 수지구 문정로7번길 15 (풍덕천동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF293198",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "용인",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF293198_260609_110705.jpg",
-   "festival": false
-  },
-  {
-   "id": "kopis:PF292488",
-   "source": "kopis",
-   "title": "빨간모자와 늑대",
-   "start": "2026-10-31",
-   "end": "2026-10-31",
-   "time": "토요일(11:00,14:00)",
-   "place": "장안구민회관 한누리아트홀",
-   "address": "경기도 수원시 장안구 송원로 101 (조원동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF292488",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "장안구",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF292488_260529_103515.png",
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -241,57 +200,9 @@
    "summary": "전통 민화 체험 및 작품 완성",
    "area": "기타",
    "image": null,
-   "festival": false
-  },
-  {
-   "id": "kopis:PF303862",
-   "source": "kopis",
-   "title": "할로윈 매직쇼",
-   "start": "2026-10-31",
-   "end": "2026-11-01",
-   "time": "토요일(14:00,19:00), 일요일(11:00,15:00)",
-   "place": "더퍼포머씨어터",
-   "address": "경기도 화성시 동탄구 경기동로 468-5 (장지동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF303862",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "동탄",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF303862_261020_112125.png",
-   "festival": false
-  },
-  {
-   "id": "kopis:PF300868",
-   "source": "kopis",
-   "title": "알라딘",
-   "start": "2026-11-01",
-   "end": "2026-11-01",
-   "time": "일요일(13:00,15:00,17:00)",
-   "place": "장안구민회관 한누리아트홀",
-   "address": "경기도 수원시 장안구 송원로 101 (조원동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF300868",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "장안구",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF300868_260914_153154.gif",
-   "festival": false
-  },
-  {
-   "id": "kopis:PF302575",
-   "source": "kopis",
-   "title": "인어와 마녀의 버블매직쇼",
-   "start": "2026-11-01",
-   "end": "2026-11-01",
-   "time": "일요일(11:00,13:00,15:00)",
-   "place": "에이페이지",
-   "address": "경기도 화성시 효행로1040번길 14 (진안동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF302575",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "화성",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF302575_261006_153915.png",
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -306,9 +217,12 @@
    "url": "https://www.suwon.go.kr/culture/ingCultureView.do?ctrSeqNo=2168",
    "target": "누구나",
    "host": "수원시",
-   "summary": "팔색길 사진전, 버스킹 공연, 홍보 및 체험부스 운영",
+   "summary": "홍보 및 체험부스 운영 및 버스킹 공연",
    "area": "광교",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   }
  ],
@@ -328,6 +242,9 @@
    "summary": null,
    "area": "행궁동",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -345,6 +262,9 @@
    "summary": null,
    "area": "광교",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -362,6 +282,9 @@
    "summary": null,
    "area": "기타",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -379,6 +302,9 @@
    "summary": null,
    "area": "행궁동",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -396,6 +322,9 @@
    "summary": null,
    "area": "광교",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -413,6 +342,9 @@
    "summary": null,
    "area": "기타",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -430,6 +362,9 @@
    "summary": null,
    "area": "행궁동",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -447,6 +382,9 @@
    "summary": null,
    "area": "기타",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -464,6 +402,9 @@
    "summary": null,
    "area": "안양",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -481,6 +422,9 @@
    "summary": null,
    "area": "기타",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -498,6 +442,9 @@
    "summary": null,
    "area": "기타",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -515,6 +462,9 @@
    "summary": null,
    "area": "기타",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -532,6 +482,9 @@
    "summary": null,
    "area": "기타",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -549,6 +502,9 @@
    "summary": null,
    "area": "기타",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -566,6 +522,9 @@
    "summary": null,
    "area": "행궁동",
    "image": null,
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -583,57 +542,9 @@
    "summary": null,
    "area": "팔달구",
    "image": null,
-   "festival": false
-  },
-  {
-   "id": "kopis:PF292827",
-   "source": "kopis",
-   "title": "꼬마별이 만든 보물성",
-   "start": "2026-05-26",
-   "end": "2026-10-27",
-   "time": "화요일(11:00)",
-   "place": "경기아트센터 경기국악원",
-   "address": "경기도 용인시 기흥구 민속촌로 89(보라동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF292827",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "용인",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF292827_260604_103714.gif",
-   "festival": false
-  },
-  {
-   "id": "kopis:PF299059",
-   "source": "kopis",
-   "title": "돼지책",
-   "start": "2026-10-01",
-   "end": "2026-11-01",
-   "time": "토요일 ~ 일요일(11:00,13:00), HOL(11:00,13:00)",
-   "place": "KBS 수원아트홀",
-   "address": "경기도 수원시 팔달구 인계로 123 (인계동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF299059",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "팔달구",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF299059_260821_130659.jpg",
-   "festival": false
-  },
-  {
-   "id": "kopis:PF290349",
-   "source": "kopis",
-   "title": "모래로 그린 음악동화: 어린왕자",
-   "start": "2026-03-21",
-   "end": "2026-11-07",
-   "time": "토요일(11:00,14:00)",
-   "place": "피아올라홀(피아올라스튜디오)",
-   "address": "경기도 오산시 역광장로83번길 3 (오산동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF290349",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "오산",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF290349_260429_115045.gif",
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   },
   {
@@ -651,40 +562,9 @@
    "summary": null,
    "area": "광교",
    "image": null,
-   "festival": false
-  },
-  {
-   "id": "kopis:PF284789",
-   "source": "kopis",
-   "title": "키즈인비또 스페셜, 클래식 어드벤처: 음악 왕국으로 떠나는 대모험!",
-   "start": "2026-04-11",
-   "end": "2026-12-12",
-   "time": "토요일(11:00,15:00)",
-   "place": "용인문화예술원",
-   "address": "경기도 용인시 처인구 중부대로 1199 (삼가동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF284789",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "용인",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF284789_260609_105906.gif",
-   "festival": false
-  },
-  {
-   "id": "kopis:PF294473",
-   "source": "kopis",
-   "title": "토요키즈클래식 (하반기)",
-   "start": "2026-09-19",
-   "end": "2026-11-28",
-   "time": "토요일(15:00)",
-   "place": "용인포은아트홀",
-   "address": "경기도 용인시 수지구 포은대로 499 (죽전동)",
-   "url": "https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF294473",
-   "target": "어린이",
-   "host": null,
-   "summary": null,
-   "area": "용인",
-   "image": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF294473_260624_101121.gif",
+   "age": null,
+   "price": null,
+   "booking": null,
    "festival": false
   }
  ]
