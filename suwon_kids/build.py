@@ -10,7 +10,7 @@ from typing import Callable
 
 from suwon_kids import ai, areas, dedupe, filters, render, summarize, week
 from suwon_kids.models import Event
-from suwon_kids.sources import gyeonggi, starfield, suwon_portal
+from suwon_kids.sources import gyeonggi, kopis, starfield, suwon_portal, tourapi
 
 ROOT = Path(__file__).parent.parent
 
@@ -20,6 +20,8 @@ def default_sources() -> dict[str, Callable[[], list[Event]]]:
         'suwon': lambda: suwon_portal.to_events(suwon_portal.fetch_list()),
         'starfield': lambda: [e for r in starfield.fetch() for e in starfield.to_events(r)],
         'ggac': gyeonggi.fetch_ggac,
+        'kopis': kopis.fetch,
+        'tour': tourapi.fetch,
     }
 
 

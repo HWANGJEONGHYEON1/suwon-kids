@@ -39,7 +39,8 @@ class RenderTest(unittest.TestCase):
 
     def test_title_and_date_format(self):
         out = render.page([ev('축제', '광교', date(2026, 10, 30), date(2026, 11, 1), '불꽃 공연')], [], NOW)
-        self.assertIn('이번 주 수원, 애랑 갈 만한 곳', out)
+        self.assertIn('이번 주 수원·근교, 애랑 갈 만한 곳', out)
+        self.assertIn('출처: (재)예술경영지원센터 공연예술통합전산망(www.kopis.or.kr)', out)
         self.assertIn('10.30(금)~11.1(일)', out)
         self.assertIn('불꽃 공연', out)
         self.assertIn('href="https://x/1"', out)

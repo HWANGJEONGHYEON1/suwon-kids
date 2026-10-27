@@ -15,19 +15,19 @@ class AIError(Exception):
     pass
 
 
-def _env() -> dict:
-    env = {}
+def env() -> dict:
+    out = {}
     if ENV_PATH.exists():
         for line in ENV_PATH.read_text(encoding='utf-8').splitlines():
             m = re.match(r'\s*([A-Z_]+)=(.*)', line)
             if m:
-                env[m.group(1)] = m.group(2).strip().strip('"\'')
-    return env
+                out[m.group(1)] = m.group(2).strip().strip('"\'')
+    return out
 
 
 def generate(prompt: str, image_url: str | None = None) -> str:
-    env = _env()
-    key, model = env.get('GEMINI_API_KEY'), env.get('GEMINI_MODEL', 'gemini-flash-latest')
+    cfg = env()
+    key, model = cfg.get('GEMINI_API_KEY'), cfg.get('GEMINI_MODEL', 'gemini-flash-latest')
     if not key:
         raise AIError('GEMINI_API_KEY 없음')
     parts = [{'text': prompt}]

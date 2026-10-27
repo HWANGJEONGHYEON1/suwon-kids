@@ -1,12 +1,13 @@
-"""index.html. 동네별 섹션(행사 없는 동네는 숨김) + 상시 묶음. 태그 없음."""
+"""index.html. 동네·근교 시별 섹션(행사 없는 동네는 숨김) + 상시 묶음. 태그 없음."""
 from datetime import date, datetime
 from html import escape
 
-from suwon_kids.areas import AREAS
+from suwon_kids.areas import ORDER
 from suwon_kids.models import Event
 
-TITLE = '이번 주 수원, 애랑 갈 만한 곳'
-ORDER = [a['name'] for a in AREAS] + ['장안구', '권선구', '팔달구', '영통구', '기타']
+TITLE = '이번 주 수원·근교, 애랑 갈 만한 곳'
+SOURCES = ('수원특례시 행사축제포털, 스타필드 수원, 경기아트센터, 한국관광공사 TourAPI'
+           ' · 공연 출처: (재)예술경영지원센터 공연예술통합전산망(www.kopis.or.kr)')
 WEEKDAY = '월화수목금토일'
 
 CSS = """
@@ -55,5 +56,5 @@ def page(events: list[Event], long_events: list[Event], updated: datetime, week:
             f'<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
             f'<meta name="apple-mobile-web-app-title" content="수원 아이랑"><meta name="theme-color" content="#f0b400">'
             f'<style>{CSS}</style></head><body><main><h1>{TITLE}</h1>{week_line}{body}{long_html}'
-            f'<footer>마지막 갱신 {updated:%Y-%m-%d %H:%M} · 출처: 수원특례시 행사축제포털, 스타필드 수원, 경기아트센터</footer>'
+            f'<footer>마지막 갱신 {updated:%Y-%m-%d %H:%M} · 출처: {SOURCES}</footer>'
             f'</main></body></html>')

@@ -1,0 +1,47 @@
+{
+ "response": {
+  "header": {
+   "resultCode": "0000",
+   "resultMsg": "OK"
+  },
+  "body": {
+   "items": {
+    "item": [
+     {
+      "contentid": "3368470",
+      "contenttypeid": "15",
+      "title": "경기미 디저트 페스타",
+      "createdtime": "20240913144625",
+      "modifiedtime": "20260831163507",
+      "tel": "031-774-3312",
+      "telname": "경기도",
+      "homepage": "www.ricedessertfesta.com",
+      "firstimage": "https://tong.visitkorea.or.kr/cms/resource/09/4106209_image2_1.jpg",
+      "firstimage2": "https://tong.visitkorea.or.kr/cms/resource/09/4106209_image3_1.jpg",
+      "cpyrhtDivCd": "Type3",
+      "areacode": "",
+      "sigungucode": "",
+      "lDongRegnCd": "41",
+      "lDongSignguCd": "113",
+      "lclsSystm1": "EV",
+      "lclsSystm2": "EV03",
+      "lclsSystm3": "EV030200",
+      "cat1": "",
+      "cat2": "",
+      "cat3": "",
+      "addr1": "경기도 수원시 권선구 세화로134번길 37 (서둔동)",
+      "addr2": "",
+      "zipcode": "16621",
+      "mapx": "126.9971816138",
+      "mapy": "37.2668071001",
+      "mlevel": "6",
+      "overview": "경기미디저트페스타는 우수한 경기미를 이용한 다양한 디저트를 발굴하고 소비자에게 소개하여 경기미 소비와 함께 건강한 쌀디저트문화를 확산하기 위해 만들어진 박람회이다. 올해 경기미 디저트 페스타는 쌀베이커리와 쌀떡볶이 페스타가 공동으로 개최되며 판매존부터 경연대회 체험까지 다양한 쌀 디저트 제품을 만날 수 있는 행사이다."
+     }
+    ]
+   },
+   "numOfRows": 1,
+   "pageNo": 1,
+   "totalCount": 1
+  }
+ }
+}
