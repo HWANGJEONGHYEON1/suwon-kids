@@ -26,6 +26,12 @@ class RenderTest(unittest.TestCase):
         out = render.page([ev('a', '행궁동'), ev('b', '스타필드 수원')], [], NOW)
         self.assertLess(out.index('>스타필드 수원<'), out.index('>행궁동<'))
 
+    def test_home_screen_links(self):
+        out = render.page([ev('공연', '행궁동')], [], NOW)
+        self.assertIn('<link rel="manifest" href="manifest.webmanifest">', out)
+        self.assertIn('<link rel="apple-touch-icon" href="apple-touch-icon.png">', out)
+        self.assertIn('<meta name="apple-mobile-web-app-title" content="수원 아이랑">', out)
+
     def test_no_tags(self):
         out = render.page([ev('공연', '행궁동')], [], NOW)
         self.assertNotIn('유모차', out)

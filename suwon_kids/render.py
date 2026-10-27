@@ -52,6 +52,8 @@ def page(events: list[Event], long_events: list[Event], updated: datetime, week:
     long_html = f'<h2>상시 전시·행사</h2>' + ''.join(_card(e) for e in sorted(long_events, key=lambda e: e.title)) if long_events else ''
     return (f'<!doctype html><html lang="ko"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{TITLE}</title>'
+            f'<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
+            f'<meta name="apple-mobile-web-app-title" content="수원 아이랑"><meta name="theme-color" content="#f0b400">'
             f'<style>{CSS}</style></head><body><main><h1>{TITLE}</h1>{week_line}{body}{long_html}'
             f'<footer>마지막 갱신 {updated:%Y-%m-%d %H:%M} · 출처: 수원특례시 행사축제포털, 스타필드 수원, 경기아트센터</footer>'
             f'</main></body></html>')

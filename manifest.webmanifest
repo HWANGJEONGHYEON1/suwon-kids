@@ -1,0 +1,14 @@
+{
+ "name": "이번 주 수원, 애랑 갈 만한 곳",
+ "short_name": "수원 아이랑",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#faf8f4",
+ "theme_color": "#f0b400",
+ "lang": "ko",
+ "icons": [
+  {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+  {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+ ]
+}
