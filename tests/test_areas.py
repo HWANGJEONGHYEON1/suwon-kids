@@ -60,10 +60,10 @@ class DedupeTest(unittest.TestCase):
         b = ev(title='키즈 프로그램', start=date(2026, 11, 7), end=date(2026, 11, 7))
         self.assertEqual(len(dedupe.merge([a, b])), 2)
 
-    def test_dedupe_keeps_same_source(self):
-        a = ev(title='피터팬', source='kopis')
-        b = Event('kopis:2', 'kopis', '피터팬', D, D, None, '', '', '', '어린이')
-        self.assertEqual(len(dedupe.merge([a, b])), 2)
+    def test_dedupe_same_source_duplicate(self):
+        a = ev(title='2026 홀리스타 페스티벌')
+        b = Event('suwon:2', 'suwon', '2026 홀리스타 페스티벌', D, D, None, '', '', '', '누구나')
+        self.assertEqual(len(dedupe.merge([a, b])), 1)
 
     def test_dedupe_keeps_different_area(self):
         a, b = ev(title='피터팬', source='suwon'), ev(title='피터팬', source='kopis')
