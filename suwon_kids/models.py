@@ -18,6 +18,9 @@ class Event:
     summary: str | None = None
     area: str | None = None
     image: str | None = None
+    age: str | None = None      # 관람 연령 (KOPIS)
+    price: str | None = None    # 가격 안내 (KOPIS)
+    booking: str | None = None  # 예매 링크 (KOPIS)
 
     def to_json(self) -> dict:
         d = asdict(self)

@@ -27,9 +27,16 @@ class KopisTest(unittest.TestCase):
         self.assertEqual(ev.title, '할로윈 매직쇼')
         self.assertEqual(ev.place, '더퍼포머씨어터')
         self.assertEqual((ev.start, ev.end), (date(2026, 10, 31), date(2026, 11, 1)))
-        self.assertEqual(ev.time, '토요일(14:00,19:00), 일요일(11:00,15:00)')
+        self.assertEqual(ev.time, '토 14:00·19:00 / 일 11:00·15:00')
+        self.assertEqual(ev.age, '전체 관람가')
+        self.assertEqual(ev.price, '전석 50,000원')
+        self.assertEqual(ev.booking, 'https://booking.naver.com/booking/12/bizes/887872')
+        self.assertTrue(ev.image.startswith('https://kopis.or.kr/upload/pfmPoster/'))
         self.assertEqual(ev.url, 'https://kopis.or.kr/por/db/pblprfr/pblprfrView.do?menuId=MNU_00020&mt20Id=PF303862')
         self.assertEqual(ev.target, '어린이')
+
+    def test_short_time_range(self):
+        self.assertEqual(kopis.short_time('토요일 ~ 일요일(11:00,14:00,16:30)'), '토 ~ 일 11:00·14:00·16:30')
 
     def test_long_time_cut(self):
         ev = kopis.to_event(kopis.rows(LIST)[0], {'dtguidance': '가' * 50}, '')

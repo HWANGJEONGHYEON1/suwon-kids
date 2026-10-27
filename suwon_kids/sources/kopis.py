@@ -23,7 +23,20 @@ def _get(path: str, **params) -> bytes:
 
 
 def rows(xml: bytes | str) -> list[dict]:
-    return [{c.tag: (c.text or '').strip() for c in d} for d in ET.fromstring(xml).findall('db')]
+    out = []
+    for d in ET.fromstring(xml).findall('db'):
+        r = {c.tag: (c.text or '').strip() for c in d}
+        r['booking'] = next((u.text.strip() for u in d.iter('relateurl') if (u.text or '').strip()), '')
+        out.append(r)
+    return out
+
+
+def short_time(t: str) -> str:
+    """'토요일(14:00,19:00), 일요일(11:00)' → '토 14:00·19:00 / 일 11:00'."""
+    t = re.sub(r'([월화수목금토일])요일', r'\1', t)
+    t = re.sub(r'\s*\(([^)]*)\)', lambda m: ' ' + m.group(1).replace(',', '·'), t)
+    t = t.replace(', ', ' / ')
+    return t if len(t) <= MAX_TIME else t[:MAX_TIME] + '…'
 
 
 def _day(s: str) -> date:
@@ -31,19 +44,23 @@ def _day(s: str) -> date:
 
 
 def to_event(row: dict, detail: dict, address: str) -> Event:
-    t = detail.get('dtguidance') or None
+    t = detail.get('dtguidance')
+    poster = row.get('poster') or None
     return Event(
         id=f"kopis:{row['mt20id']}",
         source='kopis',
         title=TAG.sub('', row['prfnm']).strip(),
         start=_day(row['prfpdfrom']),
         end=_day(row['prfpdto']),
-        time=t if not t or len(t) <= MAX_TIME else t[:MAX_TIME] + '…',
+        time=short_time(t) if t else None,
         place=TAG.sub('', row['fcltynm']).strip(),
         address=address,
         url=VIEW + row['mt20id'],
         target='어린이',
-        image=row.get('poster') or None,
+        image=re.sub(r'^https?://(www\.)?kopis\.or\.kr', 'https://kopis.or.kr', poster) if poster else None,
+        age=detail.get('prfage') or None,
+        price=detail.get('pcseguidance') or None,
+        booking=detail.get('booking') or None,
     )
 
 

@@ -47,8 +47,38 @@ class RenderTest(unittest.TestCase):
 
     def test_long_section_and_updated(self):
         out = render.page([], [ev('상설전', '광교', date(2026, 1, 1), date(2026, 12, 31))], NOW)
-        self.assertIn('상시 전시·행사', out)
+        self.assertIn('상시 전시·행사 1곳', out)
+        self.assertIn('<details class="long">', out)
         self.assertIn('마지막 갱신 2026-10-26 05:00', out)
+
+    def test_region_tabs(self):
+        out = render.page([ev('공연', '행궁동'), ev('매직쇼', '동탄'), ev('클래식', '용인')], [], NOW)
+        self.assertIn('data-r="all" aria-selected="true">전체 <span class="n">3</span>', out)
+        self.assertLess(out.index('data-r="suwon"'), out.index('data-r="dongtan"'))
+        self.assertLess(out.index('data-r="dongtan"'), out.index('data-r="yongin"'))
+        self.assertNotIn('data-r="anyang"', out)
+        self.assertIn('<section class="region" id="dongtan">', out)
+        self.assertIn('[hidden]{display:none!important}', out)  # section.region 의 display:flex 가 hidden 을 덮지 않게
+
+    def test_near_region_has_no_area_heading(self):
+        out = render.page([ev('클래식', '용인')], [], NOW)
+        self.assertNotIn('<h3>', out)
+
+    def test_card_details(self):
+        e = ev('[경기도 공연장 상주단체 육성지원사업 UP STAGE : 경기] 콘서트 오페라', '용인')
+        e.source, e.age, e.price, e.booking = 'kopis', '36개월 이상', '전석 20,000원', 'https://booking.naver.com/x'
+        e.address, e.image = '경기도 용인시 수지구 문정로 15', 'https://kopis.or.kr/p.png'
+        out = render.page([e], [], NOW)
+        self.assertIn('<span class="t">콘서트 오페라</span>', out)
+        self.assertIn('<span class="b kind">공연</span>', out)
+        self.assertIn('<dt>가격</dt><dd>전석 20,000원</dd>', out)
+        self.assertIn('href="https://booking.naver.com/x"', out)
+        self.assertIn('https://map.naver.com/p/search/', out)
+        self.assertIn('src="https://kopis.or.kr/p.png"', out)
+
+    def test_festival_badge(self):
+        out = render.page([ev('가을 축제', '행궁동')], [], NOW, festivals={'suwon:가을 축제'})
+        self.assertIn('<span class="b kind">축제</span>', out)
 
 
 if __name__ == '__main__':

@@ -100,7 +100,8 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
             'events': [js(e) for e in sorted(events, key=lambda e: (e.start, e.title))],
             'long': [js(e) for e in sorted(long_events, key=lambda e: e.title)]}
     _write(out_dir / 'events.json', json.dumps(data, ensure_ascii=False, indent=1))
-    _write(out_dir / 'index.html', render.page(events, long_events, now, rng))
+    festivals = {e.id for e in kept if filters.is_host_exception(e.title, e.host)}
+    _write(out_dir / 'index.html', render.page(events, long_events, now, rng, festivals))
     return {'ok': True, 'counts': counts, 'errors': errors}
 
 
