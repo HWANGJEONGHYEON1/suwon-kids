@@ -1,6 +1,8 @@
 """공연예술통합전산망(KOPIS) 아동 공연 (kidstate=Y). 수원·근교 시군구별 목록 → 상세(시간·공연장 id) → 공연장(주소).
 키는 .env KOPIS_KEY. KOPIS 데이터를 쓰면 출처 표기가 의무다 (render 푸터)."""
 import re
+import time
+import urllib.error
 import urllib.parse
 import xml.etree.ElementTree as ET
 from datetime import date, datetime
@@ -15,11 +17,25 @@ TAG = re.compile(r'\s*\[[^\]]*\]')  # 제목·공연장 끝의 "[화성]", "[수
 MAX_TIME = 40
 
 
-def _get(path: str, **params) -> bytes:
+GAP = 1.0             # 호출 사이 최소 간격(초). 몰아서 5번쯤 부르면 한동안 전부 400이 난다
+BACKOFF = (5, 15)     # 400이 나면 이만큼 쉬고 다시
+_last = [0.0]
+
+
+def _get(path: str, sleep=time.sleep, clock=time.monotonic, **params) -> bytes:
     key = ai.env().get('KOPIS_KEY')
     if not key:
         raise RuntimeError('KOPIS_KEY 없음')
-    return http.get(f'{API}/{path}?' + urllib.parse.urlencode({'service': key, **params}))
+    url = f'{API}/{path}?' + urllib.parse.urlencode({'service': key, **params})
+    for wait in (*BACKOFF, None):
+        sleep(max(0.0, _last[0] + GAP - clock()))
+        _last[0] = clock()
+        try:
+            return http.get(url)
+        except urllib.error.HTTPError as e:
+            if e.code != 400 or wait is None:
+                raise
+            sleep(wait)
 
 
 def rows(xml: bytes | str) -> list[dict]:

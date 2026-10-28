@@ -72,6 +72,40 @@ class KopisTest(unittest.TestCase):
         self.assertEqual(len(evs), 2)
         self.assertEqual(calls.count(kopis.CITIES['수원']), 2)
 
+    def test_get_paces_and_backs_off(self):
+        import urllib.error
+        from unittest import mock
+        calls, slept, now = [], [], [100.0]
+
+        def sleep(s):
+            slept.append(round(s, 2))
+            now[0] += s
+
+        def fake_http(url):
+            calls.append(url)
+            if len(calls) == 2:
+                raise urllib.error.HTTPError(url, 400, 'Bad Request', None, None)
+            return b'<dbs></dbs>'
+        kopis._last[0] = 0.0
+        with mock.patch.object(kopis.ai, 'env', return_value={'KOPIS_KEY': 'k'}), \
+                mock.patch.object(kopis.http, 'get', side_effect=fake_http):
+            kopis._get('pblprfr', sleep=sleep, clock=lambda: now[0])
+            kopis._get('pblprfr', sleep=sleep, clock=lambda: now[0])  # 400 → 5초 쉬고 다시
+        self.assertEqual(len(calls), 3)
+        self.assertEqual(slept, [0.0, 1.0, 5, 0.0])  # 두 번째는 1초 간격, 400 뒤 5초
+
+    def test_get_gives_up_after_backoff(self):
+        import urllib.error
+        from unittest import mock
+
+        def always_400(url):
+            raise urllib.error.HTTPError(url, 400, 'Bad Request', None, None)
+        with mock.patch.object(kopis.ai, 'env', return_value={'KOPIS_KEY': 'k'}), \
+                mock.patch.object(kopis.http, 'get', side_effect=always_400) as g:
+            with self.assertRaises(urllib.error.HTTPError):
+                kopis._get('pblprfr', sleep=lambda s: None, clock=lambda: 0.0)
+        self.assertEqual(g.call_count, len(kopis.BACKOFF) + 1)
+
     def test_fetch_all_cities_failed_raises(self):
         def down(path, **params):
             raise OSError('400')
