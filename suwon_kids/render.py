@@ -5,11 +5,12 @@ import urllib.parse
 from datetime import date, datetime
 from html import escape
 
+from suwon_kids import filters
 from suwon_kids.areas import ORDER, REGIONS, region
 from suwon_kids.models import Event
 
 TITLE = '이번 주 수원·근교, 애랑 갈 만한 곳'
-SOURCES = ('수원특례시 행사축제포털, 스타필드 수원, 경기아트센터, 한국관광공사 TourAPI'
+SOURCES = ('수원특례시 행사축제포털, 스타필드 수원, 경기아트센터, 한국관광공사 TourAPI, 네이버 뉴스 검색'
            ' · 공연 출처: (재)예술경영지원센터 공연예술통합전산망(www.kopis.or.kr)')
 WEEKDAY = '월화수목금토일'
 PROGRAM = re.compile(r'^\[[^\]]{6,}\]\s*(?=\S{2})')  # 제목 앞 "[경기도 공연장 상주단체 육성지원사업 …]" 같은 사업명
@@ -100,7 +101,7 @@ def display_title(title: str) -> str:
 def _kind(ev: Event, festival: bool) -> str | None:
     if ev.source == 'kopis':
         return '공연'
-    if ev.source == 'tour' or festival:
+    if ev.source == 'tour' or festival or (ev.source == 'naver' and filters.FESTIVAL.search(ev.title)):
         return '축제'
     return None
 
@@ -122,8 +123,9 @@ def _card(ev: Event, festival: bool = False) -> str:
     rows += [(k, v) for k, v in (('연령', ev.age), ('가격', ev.price), ('대상', None if ev.source == 'kopis' else ev.target)) if v]
     dl = ''.join(f'<dt>{k}</dt><dd>{v if k == "주소" else escape(v)}</dd>' for k, v in rows)
     img = f'<img src="{escape(ev.image)}" alt="" loading="lazy">' if ev.image and ev.source == 'kopis' else ''
+    link = '기사 보기' if ev.source == 'naver' else '원문 보기'
     acts = ((f'<a class="primary" href="{escape(ev.booking)}" target="_blank" rel="noopener">예매하기</a>' if ev.booking else '')
-            + f'<a href="{escape(ev.url)}" target="_blank" rel="noopener">원문 보기</a>')
+            + f'<a href="{escape(ev.url)}" target="_blank" rel="noopener">{link}</a>')
     return f'<details class="card">{head}<div class="more"><div class="info"><dl>{dl}</dl>{img}</div><div class="acts">{acts}</div></div></details>'
 
 

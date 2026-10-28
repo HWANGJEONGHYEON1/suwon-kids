@@ -5,5 +5,5 @@
 - 수동 실행: `python3 deploy.py` (빌드만: `python3 -m suwon_kids.build`)
 - 테스트: `python3 -m unittest discover -s tests -t .`
 - 매일 05:00 자동 실행: `cp scheduler/com.suwonkids.build.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/com.suwonkids.build.plist`
-- `.env`(커밋 안 함): `GEMINI_API_KEY`, `GEMINI_MODEL`, `KOPIS_KEY`(kopis.or.kr 메일 발급), `TOURAPI_KEY`(data.go.kr 한국관광공사_국문 관광정보 서비스_GW, 디코딩된 키)
+- `.env`(커밋 안 함): `GEMINI_API_KEY`, `GEMINI_MODEL`, `KOPIS_KEY`(kopis.or.kr 메일 발급), `TOURAPI_KEY`(data.go.kr 한국관광공사_국문 관광정보 서비스_GW, 디코딩된 키), `NAVER_CLIENT_ID`·`NAVER_CLIENT_SECRET`(developers.naver.com 검색 API, 근교 축제 기사)
 - KOPIS 데이터는 출처 표기가 의무다. 페이지 푸터 문구(`render.SOURCES`)를 지우지 말 것
