@@ -10,11 +10,13 @@ from suwon_kids.areas import ORDER, REGIONS, region
 from suwon_kids.models import Event
 
 TITLE = '이번 주 수원·근교, 애랑 갈 만한 곳'
-SOURCES = ('수원특례시 행사축제포털, 스타필드 수원, 경기아트센터, 한국관광공사 TourAPI, 네이버 뉴스 검색'
+SOURCES = ('수원특례시 행사축제포털, 스타필드 수원, 경기아트센터, 경기도어린이박물관·경기도박물관, 안양시 문화예술행사일정,'
+           ' 화성시 문화관광, 군포시 주간행사계획, 한국관광공사 TourAPI, 네이버 뉴스 검색'
            ' · 공연 출처: (재)예술경영지원센터 공연예술통합전산망(www.kopis.or.kr)')
 WEEKDAY = '월화수목금토일'
 PROGRAM = re.compile(r'^\[[^\]]{6,}\]\s*(?=\S{2})')  # 제목 앞 "[경기도 공연장 상주단체 육성지원사업 …]" 같은 사업명
 MAP = 'https://map.naver.com/p/search/'
+CITY_SOURCES = ('naver', 'anyang', 'hwaseong', 'gunpo')  # 주최 정보 없이 제목으로 축제를 가리는 근교 출처
 
 # 레이아웃: 좁은 한 단, 위에 고정 지역 탭, 아래로 동네 소제목과 펼침 카드
 CSS = """
@@ -101,7 +103,9 @@ def display_title(title: str) -> str:
 def _kind(ev: Event, festival: bool) -> str | None:
     if ev.source == 'kopis':
         return '공연'
-    if ev.source == 'tour' or festival or (ev.source == 'naver' and filters.FESTIVAL.search(ev.title)):
+    if ev.source == 'ggcf':
+        return '체험'
+    if ev.source == 'tour' or festival or (ev.source in CITY_SOURCES and filters.FESTIVAL.search(ev.title)):
         return '축제'
     return None
 

@@ -1,6 +1,6 @@
 # 수원 아이랑 이번 주
 
-이번 주 수원·근교 행사(수원시 행사축제포털·스타필드 수원·경기아트센터, 근교 아이 공연은 KOPIS, 근교 큰 축제는 TourAPI)를 동네·시별로 모은 페이지: https://hwangjeonghyeon1.github.io/suwon-kids/
+이번 주 수원·근교 행사(수원시 행사축제포털·스타필드 수원·경기아트센터, 근교는 KOPIS 아이 공연·경기도어린이박물관·경기도박물관·안양 문화예술행사일정·화성 주요 축제표·군포 주간행사계획, 축제·걷기대회는 네이버 뉴스, 큰 축제는 TourAPI)를 동네·시별로 모은 페이지: https://hwangjeonghyeon1.github.io/suwon-kids/
 
 - 수동 실행: `python3 deploy.py` (빌드만: `python3 -m suwon_kids.build`)
 - 테스트: `python3 -m unittest discover -s tests -t .`

@@ -10,7 +10,7 @@ from typing import Callable
 
 from suwon_kids import ai, areas, dedupe, filters, render, summarize, week
 from suwon_kids.models import Event
-from suwon_kids.sources import gyeonggi, kopis, naver, starfield, suwon_portal, tourapi
+from suwon_kids.sources import anyang, ggcf, gunpo, gyeonggi, hwaseong, kopis, naver, starfield, suwon_portal, tourapi
 
 ROOT = Path(__file__).parent.parent
 
@@ -23,6 +23,10 @@ def default_sources() -> dict[str, Callable[[], list[Event]]]:
         'kopis': kopis.fetch,
         'tour': tourapi.fetch,
         'naver': naver.fetch,
+        'ggcf': ggcf.fetch,
+        'anyang': anyang.fetch,
+        'hwaseong': hwaseong.fetch,
+        'gunpo': gunpo.fetch,
     }
 
 
