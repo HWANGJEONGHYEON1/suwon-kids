@@ -56,6 +56,28 @@ class KopisTest(unittest.TestCase):
         self.assertEqual([e.address for e in evs], ['경기도 화성시', '경기도 화성시'])
         self.assertIsNone(evs[0].time)
 
+    def test_fetch_retries_and_skips_failed_city(self):
+        calls = []
+
+        def flaky(path, **params):
+            if path == 'pblprfr':
+                code = params['signgucodesub']
+                calls.append(code)
+                if code == kopis.CITIES['수원']:
+                    raise OSError('400')  # 수원은 두 번 다 실패
+                if code == kopis.CITIES['화성'] and calls.count(code) == 1:
+                    raise OSError('400')  # 화성은 재시도에서 성공
+            return fake_get(path, **params)
+        evs = kopis.fetch(TODAY, get=flaky)
+        self.assertEqual(len(evs), 2)
+        self.assertEqual(calls.count(kopis.CITIES['수원']), 2)
+
+    def test_fetch_all_cities_failed_raises(self):
+        def down(path, **params):
+            raise OSError('400')
+        with self.assertRaises(OSError):
+            kopis.fetch(TODAY, get=down)
+
 
 if __name__ == '__main__':
     unittest.main()

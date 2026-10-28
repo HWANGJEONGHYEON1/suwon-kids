@@ -66,10 +66,19 @@ def to_event(row: dict, detail: dict, address: str) -> Event:
 
 def fetch(today: date | None = None, get=_get) -> list[Event]:
     rng = week.this_week(today or date.today())
-    seen, out, places = set(), [], {}
+    seen, out, places, failed = set(), [], {}, []
     for city, code in CITIES.items():
-        listing = rows(get('pblprfr', stdate=f'{rng[0]:%Y%m%d}', eddate=f'{rng[1]:%Y%m%d}', cpage=1, rows=100,
-                           signgucode='41', signgucodesub=code, kidstate='Y'))
+        # KOPIS가 새벽에 가끔 400을 준다. 한 번 더 해 보고, 그래도 안 되면 그 도시만 건너뛴다
+        for attempt in range(2):
+            try:
+                listing = rows(get('pblprfr', stdate=f'{rng[0]:%Y%m%d}', eddate=f'{rng[1]:%Y%m%d}', cpage=1, rows=100,
+                                   signgucode='41', signgucodesub=code, kidstate='Y'))
+                break
+            except Exception as e:
+                listing, err = None, e
+        if listing is None:
+            failed.append(err)
+            continue
         for row in listing:
             if row['mt20id'] in seen:
                 continue
@@ -84,4 +93,6 @@ def fetch(today: date | None = None, get=_get) -> list[Event]:
             except Exception:
                 pass
             out.append(to_event(row, detail, address))
+    if len(failed) == len(CITIES):
+        raise failed[-1]
     return out
