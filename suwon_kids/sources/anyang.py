@@ -38,7 +38,11 @@ def _months(rng: tuple[date, date]) -> list[tuple[int, int]]:
     return sorted({(rng[0].year, rng[0].month), (rng[1].year, rng[1].month)})
 
 
-def fetch(today: date | None = None, get=http.get) -> list[Event]:
+def _get(url: str) -> bytes:
+    return http.get(url, legacy_tls=True)
+
+
+def fetch(today: date | None = None, get=_get) -> list[Event]:
     rng = week.this_week(today or date.today())
     found: dict[str, dict] = {}
     for y, m in _months(rng):
