@@ -87,6 +87,22 @@ class PosterLineTest(unittest.TestCase):
                                {'name': '다른 날', 'date': '10월 3일(토)', 'time': '', 'age': ''}]}
         self.assertEqual(build._poster_line(ev('x'), poster), '읽고 쓰는 삶')
 
+    def test_poster_extra_adds_time_venue_price(self):
+        e = ev('x', start=date(2026, 10, 31), end=date(2026, 10, 31))
+        e.place = '스타필드 수원'
+        poster = {'programs': [{'name': '비눗방울맨', 'date': '10.31(토)', 'time': '', 'age': ''}],
+                  'time': '오후 2시/5시', 'venue': '3F 별마당 키즈', 'price': '무료'}
+        build._poster_extra(e, poster)
+        self.assertEqual((e.time, e.place, e.price), ('오후 2시/5시', '스타필드 수원 3F 별마당 키즈', '무료'))
+
+    def test_poster_extra_prefers_that_days_program_time(self):
+        e = ev('x', start=date(2026, 10, 28), end=date(2026, 10, 28))
+        e.place = '스타필드 수원'
+        poster = {'programs': [{'name': '읽고 쓰는 삶', 'date': '10월 28일(수)', 'time': '오후 2시', 'age': ''}],
+                  'time': '', 'venue': '', 'price': ''}
+        build._poster_extra(e, poster)
+        self.assertEqual((e.time, e.place, e.price), ('오후 2시', '스타필드 수원', None))
+
     def test_no_prefix_collision(self):
         poster = {'programs': [{'name': '그믐날', 'date': '10.31(토)', 'time': '', 'age': ''}]}
         self.assertIsNone(build._poster_line(ev('x', start=date(2026, 10, 3), end=date(2026, 10, 3)), poster))

@@ -46,6 +46,17 @@ def _poster_line(ev: Event, poster: dict) -> str | None:
     return line[:summarize.MAX_LEN] or None
 
 
+def _poster_extra(ev: Event, poster: dict) -> None:
+    """포스터의 공통 시간·장소·요금을 행사에 붙인다. 그날 프로그램에 시간이 따로 적혀 있으면 그것을 쓴다."""
+    key = (ev.start.month, ev.start.day)
+    times = {p.get('time') for p in poster.get('programs', []) if _month_day(p.get('date')) == key and p.get('time')}
+    ev.time = ev.time or (times.pop() if len(times) == 1 else None) or poster.get('time') or None
+    venue = poster.get('venue')
+    if venue and venue not in ev.place:
+        ev.place = f'{ev.place} {venue}'
+    ev.price = ev.price or poster.get('price') or None
+
+
 def ev_unknown_festival(ev: Event) -> bool:
     return ev.host == '확인 못 함'
 
@@ -90,6 +101,8 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
         if ev.source == 'starfield' and ev.image:
             poster = summarize.read_poster(ev.image, cache, gen=gen)
             ev.summary = _poster_line(ev, poster) if poster else None
+            if poster:
+                _poster_extra(ev, poster)
         elif ev.id in bodies:
             ev.summary = summarize.one_line(ev, bodies[ev.id], gen=gen)
     poster_cache.parent.mkdir(parents=True, exist_ok=True)

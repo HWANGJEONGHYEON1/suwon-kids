@@ -48,7 +48,8 @@ class OneLineTest(unittest.TestCase):
         self.assertIsNone(summarize.one_line(EV, SRC, gen=boom))
 
 
-POSTER = {'programs': [{'name': '쿠키 만들기', 'date': '11.7', 'time': '14:00', 'age': '5~7세'}]}
+POSTER = {'programs': [{'name': '쿠키 만들기', 'date': '11.7', 'time': '14:00', 'age': '5~7세'}],
+          'time': '오후 2시/5시', 'venue': '3F 별마당 키즈', 'price': '무료'}
 
 
 class PosterTest(unittest.TestCase):
@@ -61,6 +62,21 @@ class PosterTest(unittest.TestCase):
         gen = FakeGen()
         self.assertEqual(summarize.read_poster('u1', {'u1': POSTER}, gen=gen), POSTER)
         self.assertEqual(gen.calls, 0)
+
+    def test_old_cache_without_common_fields_is_reread(self):
+        gen = FakeGen(json.dumps(POSTER), json.dumps(POSTER))
+        self.assertEqual(summarize.read_poster('u1', {'u1': {'programs': POSTER['programs']}}, gen=gen), POSTER)
+        self.assertEqual(gen.calls, 2)
+
+    def test_reread_failure_keeps_old_cache(self):
+        old = {'programs': POSTER['programs']}
+        self.assertEqual(summarize.read_poster('u1', {'u1': old}, gen=FakeGen('x', 'y')), old)
+
+    def test_common_field_kept_only_when_both_reads_agree(self):
+        other = dict(POSTER, venue='2F 별마당 키즈')
+        got = summarize.read_poster('u3', {}, gen=FakeGen(json.dumps(POSTER), json.dumps(other)))
+        self.assertEqual(got['programs'], POSTER['programs'])
+        self.assertEqual((got['venue'], got['price']), ('', '무료'))
 
     def test_poster_stores_in_cache(self):
         cache = {}

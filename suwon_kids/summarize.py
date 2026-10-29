@@ -19,9 +19,11 @@ PROMPT = """아래 행사 안내문을 읽고, 아이 키우는 부모가 눈여
 안내문:
 {body}"""
 
-POSTER_PROMPT = """이 포스터에 적힌 프로그램을 JSON으로만 출력하세요. 형식:
-{"programs": [{"name": "", "date": "", "time": "", "age": ""}]}
+POSTER_PROMPT = """이 포스터에 적힌 내용을 JSON으로만 출력하세요. 형식:
+{"time": "", "venue": "", "price": "", "programs": [{"name": "", "date": "", "time": "", "age": ""}]}
+time·venue·price 는 모든 프로그램에 공통으로 적힌 공연(운영) 시간, 장소, 요금(예: "무료")입니다.
 포스터에 없는 값은 빈 문자열로 두세요."""
+COMMON = ('time', 'venue', 'price')  # 프로그램 공통 항목 (2026-10-29 추가: 인스타 릴스 카드에 시간·장소·요금)
 # 두 번째 읽기는 다른 지시로 따로 읽혀, 같은 착각이 두 번 나오지 않게 한다
 POSTER_PROMPT_CHECK = """포스터를 처음부터 다시 꼼꼼히 읽고, 글자 그대로 옮겨 적으세요. 추측해서 채우지 마세요.
 """ + POSTER_PROMPT
@@ -58,13 +60,18 @@ def _json(text: str) -> dict | None:
 
 
 def read_poster(image_url: str, cache: dict, gen=ai.generate) -> dict | None:
-    if image_url in cache:
-        return cache[image_url]
+    hit = cache.get(image_url)
+    if hit is not None and all(k in hit for k in COMMON):  # 공통 항목이 없는 예전 캐시는 다시 읽는다
+        return hit
     try:
         a, b = _json(gen(POSTER_PROMPT, image_url)), _json(gen(POSTER_PROMPT_CHECK, image_url))
-    except Exception:  # AI 오류든 이미지 받기 오류든 포스터 요약만 빠진다
-        return None
-    if a is None or a != b:
-        return None
-    cache[image_url] = a
-    return a
+    except Exception:  # AI 오류든 이미지 받기 오류든 포스터 요약만 빠진다 (예전 캐시가 있으면 그것을 쓴다)
+        return hit
+    if a is None or b is None or a.get('programs') != b.get('programs'):
+        return hit
+    out = {'programs': a.get('programs')}
+    for k in COMMON:  # 공통 항목은 두 번 읽은 값이 같을 때만 쓴다 (다르면 그 항목만 비운다)
+        v = (a.get(k) or '').strip()
+        out[k] = v if v == (b.get(k) or '').strip() and not re.search(r'http|www', v, re.I) else ''
+    cache[image_url] = out
+    return out
