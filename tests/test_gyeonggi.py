@@ -27,5 +27,15 @@ class GgacTest(unittest.TestCase):
         self.assertEqual(gyeonggi.last_page(HTML), 2)
 
 
+class GgacDetailTest(unittest.TestCase):
+    def test_parse_detail(self):
+        page = (pathlib.Path(__file__).parent / 'fixtures/ggac_view.html').read_text(encoding='utf-8')
+        self.assertEqual(gyeonggi.parse_ggac_detail(page),
+                         {'time': '19:30', 'age': '전 연령 관람가', 'price': '전석 10,000원', 'program': '약 100분 공연'})
+
+    def test_missing_fields_are_empty(self):
+        self.assertEqual(gyeonggi.parse_ggac_detail('<html></html>'), {'time': '', 'age': '', 'price': '', 'program': ''})
+
+
 if __name__ == '__main__':
     unittest.main()

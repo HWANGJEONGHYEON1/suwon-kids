@@ -44,6 +44,23 @@ def _page(rng: tuple[date, date], n: int) -> str:
     return http.post(LIST, data).decode('utf-8', 'replace')
 
 
+def _dd(page: str, label: str) -> str:
+    m = re.search(rf'<dt>\s*(?:<span>)?\s*{label}\s*(?:</span>)?\s*</dt>\s*<dd>\s*<p class="txt">(.*?)</p>', page, re.S)
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', m.group(1)))).strip() if m else ''
+
+
+def parse_ggac_detail(page: str) -> dict:
+    """상세 페이지의 시간·관람연령·티켓가격. 시간은 '19:30', 할 거리는 '약 100분 공연'처럼 원문 숫자만 쓴다."""
+    t = _dd(page, '시간')
+    hm, dur = re.search(r'\d{1,2}:\d{2}', t), re.search(r'약\s*\d+분', t)
+    return {'time': hm.group(0) if hm else '', 'age': _dd(page, '관람연령'), 'price': _dd(page, '티켓가격'),
+            'program': f'{dur.group(0)} 공연' if dur else ''}
+
+
+def fetch_ggac_detail(url: str) -> dict:
+    return parse_ggac_detail(http.get(url).decode('utf-8', 'replace'))
+
+
 def fetch_ggac(today: date | None = None) -> list[Event]:
     rng = week.this_week(today or date.today())
     first = _page(rng, 1)

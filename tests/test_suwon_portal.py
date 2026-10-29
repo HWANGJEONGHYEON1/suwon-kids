@@ -34,5 +34,18 @@ class SuwonPortalTest(unittest.TestCase):
         self.assertEqual(ev.end, ev.start)
 
 
+class PortalDetailTest(unittest.TestCase):
+    def test_fixture_price(self):
+        page = (pathlib.Path(__file__).parent / 'fixtures/portal_detail.html').read_text(encoding='utf-8')
+        self.assertEqual(suwon_portal.parse_detail(page)['price'], '무료')
+
+    def test_time_and_program(self):
+        row = '<th scope="row">{}</th><td>{}</td>'
+        page = row.format('행사시간', '13:00 ~ 17:00') + row.format('행사개요', '? 주요내용: 분장대회, 축하공연(크라잉넛, 바다) 등')
+        d = suwon_portal.parse_detail(page)
+        self.assertEqual((d['time'], d['program']), ('13:00 ~ 17:00', '분장대회, 축하공연(크라잉넛, 바다) 등'))
+        self.assertEqual(suwon_portal.parse_detail(row.format('행사시간', '01:00 ~ 01:00'))['time'], '')
+
+
 if __name__ == '__main__':
     unittest.main()

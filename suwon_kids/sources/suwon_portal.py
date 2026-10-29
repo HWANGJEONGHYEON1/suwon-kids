@@ -33,9 +33,17 @@ def _cell(page: str, label: str) -> str:
     return re.sub(r'[ \t\xa0]+', ' ', html.unescape(text)).strip()
 
 
+def _time(s: str) -> str:
+    s = re.sub(r'\s+', ' ', s).strip()
+    m = re.fullmatch(r'(\d{1,2}:\d{2}) ?~ ?(\d{1,2}:\d{2})', s)
+    return '' if m and m.group(1) == m.group(2) else s  # '01:00 ~ 01:00' 은 시간을 안 적은 행사
+
+
 def parse_detail(page: str) -> dict:
     body = '\n'.join(x for x in (_cell(page, '행사개요'), _cell(page, '행사내용')) if x)
-    return {'host': _cell(page, '주최기관'), 'body': body}
+    m = re.search(r'주요\s*내용\s*:\s*(.+)', body)
+    return {'host': _cell(page, '주최기관'), 'body': body, 'time': _time(_cell(page, '행사시간')),
+            'price': _cell(page, '요금정보'), 'program': m.group(1).strip() if m else ''}
 
 
 def fetch_detail(seq: str) -> dict:

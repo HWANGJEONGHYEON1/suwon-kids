@@ -2,9 +2,10 @@ import json
 import tempfile
 import unittest
 from datetime import date
+from unittest import mock
 from pathlib import Path
 
-from suwon_kids import build
+from suwon_kids import build, place_photo
 from suwon_kids.models import Event
 
 TODAY = date(2026, 10, 26)
@@ -30,9 +31,58 @@ class BuildTest(unittest.TestCase):
     def setUp(self):
         self.dir = Path(tempfile.mkdtemp())
         self.cache = self.dir / 'posters.json'
+        # 장소 사진은 TourAPI(실제 네트워크)를 부른다 → 기본은 '사진 없음', 캐시는 임시 폴더
+        p1 = mock.patch.object(place_photo, 'lookup', lambda place, cache: None)
+        p2 = mock.patch.object(build, 'ROOT', self.dir)
+        p1.start(); p2.start()
+        self.addCleanup(mock.patch.stopall)
 
-    def run_build(self, sources):
-        return build.run(TODAY, self.dir, sources, detail=detail, gen=gen, poster_cache=self.cache)
+    def run_build(self, sources, ggac_detail=lambda url: {'time': '19:30', 'age': '전 연령 관람가', 'price': '전석 10,000원',
+                                                            'program': '약 100분 공연'}):
+        return build.run(TODAY, self.dir, sources, detail=detail, gen=gen, poster_cache=self.cache, ggac_detail=ggac_detail)
+
+    def test_place_photo_added_and_cached(self):
+        calls = []
+
+        def look(place, cache):
+            calls.append(place)
+            cache[place] = {'url': 'http://tong/x.jpg', 'credit': place_photo.CREDIT, 'title': place}
+            return cache[place]
+        build.run(TODAY, self.dir, {'suwon': lambda: [ev('홀리스타', place='화성행궁')]}, detail=detail, gen=gen,
+                  poster_cache=self.cache, ggac_detail=fail, photo_lookup=look)
+        e = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))['events'][0]
+        self.assertEqual(e['place_photo']['url'], 'http://tong/x.jpg')
+        self.assertIn('화성행궁', json.loads((self.dir / 'state/place_photos.json').read_text(encoding='utf-8')))
+
+    def test_place_photo_failure_only_drops_photo(self):
+        def down(place, cache):
+            raise OSError('down')
+        r = build.run(TODAY, self.dir, {'suwon': lambda: [ev('홀리스타')]}, detail=detail, gen=gen,
+                      poster_cache=self.cache, ggac_detail=fail, photo_lookup=down)
+        self.assertIn('place_photo', r['errors'])
+        e = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))['events'][0]
+        self.assertIsNone(e['place_photo'])
+
+    def test_ggac_detail_fills_time_price_age_program(self):
+        self.run_build({'ggac': lambda: [ev('춘향전', 'ggac', place='경기아트센터 소극장')]})
+        e = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))['events'][0]
+        self.assertEqual((e['time'], e['price'], e['age'], e['program']), ('19:30', '전석 10,000원', '전 연령 관람가', '약 100분 공연'))
+
+    def test_ggac_detail_failure_keeps_event(self):
+        def down(url):
+            raise OSError('down')
+        r = self.run_build({'ggac': lambda: [ev('춘향전', 'ggac', place='경기아트센터 소극장')]}, ggac_detail=down)
+        self.assertIn('ggac_detail', r['errors'])
+        e = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))['events'][0]
+        self.assertEqual((e['title'], e['price']), ('춘향전', None))
+
+    def test_suwon_detail_fills_time_price_program(self):
+        def d(seq):
+            return {'host': '수원특례시', 'body': '안내문 가수 공연', 'time': '13:00 ~ 17:00', 'price': '무료', 'program': '분장대회, 축하공연'}
+        build.run(TODAY, self.dir, {'suwon': lambda: [ev('홀리스타')]}, detail=d, gen=gen, poster_cache=self.cache,
+                  ggac_detail=fail)
+        e = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))['events'][0]
+        self.assertEqual((e['time'], e['price'], e['program']), ('13:00 ~ 17:00', '무료', '분장대회, 축하공연'))
 
     def test_all_sources_fail_keeps_old(self):
         (self.dir / 'events.json').write_text('X')

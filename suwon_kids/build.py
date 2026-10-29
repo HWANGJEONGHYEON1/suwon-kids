@@ -8,7 +8,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Callable
 
-from suwon_kids import ai, areas, dedupe, filters, render, summarize, week
+from suwon_kids import ai, areas, dedupe, filters, place_photo, render, summarize, week
 from suwon_kids.models import Event
 from suwon_kids.sources import anyang, ggcf, gunpo, gyeonggi, hwaseong, kopis, naver, starfield, suwon_portal, tourapi
 
@@ -68,7 +68,9 @@ def _write(path: Path, text: str):
 
 
 def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_detail, gen=ai.generate,
-        poster_cache: Path = ROOT / 'state/posters.json', now: datetime | None = None) -> dict:
+        poster_cache: Path = ROOT / 'state/posters.json', now: datetime | None = None,
+        ggac_detail=gyeonggi.fetch_ggac_detail, photo_lookup=None,
+        photo_cache: Path | None = None) -> dict:
     rng = week.this_week(today)
     counts, errors, found = {}, {}, []
     for name, fetch in sources.items():
@@ -84,6 +86,9 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
             try:
                 d = detail(ev.id.split(':', 1)[1])
                 ev.host, bodies[ev.id] = d['host'] or None, d['body']
+                ev.time = ev.time or d.get('time') or None
+                ev.price = ev.price or d.get('price') or None
+                ev.program = d.get('program') or None
             except Exception as e:
                 errors.setdefault('detail', f'{type(e).__name__}: {e}')
                 if filters.FESTIVAL.search(ev.title):
@@ -98,6 +103,13 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
     cache = json.loads(poster_cache.read_text(encoding='utf-8')) if poster_cache.exists() else {}
     long_events, events = [e for e in kept if week.is_long(e)], [e for e in kept if not week.is_long(e)]
     for ev in events:
+        if ev.source == 'ggac':  # 이번 주 행사만 상세를 읽는다 (요청 수 제한)
+            try:
+                d = ggac_detail(ev.url)
+                ev.time, ev.age, ev.price = ev.time or d['time'] or None, d['age'] or None, d['price'] or None
+                ev.program = d['program'] or None
+            except Exception as e:
+                errors.setdefault('ggac_detail', f'{type(e).__name__}: {e}')
         if ev.source == 'starfield' and ev.image:
             poster = summarize.read_poster(ev.image, cache, gen=gen)
             ev.summary = _poster_line(ev, poster) if poster else None
@@ -107,6 +119,16 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
             ev.summary = summarize.one_line(ev, bodies[ev.id], gen=gen)
     poster_cache.parent.mkdir(parents=True, exist_ok=True)
     _write(poster_cache, json.dumps(cache, ensure_ascii=False, indent=1))
+
+    photo_cache = photo_cache or ROOT / 'state/place_photos.json'
+    photos = json.loads(photo_cache.read_text(encoding='utf-8')) if photo_cache.exists() else {}
+    for ev in events:
+        try:
+            ev.place_photo = (photo_lookup or place_photo.lookup)(ev.place, photos)
+        except Exception as e:  # 사진만 빠진다
+            errors.setdefault('place_photo', f'{type(e).__name__}: {e}')
+    photo_cache.parent.mkdir(parents=True, exist_ok=True)
+    _write(photo_cache, json.dumps(photos, ensure_ascii=False, indent=1))
 
     now = now or datetime.now()
 
