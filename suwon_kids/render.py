@@ -160,6 +160,12 @@ def day_label(d: date, today: date) -> str:
     return f'{rel}<span class="d">{d.month}.{d.day}</span>'
 
 
+def _start_time(ev: Event) -> str:
+    """'토 11:00·14:00' → '11:00'. 출처마다 요일이 붙거나 안 붙어서 표시 문자열로는 정렬이 틀린다."""
+    m = re.search(r'(\d{1,2}):(\d{2})', ev.time or '')
+    return f'{int(m.group(1)):02d}:{m.group(2)}' if m else '99:99'
+
+
 def _area_rank(ev: Event) -> int:
     return ORDER.index(ev.area) if ev.area in ORDER else len(ORDER)
 
@@ -171,13 +177,13 @@ def _region_html(name: str, events: list[Event], long_events: list[Event], festi
     for e in events:  # 여러 날 행사는 이번 주 안의 첫날에만
         by_day.setdefault(max(e.start, today), []).append(e)
     for day in sorted(by_day):
-        group = sorted(by_day[day], key=lambda e: (e.time or '99', _area_rank(e), e.title))
+        group = sorted(by_day[day], key=lambda e: (_start_time(e), _area_rank(e), e.title))
         out.append(f'<h3 class="day">{day_label(day, today)}</h3>'
                    f'<div class="list">{"".join(_card(e, e.id in festivals, day, show_area) for e in group)}</div>')
     if not events:
         out.append('<p class="empty">이번 주 일정은 없어요.</p>')
     if long_events:
-        rows = ''.join(_card(e, e.id in festivals, today, show_area)
+        rows = ''.join(_card(e, e.id in festivals, None, show_area)  # 날짜 제목이 없으니 시작일까지 전체 기간
                        for e in sorted(long_events, key=lambda e: (_area_rank(e), e.title)))
         out.append(f'<details class="long"><summary>상시 전시·행사 {len(long_events)}곳</summary>'
                    f'<div class="list">{rows}</div></details>')
@@ -190,7 +196,7 @@ def page(events: list[Event], long_events: list[Event], updated: datetime, week:
          festivals: set[str] | None = None) -> str:
     festivals = festivals or set()
     week_line = f'<p class="week">{fmt_day(week[0])} ~ {fmt_day(week[1])}</p>' if week else ''
-    today = week[0] if week else min([e.start for e in events] or [updated.date()])
+    today = week[0] if week else updated.date()
     names = [r for r in REGIONS if any(region(e.area) == r for e in events + long_events)]
     sections = ''.join(_region_html(r, [e for e in events if region(e.area) == r],
                                     [e for e in long_events if region(e.area) == r], festivals, today) for r in names)

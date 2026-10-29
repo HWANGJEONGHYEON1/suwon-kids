@@ -93,6 +93,22 @@ class RenderTest(unittest.TestCase):
         self.assertIn('<span class="p">스타필드 수원</span>', out)
         self.assertIn('<span>11:00·14:00</span>', out)
 
+    def test_sorted_by_start_time(self):
+        a, b, c = ev('오후', '행궁동'), ev('오전', '행궁동'), ev('시간 모름', '행궁동')
+        a.time, b.time = '14:00', '토 9:30·15:00'
+        out = render.page([c, a, b], [], NOW, (date(2026, 10, 29), date(2026, 11, 1)))
+        self.assertLess(out.index('>오전<'), out.index('>오후<'))
+        self.assertLess(out.index('>오후<'), out.index('>시간 모름<'))
+
+    def test_long_rows_keep_start(self):
+        out = render.page([], [ev('특별전', '광교', date(2026, 10, 30), date(2026, 12, 31))], NOW, (date(2026, 10, 29), date(2026, 11, 1)))
+        self.assertIn('<span>10.30(금)~12.31(목)</span>', out)
+
+    def test_today_is_updated_without_week(self):
+        out = render.page([ev('공연', '행궁동')], [], NOW)  # 갱신 10/26, 행사 10/31
+        self.assertIn('토요일<span class="d">10.31</span>', out)
+        self.assertNotIn('오늘<span', out)
+
     def test_summary_in_details(self):
         out = render.page([ev('축제', '광교', summary='불꽃 공연')], [], NOW)
         self.assertIn('<div class="more"><p class="s">불꽃 공연</p>', out)
