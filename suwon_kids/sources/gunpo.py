@@ -16,6 +16,9 @@ POST = re.compile(r'href="\./(selectBbsNttView\.do\?[^"]*nttNo=(\d+)[^"]*)">\s*�
 FILE = re.compile(r'href="\./(downloadBbsFile\.do\?atchmnflNo=\d+)"[^>]*>.*?\.hwpx', re.S)
 DAY = re.compile(r'(\d{1,2})/(\d{1,2})')
 MAX_HWPX = 5_000_000
+# Gemini가 실패했을 때만 쓰는 거르기 규칙: 공무원·기관 내부 행사, 군포 밖 개최
+INTERNAL = re.compile(r'회의|보고회|교육|워크숍|훈련|위원회|간담회|강좌|설명회|협의|면담|기념식|발대식|공무원|보육인|시상식')
+OUTSIDE = re.compile(r'^(?:서울|인천|부산|대구|대전|광주|울산|세종|강원|충청|충북|충남|전라|전북|전남|경상|경북|경남|제주)')
 
 PROMPT = """군포시청 주간행사계획에서 아이와 가족이 직접 가서 즐길 수 있는 시민 대상 공개 행사만 고르세요.
 공무원 교육·워크숍·회의·보고회·훈련·위원회·간담회, 어른 대상 강좌·설명회, 특정 직군 행사(예: 보육인, 공무원), 군포 밖에서 열리는 행사는 뺍니다.
@@ -60,7 +63,11 @@ def pick(items: list[dict], gen=ai.generate) -> list[dict]:
     if not items:
         return []
     listing = '\n'.join(f"{n}. {it['title']} @ {it['place'] or '?'}" for n, it in enumerate(items))
-    m = re.search(r'\[[-\d,\s]*\]', gen(PROMPT.format(items=listing)))
+    try:
+        reply = gen(PROMPT.format(items=listing))
+    except ai.AIError:  # Gemini가 안 되면 군포 전체를 버리지 말고 낱말 규칙으로 거른다
+        return [it for it in items if not INTERNAL.search(it['title']) and not OUTSIDE.search(it['place'] or '')]
+    m = re.search(r'\[[-\d,\s]*\]', reply)
     nums = json.loads(m.group(0)) if m else []
     return [items[n] for n in sorted(set(nums)) if 0 <= n < len(items)]
 

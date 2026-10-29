@@ -142,6 +142,19 @@ class GunpoTest(unittest.TestCase):
         self.assertEqual([r['date'] for r in gunpo.rows(buf.getvalue(), date(2026, 12, 28))],
                          [date(2026, 12, 31), date(2027, 1, 1)])
 
+    def test_pick_falls_back_to_rules(self):
+        from suwon_kids import ai
+
+        def down(prompt):
+            raise ai.AIError('HTTP 429')
+        items = [{'title': '2026년 민원공무원 힐링교육(2차)', 'place': '강원도 홍천'},
+                 {'title': '2026년 한마음 치매극복 걷기행사', 'place': '당정근린공원'},
+                 {'title': '제9기 지역보건의료계획 수립단 회의', 'place': '중회의실'},
+                 {'title': '작은도서관 운영자 워크숍', 'place': '충북 청주시'},
+                 {'title': '2026년 반려동물 문화교실(오전)', 'place': '다목적운동장'}]
+        self.assertEqual([it['title'] for it in gunpo.pick(items, gen=down)],
+                         ['2026년 한마음 치매극복 걷기행사', '2026년 반려동물 문화교실(오전)'])
+
     def test_pick_ignores_bad_numbers(self):
         items = [{'title': 'a', 'place': None}, {'title': 'b', 'place': 'x'}]
         self.assertEqual(gunpo.pick(items, gen=lambda p: '[1, 7, -1, 1]'), [items[1]])
