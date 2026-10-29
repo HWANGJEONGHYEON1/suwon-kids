@@ -60,9 +60,42 @@ class RenderTest(unittest.TestCase):
         self.assertIn('<section class="region" id="dongtan">', out)
         self.assertIn('[hidden]{display:none!important}', out)  # section.region 의 display:flex 가 hidden 을 덮지 않게
 
-    def test_near_region_has_no_area_heading(self):
-        out = render.page([ev('클래식', '용인')], [], NOW)
-        self.assertNotIn('<h3>', out)
+    def test_near_region_has_no_area_prefix(self):
+        e = ev('클래식', '용인')
+        e.place = '포은아트홀'
+        out = render.page([e], [], NOW)
+        self.assertIn('<span class="p">포은아트홀</span>', out)
+        self.assertNotIn('용인 · 포은아트홀', out)
+
+    def test_suwon_rows_show_area(self):
+        e = ev('공연', '행궁동')
+        e.place = '화성행궁광장'
+        self.assertIn('<span class="p">행궁동 · 화성행궁광장</span>', render.page([e], [], NOW))
+
+    def test_grouped_by_day(self):
+        week = (date(2026, 10, 29), date(2026, 11, 1))
+        a = ev('오늘 시작', '행궁동', date(2026, 10, 20), date(2026, 11, 1))  # 이미 시작한 여러 날 행사는 오늘에
+        b = ev('토요일 공연', '행궁동', D, D)
+        b.time = '14:00'
+        c = ev('내일 공연', '행궁동', date(2026, 10, 30), date(2026, 10, 30))
+        out = render.page([b, a, c], [], NOW, week)
+        self.assertLess(out.index('오늘<span class="d">10.29</span>'), out.index('내일<span class="d">10.30</span>'))
+        self.assertLess(out.index('내일<span class="d">10.30</span>'), out.index('토요일<span class="d">10.31</span>'))
+        self.assertLess(out.index('>오늘 시작<'), out.index('>내일 공연<'))
+        self.assertIn('<span>~11.1(일)까지</span>', out)
+        self.assertIn('<span>14:00</span>', out)
+        self.assertEqual(out.count('>오늘 시작<'), 1)
+
+    def test_no_repeat_area_or_weekday(self):
+        e = ev('키즈프로그램', '스타필드 수원')
+        e.place, e.time = '스타필드 수원', '토 11:00·14:00'
+        out = render.page([e, ev('공연', '행궁동')], [], NOW, (date(2026, 10, 29), date(2026, 11, 1)))
+        self.assertIn('<span class="p">스타필드 수원</span>', out)
+        self.assertIn('<span>11:00·14:00</span>', out)
+
+    def test_summary_in_details(self):
+        out = render.page([ev('축제', '광교', summary='불꽃 공연')], [], NOW)
+        self.assertIn('<div class="more"><p class="s">불꽃 공연</p>', out)
 
     def test_card_details(self):
         e = ev('[경기도 공연장 상주단체 육성지원사업 UP STAGE : 경기] 콘서트 오페라', '용인')
