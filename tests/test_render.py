@@ -76,6 +76,21 @@ class RenderTest(unittest.TestCase):
         self.assertIn('https://map.naver.com/p/search/', out)
         self.assertIn('src="https://kopis.or.kr/p.png"', out)
 
+    def test_goatcounter_and_booking_click(self):
+        e = ev('매직쇼', '동탄')
+        e.booking = 'https://booking.naver.com/x'
+        out = render.page([e], [], NOW)
+        self.assertIn('data-goatcounter="https://suwon-kids.goatcounter.com/count"', out)
+        self.assertIn('data-goatcounter-click="booking" data-goatcounter-title="매직쇼">예매하기</a>', out)
+        self.assertNotIn('data-goatcounter-click', render.page([ev('공연', '행궁동')], [], NOW))
+
+    def test_goatcounter_off_when_empty(self):
+        old, render.GOATCOUNTER = render.GOATCOUNTER, ''
+        try:
+            self.assertNotIn('goatcounter', render.page([ev('공연', '행궁동')], [], NOW))
+        finally:
+            render.GOATCOUNTER = old
+
     def test_festival_badge(self):
         out = render.page([ev('가을 축제', '행궁동')], [], NOW, festivals={'suwon:가을 축제'})
         self.assertIn('<span class="b kind">축제</span>', out)

@@ -17,6 +17,7 @@ WEEKDAY = '월화수목금토일'
 PROGRAM = re.compile(r'^\[[^\]]{6,}\]\s*(?=\S{2})')  # 제목 앞 "[경기도 공연장 상주단체 육성지원사업 …]" 같은 사업명
 MAP = 'https://map.naver.com/p/search/'
 CITY_SOURCES = ('naver', 'anyang', 'hwaseong', 'gunpo')  # 주최 정보 없이 제목으로 축제를 가리는 근교 출처
+GOATCOUNTER = 'https://suwon-kids.goatcounter.com/count'  # 방문자 통계(쿠키 없음). 비우면 스크립트를 넣지 않는다
 
 # 레이아웃: 좁은 한 단, 위에 고정 지역 탭, 아래로 동네 소제목과 펼침 카드
 CSS = """
@@ -128,7 +129,8 @@ def _card(ev: Event, festival: bool = False) -> str:
     dl = ''.join(f'<dt>{k}</dt><dd>{v if k == "주소" else escape(v)}</dd>' for k, v in rows)
     img = f'<img src="{escape(ev.image)}" alt="" loading="lazy">' if ev.image and ev.source == 'kopis' else ''
     link = '기사 보기' if ev.source == 'naver' else '원문 보기'
-    acts = ((f'<a class="primary" href="{escape(ev.booking)}" target="_blank" rel="noopener">예매하기</a>' if ev.booking else '')
+    acts = ((f'<a class="primary" href="{escape(ev.booking)}" target="_blank" rel="noopener" data-goatcounter-click="booking" '
+             f'data-goatcounter-title="{escape(display_title(ev.title))}">예매하기</a>' if ev.booking else '')
             + f'<a href="{escape(ev.url)}" target="_blank" rel="noopener">{link}</a>')
     return f'<details class="card">{head}<div class="more"><div class="info"><dl>{dl}</dl>{img}</div><div class="acts">{acts}</div></div></details>'
 
@@ -165,6 +167,7 @@ def page(events: list[Event], long_events: list[Event], updated: datetime, week:
                       f'<span class="n">{sum(region(e.area) == r for e in events + long_events)}</span></a>' for r in names))
     nav = f'<nav class="tabs" aria-label="지역"><div class="wrap">{tabs}</div></nav>' if names else ''
     body = sections or '<p class="empty">이번 주 행사가 아직 없어요.</p>'
+    stats = f'<script data-goatcounter="{GOATCOUNTER}" async src="//gc.zgo.at/count.js"></script>' if GOATCOUNTER else ''
     return (f'<!doctype html><html lang="ko"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>{TITLE}</title>'
             f'<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
@@ -173,4 +176,4 @@ def page(events: list[Event], long_events: list[Event], updated: datetime, week:
             f'<header class="top"><div class="wrap"><h1>{TITLE}</h1>{week_line}</div></header>{nav}'
             f'<main class="wrap">{body}</main>'
             f'<footer class="wrap">마지막 갱신 {updated:%Y-%m-%d %H:%M} · 출처: {SOURCES}</footer>'
-            f'<script>{JS}</script></body></html>')
+            f'<script>{JS}</script>{stats}</body></html>')
