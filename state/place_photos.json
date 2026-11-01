@@ -79,5 +79,39 @@
  "문아트그라운드": null,
  "동탄여울공원": null,
  "롯데프리미엄아울렛 의왕점": null,
- "롯데프리미엄아울렛": null
+ "롯데프리미엄아울렛": null,
+ "수원선경산업관": null,
+ "수원컨벤션센터 1층": null,
+ "수원컨벤션센터": {
+  "url": "https://tong.visitkorea.or.kr/cms/resource/55/3584755_image2_1.jpg",
+  "credit": "한국관광공사 / 공공누리 제1유형",
+  "title": "수원컨벤션센터"
+ },
+ "AK플라자": null,
+ "수원청소년문화센터": null,
+ "KBS 수원아트홀": null,
+ "정조테마공연장": {
+  "url": "https://tong.visitkorea.or.kr/cms/resource/52/4039952_image2_1.jpg",
+  "credit": "한국관광공사 / 공공누리 제1유형",
+  "title": "정조테마공연장"
+ },
+ "용인어린이상상의숲": {
+  "url": "https://tong.visitkorea.or.kr/cms/resource/61/3566761_image2_1.jpg",
+  "credit": "한국관광공사 / 공공누리 제1유형",
+  "title": "용인어린이상상의숲"
+ },
+ "용인시문화예술회관": null,
+ "안양아트센터": {
+  "url": "https://tong.visitkorea.or.kr/cms/resource/52/3577752_image2_1.jpg",
+  "credit": "한국관광공사 / 공공누리 제1유형",
+  "title": "안양아트센터"
+ },
+ "롯데백화점 문화홀": null,
+ "롯데백화점 동탄": null,
+ "삼성화재 모빌리티뮤지엄 야외공원": null,
+ "삼성화재 모빌리티뮤지엄": {
+  "url": "https://tong.visitkorea.or.kr/cms/resource/67/4127067_image2_1.jpg",
+  "credit": "한국관광공사 / 공공누리 제1유형",
+  "title": "삼성화재 모빌리티뮤지엄"
+ }
 }
