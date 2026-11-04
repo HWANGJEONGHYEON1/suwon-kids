@@ -85,12 +85,21 @@ def mentions(text: str, d: date) -> bool:
                           rf'|(?<!\d){d.month}\s*[./]\s*{d.day}(?!\d)', text))
 
 
+def is_mall_event(place: str, title: str) -> bool:
+    """장소·제목이 백화점 7곳 중 하나를 가리키는가. mall_news가 naver를 가져오므로 여기서 늦게 가져온다."""
+    from suwon_kids.mall_info import MALLS
+    from suwon_kids.sources import mall_news
+    return any(mall_news.has_evidence(m, f'{place} {title}') for m in MALLS)
+
+
 def to_event(row: dict, art: dict) -> Event | None:
     start, end = _day(row.get('start')), _day(row.get('end') or row.get('start'))
     city, title, place = row.get('city'), (row.get('title') or '').strip(), (row.get('place') or '').strip()
     source_text = f"{art['title']} {art['text']}"
     if not (start and end and start <= end and city in PLACES and title and place and mentions(source_text, start)):
         return None
+    if is_mall_event(place, title):
+        return None  # 백화점 7곳 행사는 백화점 탭에 있다
     summary = row.get('summary')
     return Event(
         id=f"naver:{city}:{start}:{re.sub(r'\W', '', title)}",
@@ -142,7 +151,25 @@ def fetch(today: date | None = None, search=_search, gen=ai.generate) -> list[Ev
     return out
 
 
+# 제목에 흔해서 같은 행사의 증거가 못 되는 낱말 (도시 이름은 따로 뺀다)
+COMMON = re.compile(r'축제|행사|팝업|팝업스토어|스토어|오픈|이벤트|체험|가족|걷기대회|페스타|페스티벌|마켓|장터|공연|전시|프로그램'
+                    r'|겨울|가을|여름|봄|함께하는|특별|\d{4}')
+
+
+def _tokens(title: str) -> set[str]:
+    cities = {c for p in PLACES for c in (p, p + '시')}
+    return {t for t in re.split(r'\W+', title.lower()) if len(t) >= 2 and t not in cities and not COMMON.fullmatch(t)}
+
+
+def _share(a: set[str], b: set[str]) -> bool:
+    """같은 낱말, 또는 짧은 쪽(3자 이상)이 긴 쪽의 앞부분 ('텔레토비' / '텔레토비와')."""
+    return any(x == y or (min(len(x), len(y)) >= 3 and (x.startswith(y) or y.startswith(x))) for x in a for y in b)
+
+
 def same(a: Event, b: Event) -> bool:
-    """기사마다 행사 이름을 다르게 쓴다: '행복 걷기대회'와 '안양시민과 함께하는 행복걷기대회'는 같은 행사."""
+    """기사마다 행사 이름을 다르게 쓴다: '행복 걷기대회'와 '안양시민과 함께하는 행복걷기대회'는 같은 행사.
+    같은 시에서 기간이 겹치고, 한쪽 제목이 다른 쪽에 들어 있거나 핵심 낱말을 나누면 같은 행사로 본다."""
+    if a.address.split()[1] != b.address.split()[1] or not (a.start <= b.end and b.start <= a.end):
+        return False
     ka, kb = (re.sub(r'\W', '', e.title) for e in (a, b))
-    return a.address.split()[1] == b.address.split()[1] and a.start == b.start and (ka in kb or kb in ka)
+    return ka in kb or kb in ka or _share(_tokens(a.title), _tokens(b.title))

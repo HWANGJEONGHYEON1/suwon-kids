@@ -28,6 +28,8 @@ def fake_gen(rows):
 ROW = {'n': 0, 'title': '시민과 함께하는 행복 걷기대회', 'start': '2026-10-31', 'end': '2026-10-31', 'time': '08:30',
        'place': '학운공원 운동장', 'city': '안양', 'summary': '학운공원 출발 걷기대회'}
 
+ART = {'title': '의왕 팝업', 'text': '31일 텔레토비 팝업이 열린다.', 'link': 'https://news.example/tt', 'pub': TODAY}
+
 
 class NaverTest(unittest.TestCase):
     def test_articles_dedupe_and_recent(self):
@@ -108,6 +110,38 @@ class NaverTest(unittest.TestCase):
             raise TimeoutError
         with self.assertRaises(TimeoutError):
             naver.fetch(TODAY, search=fake_search, gen=gen)
+
+    def test_mall_event_dropped_from_city_tab(self):  # 백화점 7곳 행사는 백화점 탭에 있다
+        art = ART
+        title = '텔레토비 팝업스토어'
+        for place in ('롯데프리미엄아울렛 의왕점', '롯데아울렛 의왕점', '스타필드 수원'):
+            row = {**ROW, 'title': title, 'place': place, 'city': '의왕'}
+            self.assertIsNone(naver.to_event(row, art), place)
+        kept = naver.to_event({**ROW, 'title': title, 'place': '롯데백화점 동탄', 'city': '동탄'}, art)
+        self.assertEqual(kept.place, '롯데백화점 동탄')
+
+    def test_mall_in_title_dropped(self):
+        art = ART
+        row = {**ROW, 'title': '롯데아울렛 의왕점 가을 팝업', 'place': '1층 광장', 'city': '의왕'}
+        self.assertIsNone(naver.to_event(row, art))
+
+    def _e(self, title, start=date(2026, 10, 31), end=None, city='동탄'):
+        return naver.Event(f'naver:{title}', 'naver', title, start, end or start, None, '장소', f'{naver.PLACES[city]} 장소',
+                           'https://x', '누구나')
+
+    def test_same_shared_key_token(self):
+        self.assertTrue(naver.same(self._e('MLB키즈 겨울 팝업'), self._e('MLB키즈 팝업스토어')))
+        self.assertTrue(naver.same(self._e('텔레토비 팝업스토어'), self._e('텔레토비와 함께하는 가을 피크닉')))
+
+    def test_same_needs_overlap_and_city(self):
+        a = self._e('MLB키즈 겨울 팝업', date(2026, 10, 26), date(2026, 10, 28))
+        self.assertFalse(naver.same(a, self._e('MLB키즈 팝업스토어', date(2026, 10, 30))))
+        self.assertTrue(naver.same(a, self._e('MLB키즈 팝업스토어', date(2026, 10, 28), date(2026, 10, 30))))
+        self.assertFalse(naver.same(self._e('MLB키즈 팝업'), self._e('MLB키즈 팝업', city='용인')))
+
+    def test_generic_word_only_not_same(self):
+        self.assertFalse(naver.same(self._e('동탄 가을 축제'), self._e('호수공원 사랑 축제')))
+        self.assertFalse(naver.same(self._e('가을 걷기대회'), self._e('단풍 걷기대회 행사')))
 
 
 if __name__ == '__main__':
