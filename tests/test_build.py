@@ -68,13 +68,32 @@ class BuildTest(unittest.TestCase):
         e = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))['events'][0]
         self.assertEqual((e['time'], e['price'], e['age'], e['program']), ('19:30', '전석 10,000원', '전 연령 관람가', '약 100분 공연'))
 
-    def test_ggac_detail_failure_keeps_event(self):
+    def test_ggac_detail_failure_records_error_and_drops(self):  # 연령을 모르는 경기아트센터 행사는 뺀다
         def down(url):
             raise OSError('down')
-        r = self.run_build({'ggac': lambda: [ev('춘향전', 'ggac', place='경기아트센터 소극장')]}, ggac_detail=down)
+        r = self.run_build({'ggac': lambda: [ev('춘향전', 'ggac', place='경기아트센터 소극장')], 'suwon': lambda: [ev('홀리스타')]},
+                           ggac_detail=down)
         self.assertIn('ggac_detail', r['errors'])
-        e = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))['events'][0]
-        self.assertEqual((e['title'], e['price']), ('춘향전', None))
+        data = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))
+        self.assertEqual([x['title'] for x in data['events']], ['홀리스타'])
+
+    def ggac_titles(self, title, age):
+        d = {'time': '19:30', 'age': age, 'price': '', 'program': ''}
+        self.run_build({'ggac': lambda: [ev(title, 'ggac', place='경기아트센터 소극장')], 'suwon': lambda: [ev('홀리스타')]},
+                       ggac_detail=lambda url: d)
+        data = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))
+        return [x['title'] for x in data['events'] if x['source'] == 'ggac']
+
+    def test_ggac_adult_concert_dropped(self):
+        self.assertEqual(self.ggac_titles('베토벤 피아노 트리오', '7세 이상'), [])
+
+    def test_ggac_kid_ages_kept(self):
+        self.assertEqual(self.ggac_titles('피아노 트리오', '전체관람가'), ['피아노 트리오'])
+        self.assertEqual(self.ggac_titles('피아노 트리오', '36개월 이상'), ['피아노 트리오'])
+        self.assertEqual(self.ggac_titles('피아노 트리오', '5세 이상'), ['피아노 트리오'])
+
+    def test_ggac_kid_word_in_title_kept(self):
+        self.assertEqual(self.ggac_titles('가족 음악회', '7세 이상'), ['가족 음악회'])
 
     def test_suwon_detail_fills_time_price_program(self):
         def d(seq):

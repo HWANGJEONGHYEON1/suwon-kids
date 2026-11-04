@@ -136,6 +136,7 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
                 _poster_extra(ev, poster)
         elif ev.id in bodies:
             ev.summary = summarize.one_line(ev, bodies[ev.id], gen=gen)
+    events = [e for e in events if e.source != 'ggac' or gyeonggi.for_kids(e)]  # 어른 공연은 뺀다 (상세를 읽은 뒤에야 연령을 안다)
     poster_cache.parent.mkdir(parents=True, exist_ok=True)
     _write(poster_cache, json.dumps(cache, ensure_ascii=False, indent=1))
 

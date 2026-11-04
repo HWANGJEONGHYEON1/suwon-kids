@@ -61,6 +61,22 @@ def fetch_ggac_detail(url: str) -> dict:
     return parse_ggac_detail(http.get(url).decode('utf-8', 'replace'))
 
 
+KID_WORDS = re.compile(r'어린이|가족|키즈|아이|유아|동화|인형극|그림책|패밀리')
+KID_AGE = re.compile(r'전체|전\s*연령|개월')
+
+
+def for_kids(ev: Event) -> bool:
+    """경기아트센터 행사 중 어린이·가족 대상만: 전체관람가·개월 수·5세 이하, 또는 제목·소개에 어린이 낱말.
+    상세(ev.age, ev.program)를 읽은 뒤에 부른다. 연령도 낱말도 없으면 뺀다."""
+    age = ev.age or ''
+    if KID_AGE.search(age):
+        return True
+    ages = [int(n) for n in re.findall(r'(\d+)\s*세', age)]
+    if ages and min(ages) <= 5:
+        return True
+    return bool(KID_WORDS.search(' '.join(x for x in (ev.title, ev.summary, ev.program) if x)))
+
+
 def fetch_ggac(today: date | None = None) -> list[Event]:
     rng = week.this_week(today or date.today())
     first = _page(rng, 1)
