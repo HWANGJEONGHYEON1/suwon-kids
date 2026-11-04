@@ -1,0 +1,994 @@
+{
+ "lotte:0406:SNM00000000000569541": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000571114": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000567843": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000571115": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "lotte:0406:SNM00000000000570931": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000571096": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000570908": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000570824": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000560931": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569898": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000568552": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569765": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569760": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569353": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569653": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569662": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569592": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569393": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569094": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569486": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569530": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000568577": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569546": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569571": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569550": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569235": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569259": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000568980": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000568816": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000568813": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000568810": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000568609": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000567913": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000567886": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000567845": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000565383": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000567622": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000565601": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000539384": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000562570": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000546677": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "lotte:0349:SNM00000000000571181": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569246": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569595": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569104": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570317": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000567184": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570789": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000566831": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000563652": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568459": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569212": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569385": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568722": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569731": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569773": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569908": {
+  "kid": true,
+  "kind": "play"
+ },
+ "lotte:0349:SNM00000000000567647": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569900": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570078": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570164": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570442": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570444": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570447": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570136": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570196": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570187": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569924": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000569607": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568457": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000567284": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568824": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568769": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568782": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568765": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568993": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000567980": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000566883": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000567541": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000568065": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000565943": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000523113": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000567522": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000565683": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000564506": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000564156": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000560993": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000556713": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571294": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570842": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570713": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570615": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570799": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570558": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571104": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567408": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570938": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569675": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567921": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567219": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000568888": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000568200": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000568622": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569163": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569298": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569719": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569707": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569848": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569460": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570137": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569722": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570300": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570277": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570366": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570329": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569910": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569126": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569452": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000568554": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569590": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569084": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569006": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567437": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567480": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000566755": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000568094": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000566707": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567600": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000568315": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000568219": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000566727": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000566961": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567116": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567497": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567792": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567813": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567773": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000565726": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000567101": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000564799": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000562120": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000528427": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:ENT00000000000008505": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000571287": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000571142": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000570990": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "lotte:0355:SNM00000000000569076": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "lotte:0355:SNM00000000000569891": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000568417": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000569365": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000568290": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000569658": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000569850": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000569011": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000570214": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000569879": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000569311": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000569805": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000569829": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000561479": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000567350": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:ENT00000000000009149": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:ENT00000000000011135": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513472": {
+  "kid": true,
+  "kind": "play"
+ },
+ "hyundai:E4802611513898": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513945": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610512306": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610513239": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610513242": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513735": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610512100": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513387": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513716": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610512665": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802610512681": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802610512397": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802610512336": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802611513820": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802611513922": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802611513774": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513771": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610512259": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610511999": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610511996": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610511446": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610513139": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610513140": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611514182": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610512742": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802607494440": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802610509966": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30898": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30854": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30850": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30849": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30820": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30815": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30794": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30789": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30788": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30787": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30786": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30785": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30784": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30783": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30780": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30763": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30760": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30741": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30740": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30739": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30738": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30737": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30736": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30734": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30733": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30732": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30731": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30730": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30728": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30726": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30725": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30723": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30722": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "ak:30721": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30715": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30714": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30713": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30712": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30711": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30661": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30660": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30639": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:30637": {
+  "kid": false,
+  "kind": null
+ },
+ "starfield-brand:EV202611021022163172": {
+  "kid": false,
+  "kind": null
+ },
+ "starfield-brand:EV202611021020243171": {
+  "kid": false,
+  "kind": null
+ },
+ "starfield-brand:EV202610301502323140": {
+  "kid": false,
+  "kind": null
+ },
+ "starfield-brand:EV202610291524093121": {
+  "kid": false,
+  "kind": null
+ },
+ "starfield-brand:EV202610291402173115": {
+  "kid": false,
+  "kind": null
+ },
+ "starfield-brand:EV202610281449373095": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬고와일드에리어글로벌현장이벤트": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:PokémonGO와일드에리어글로벌기념현장이벤트": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:PokémonGO와일드에리어현장행사": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:스타필드 수원:2026-11-05:MSI노트북팝업스토어": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:스타필드 수원:2026-11-07:레드불윙스컵축구게임결승전": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:스타필드 수원:2026-11-07:레드불윙스컵축구게임": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:스타필드 수원:2026-11-07:레드불윙스컵결승전": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO와일드에리어글로벌기념현장이벤트": {
+  "kid": true,
+  "kind": "play"
+ }
+}
