@@ -127,7 +127,7 @@ class NaverTest(unittest.TestCase):
     def test_mall_place_names(self):
         for place in ('타임빌라스 수원', '롯데몰 광교', '스타필드수원', '롯데백화점 평촌점', '현대백화점 판교점', 'AK플라자 수원'):
             self.assertTrue(naver.is_mall_event(place), place)
-        for place in ('왕송호수공원', '롯데백화점 동탄', '수원 화성행궁'):
+        for place in ('왕송호수공원', '롯데백화점 동탄', '수원 화성행궁', 'BAKERY 수원', 'LAKE PARK 수원'):
             self.assertFalse(naver.is_mall_event(place), place)
 
     def _e(self, title, start=date(2026, 10, 31), end=None, city='동탄', place='장소'):
