@@ -28,3 +28,25 @@ class Event:
         d = asdict(self)
         d['start'], d['end'] = self.start.isoformat(), self.end.isoformat()
         return d
+
+
+@dataclass
+class MallItem:
+    """백화점·쇼핑몰 행사 한 건 (malls.json용. events.json에는 넣지 않는다)."""
+    id: str
+    source: str
+    mall: str
+    title: str
+    brand: str | None
+    start: date
+    end: date
+    place: str
+    url: str
+    kind: str | None = None  # 'play' 보고 노는 것 / 'shop' 옷·용품 할인
+
+    def to_json(self) -> dict:
+        from suwon_kids.mall_info import MALLS
+        d = asdict(self)
+        d['start'], d['end'] = self.start.isoformat(), self.end.isoformat()
+        d['address'] = MALLS[self.mall]
+        return d
