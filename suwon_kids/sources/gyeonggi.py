@@ -61,8 +61,9 @@ def fetch_ggac_detail(url: str) -> dict:
     return parse_ggac_detail(http.get(url).decode('utf-8', 'replace'))
 
 
-KID_WORDS = re.compile(r'어린이|가족|키즈|아이|유아|동화|인형극|그림책|패밀리')
-KID_AGE = re.compile(r'전체|전\s*연령|개월')
+# '아이'는 낱말이거나 조사가 붙을 때만 ('아이유'는 사람 이름)
+KID_WORDS = re.compile(r'어린이|가족|키즈|아이(?![가-힣])|아이(?:와|랑|들|도|가|를|의)|유아|동화|인형극|그림책|패밀리')
+KID_AGE = re.compile(r'전체|전\s*연령|\d+\s*개월(?!\s*미만)')
 
 
 def for_kids(ev: Event) -> bool:

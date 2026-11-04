@@ -85,11 +85,15 @@ def mentions(text: str, d: date) -> bool:
                           rf'|(?<!\d){d.month}\s*[./]\s*{d.day}(?!\d)', text))
 
 
-def is_mall_event(place: str, title: str) -> bool:
-    """장소·제목이 백화점 7곳 중 하나를 가리키는가. mall_news가 naver를 가져오므로 여기서 늦게 가져온다."""
-    from suwon_kids.mall_info import MALLS
-    from suwon_kids.sources import mall_news
-    return any(mall_news.has_evidence(m, f'{place} {title}') for m in MALLS)
+# 백화점 7곳의 장소 이름: 칸마다 하나 이상 들어 있어야 한다 (제목의 '롯데 후원' 같은 말에는 속지 않게 장소만 본다)
+MALL_PLACES = ((('타임빌라스',),), (('아울렛',), ('의왕',)), (('스타필드 수원', '스타필드수원'),), (('롯데백화점',), ('평촌',)),
+               (('롯데몰',), ('광교',)), (('현대백화점',), ('판교',)), (('AK',), ('수원',)))
+
+
+def is_mall_event(place: str) -> bool:
+    """장소가 백화점 7곳 중 하나인가."""
+    text = place.upper()
+    return any(all(any(w.upper() in text for w in group) for group in groups) for groups in MALL_PLACES)
 
 
 def to_event(row: dict, art: dict) -> Event | None:
@@ -98,7 +102,7 @@ def to_event(row: dict, art: dict) -> Event | None:
     source_text = f"{art['title']} {art['text']}"
     if not (start and end and start <= end and city in PLACES and title and place and mentions(source_text, start)):
         return None
-    if is_mall_event(place, title):
+    if is_mall_event(place):
         return None  # 백화점 7곳 행사는 백화점 탭에 있다
     summary = row.get('summary')
     return Event(
@@ -156,9 +160,16 @@ COMMON = re.compile(r'축제|행사|팝업|팝업스토어|스토어|오픈|이�
                     r'|겨울|가을|여름|봄|함께하는|특별|\d{4}')
 
 
-def _tokens(title: str) -> set[str]:
+VENUE = re.compile(r'(공원|광장|호수|센터|시청|극장|아트홀|박물관|도서관|운동장|체육관)$')
+
+
+def _tokens(title: str, places: list[str]) -> set[str]:
+    """제목의 핵심 낱말. 도시·흔한 말·장소 이름(두 행사 중 하나의 장소에 들어 있거나 …공원 같은 꼴)은 같은 행사의 증거가 못 된다."""
     cities = {c for p in PLACES for c in (p, p + '시')}
-    return {t for t in re.split(r'\W+', title.lower()) if len(t) >= 2 and t not in cities and not COMMON.fullmatch(t)}
+    places = [p.lower() for p in places if len(p) >= 2]
+    return {t for t in re.split(r'\W+', title.lower())
+            if len(t) >= 2 and t not in cities and not COMMON.fullmatch(t) and not VENUE.search(t)
+            and not any(t in p or p in t for p in places)}
 
 
 def _share(a: set[str], b: set[str]) -> bool:
@@ -172,4 +183,5 @@ def same(a: Event, b: Event) -> bool:
     if a.address.split()[1] != b.address.split()[1] or not (a.start <= b.end and b.start <= a.end):
         return False
     ka, kb = (re.sub(r'\W', '', e.title) for e in (a, b))
-    return ka in kb or kb in ka or _share(_tokens(a.title), _tokens(b.title))
+    places = [a.place, b.place]
+    return ka in kb or kb in ka or _share(_tokens(a.title, places), _tokens(b.title, places))

@@ -92,6 +92,19 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(self.ggac_titles('피아노 트리오', '36개월 이상'), ['피아노 트리오'])
         self.assertEqual(self.ggac_titles('피아노 트리오', '5세 이상'), ['피아노 트리오'])
 
+    def test_ggac_age_edge_cases(self):
+        self.assertEqual(self.ggac_titles('아이유 콘서트', '8세 이상'), [])
+        self.assertEqual(self.ggac_titles('음악회', '8세 이상'), [])
+        self.assertEqual(self.ggac_titles('음악회', '8세 이상 (36개월 미만 입장불가)'), [])
+        self.assertEqual(self.ggac_titles('아이와 함께하는 음악회', '8세 이상'), ['아이와 함께하는 음악회'])
+
+    def test_ggac_long_events_need_kid_word(self):  # 상세를 읽지 않는 상시 행사도 같은 낱말 규칙
+        long_ = dict(start=date(2026, 7, 1), end=date(2026, 12, 31))
+        self.run_build({'ggac': lambda: [ev('경기필하모닉 2026 하반기', 'ggac', **long_), ev('가족 뮤지컬 상설', 'ggac', **long_)],
+                        'suwon': lambda: [ev('홀리스타')]})
+        data = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))
+        self.assertEqual([x['title'] for x in data['long']], ['가족 뮤지컬 상설'])
+
     def test_ggac_kid_word_in_title_kept(self):
         self.assertEqual(self.ggac_titles('가족 음악회', '7세 이상'), ['가족 음악회'])
 

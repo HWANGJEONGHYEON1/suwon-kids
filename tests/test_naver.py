@@ -120,13 +120,18 @@ class NaverTest(unittest.TestCase):
         kept = naver.to_event({**ROW, 'title': title, 'place': '롯데백화점 동탄', 'city': '동탄'}, art)
         self.assertEqual(kept.place, '롯데백화점 동탄')
 
-    def test_mall_in_title_dropped(self):
-        art = ART
-        row = {**ROW, 'title': '롯데아울렛 의왕점 가을 팝업', 'place': '1층 광장', 'city': '의왕'}
-        self.assertIsNone(naver.to_event(row, art))
+    def test_sponsor_name_in_title_not_mall(self):  # 제목의 '롯데 후원'만으로 백화점 행사로 보지 않는다
+        row = {**ROW, 'title': '롯데 후원 의왕 가족축제', 'place': '의왕 왕송호수공원', 'city': '의왕'}
+        self.assertEqual(naver.to_event(row, ART).place, '의왕 왕송호수공원')
 
-    def _e(self, title, start=date(2026, 10, 31), end=None, city='동탄'):
-        return naver.Event(f'naver:{title}', 'naver', title, start, end or start, None, '장소', f'{naver.PLACES[city]} 장소',
+    def test_mall_place_names(self):
+        for place in ('타임빌라스 수원', '롯데몰 광교', '스타필드수원', '롯데백화점 평촌점', '현대백화점 판교점', 'AK플라자 수원'):
+            self.assertTrue(naver.is_mall_event(place), place)
+        for place in ('왕송호수공원', '롯데백화점 동탄', '수원 화성행궁'):
+            self.assertFalse(naver.is_mall_event(place), place)
+
+    def _e(self, title, start=date(2026, 10, 31), end=None, city='동탄', place='장소'):
+        return naver.Event(f'naver:{title}', 'naver', title, start, end or start, None, place, f'{naver.PLACES[city]} {place}',
                            'https://x', '누구나')
 
     def test_same_shared_key_token(self):
@@ -142,6 +147,16 @@ class NaverTest(unittest.TestCase):
     def test_generic_word_only_not_same(self):
         self.assertFalse(naver.same(self._e('동탄 가을 축제'), self._e('호수공원 사랑 축제')))
         self.assertFalse(naver.same(self._e('가을 걷기대회'), self._e('단풍 걷기대회 행사')))
+
+
+    def test_same_place_token_not_key(self):  # 같은 공원에서 열리는 다른 행사
+        self.assertFalse(naver.same(self._e('동탄호수공원 국화 축제', place='동탄호수공원'),
+                                    self._e('동탄호수공원 재즈 축제', place='동탄호수공원')))
+        self.assertFalse(naver.same(self._e('왕송호수 국화 축제', place='왕송호수공원'), self._e('왕송호수 재즈 축제', place='왕송호수공원')))
+
+    def test_venue_suffix_token_not_key(self):
+        self.assertFalse(naver.same(self._e('시민광장 국화 축제', place='A'), self._e('시민광장 재즈 축제', place='B')))
+        self.assertTrue(naver.same(self._e('MLB키즈 겨울 팝업', place='롯데백화점 동탄'), self._e('MLB키즈 팝업스토어', place='롯데백화점 동탄')))
 
 
 if __name__ == '__main__':
