@@ -37,6 +37,13 @@ class MallsTest(unittest.TestCase):
         self.assertFalse(malls.rule(item('K2그룹전 [아이더] 슈퍼위크')))
         self.assertIsNone(malls.rule(item('[POP-UP STORE] 리틀티니', place='5층 캐리마켓 옆')))
 
+    def test_rule_adult_words_do_not_drop_kids(self):
+        for title in ('베이비푸드 팝업', '과일 따기 체험', '키즈 골프 클래스', '뷰티풀 키즈', '어린이 시네마 상영',
+                      '뽀로로 반지 만들기 체험', '키즈 주얼리 팝업', '키즈 가구 세일', '키즈 화장품 팝업'):
+            self.assertIsNot(malls.rule(item(title)), False, title)
+        self.assertIsNot(malls.rule(item('팝업', '텔레토비', '푸드코트 앞')), False)
+        self.assertIsNot(malls.rule(item('[POP-UP STORE] 리틀티니', place='5층 가구 매장 옆')), False)
+
     def test_kind(self):
         self.assertEqual(malls.kind_of(item('가을 피크닉 Pop-Up', '텔레토비')), 'play')
         self.assertEqual(malls.kind_of(item('Winter Early Bird', '나이키키즈')), 'shop')

@@ -14,7 +14,9 @@ from suwon_kids.sources import ak, hyundai, lotte, mall_news, naver, starfield
 ROOT = Path(__file__).resolve().parents[1]
 LEAD_DAYS = 14  # 오늘부터 이만큼 뒤까지 시작하는 행사만
 BATCH = 20
-DROP = re.compile('카드|무이자|할부|사은|캐시백|멤버십|멤버스|마일리지|주차|세차|약국|입점|키오스크|상품권|웨딩|혼수|시네마|골프|화장품|뷰티|생활가전|가전제품|가구|푸드|떡집|청과|과일|핫도그|타코야끼|유정란|반지|주얼리|아이더|K2그룹')
+DROP = re.compile('카드|무이자|할부|사은|캐시백|멤버십|멤버스|마일리지|주차|세차|약국|입점|키오스크|상품권|웨딩|혼수')
+# 어른·식품 분야 낱말. 아이 낱말(KEEP)이 없을 때만, 브랜드·제목에서만 본다 (베이비푸드 팝업, 푸드코트 앞 같은 것을 살리려고)
+ADULT = re.compile('시네마|골프|화장품|뷰티|생활가전|가전제품|가구|푸드|떡집|청과|과일|핫도그|타코야끼|유정란|반지|주얼리|아이더|K2그룹')
 KEEP = re.compile('키즈|아동|유아|베이비|주니어|어린이|캐릭터|토이|장난감|레고|체험|곤충|파충류|공룡|텔레토비|뽀로로|티니핑|산리오|디즈니')
 SHOP = re.compile('할인|%|프로모션|promotion|신상품|균일가|아우터|early bird|brand week|시즌오프')
 PLAY = re.compile('팝업|pop-up|체험|공연|전시|캐릭터|곤충|파충류')
@@ -39,7 +41,9 @@ def rule(it: MallItem) -> bool | None:
     text = _text(it)
     if DROP.search(text):
         return False
-    return True if KEEP.search(text) else None
+    if KEEP.search(text):
+        return True
+    return False if ADULT.search(f'{it.brand or ""} {it.title}') else None
 
 
 def kind_of(it: MallItem) -> str | None:
