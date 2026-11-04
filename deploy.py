@@ -6,6 +6,7 @@ import subprocess
 import sys
 from datetime import date, datetime
 from pathlib import Path
+from typing import Callable
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
@@ -23,12 +24,24 @@ def _log(root: Path, today: date, text: str):
         f.write(f'{datetime.now():%H:%M:%S} {text}\n')
 
 
-def main(today: date, root: Path = ROOT, build=None, git=_git) -> int:
+def main(today: date, root: Path = ROOT, build=None, git=_git,
+         extras: dict[str, Callable[[date], object]] | None = None) -> int:
     if build is None:
         from suwon_kids.build import run, default_sources
         build = lambda t, out: run(t, out, default_sources())  # noqa: E731
     r = build(today, root / 'site')
     _log(root, today, json.dumps(r, ensure_ascii=False))
+    if extras is None:
+        from suwon_kids import festivals
+        extras = {'festivals': lambda t: festivals.write(t, root / 'festivals.json')}
+    out = {}
+    for name, fn in extras.items():  # 부가 작업: 실패해도 빌드·배포는 그대로
+        try:
+            out[name] = fn(today)
+        except Exception as e:
+            out[name + '_error'] = f'{type(e).__name__}: {e}'
+    if out:
+        _log(root, today, json.dumps(out, ensure_ascii=False))
     if not r['ok']:
         return 1
     for name in PUBLISHED:

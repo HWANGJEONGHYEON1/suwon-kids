@@ -8,7 +8,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Callable
 
-from suwon_kids import ai, areas, dedupe, filters, place_photo, render, summarize, week
+from suwon_kids import ai, areas, dedupe, festivals, filters, place_photo, render, summarize, week
 from suwon_kids.models import Event
 from suwon_kids.sources import anyang, ggcf, gunpo, gyeonggi, hwaseong, kopis, naver, starfield, suwon_portal, tourapi
 
@@ -147,5 +147,9 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
 
 if __name__ == '__main__':
     r = run(date.today(), ROOT / 'site', default_sources())
+    try:
+        r['festivals'] = festivals.write(date.today())
+    except Exception as e:  # 축제 목록이 실패해도 앱 빌드는 그대로, 인스타는 지난 파일을 읽는다
+        r['festivals_error'] = f'{type(e).__name__}: {e}'
     print(json.dumps(r, ensure_ascii=False))
     sys.exit(0 if r['ok'] else 1)
