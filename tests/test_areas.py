@@ -70,6 +70,11 @@ class DedupeTest(unittest.TestCase):
         a.area, b.area = '팔달구', '용인'
         self.assertEqual(len(dedupe.merge([a, b])), 2)
 
+    def test_mall_region(self):
+        self.assertEqual(areas.region('백화점'), '백화점')
+        self.assertEqual(list(areas.REGIONS)[:2], ['수원', '백화점'])
+        self.assertEqual(areas.REGIONS['백화점'], 'malls')
+
 
 if __name__ == '__main__':
     unittest.main()

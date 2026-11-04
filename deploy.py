@@ -28,7 +28,9 @@ def main(today: date, root: Path = ROOT, build=None, git=_git,
          extras: dict[str, Callable[[date], object]] | None = None) -> int:
     if build is None:
         from suwon_kids.build import run, default_sources
-        build = lambda t, out: run(t, out, default_sources())  # noqa: E731
+        from suwon_kids import malls
+        build = lambda t, out: run(t, out, default_sources(), malls_collect=malls.collect,  # noqa: E731
+                                   malls_path=root / 'malls.json')
     r = build(today, root / 'site')
     _log(root, today, json.dumps(r, ensure_ascii=False))
     if extras is None:

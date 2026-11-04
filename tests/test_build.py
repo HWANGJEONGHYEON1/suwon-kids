@@ -6,7 +6,7 @@ from unittest import mock
 from pathlib import Path
 
 from suwon_kids import build, place_photo
-from suwon_kids.models import Event
+from suwon_kids.models import Event, MallItem
 
 TODAY = date(2026, 10, 26)
 
@@ -38,8 +38,8 @@ class BuildTest(unittest.TestCase):
         self.addCleanup(mock.patch.stopall)
 
     def run_build(self, sources, ggac_detail=lambda url: {'time': '19:30', 'age': '전 연령 관람가', 'price': '전석 10,000원',
-                                                            'program': '약 100분 공연'}):
-        return build.run(TODAY, self.dir, sources, detail=detail, gen=gen, poster_cache=self.cache, ggac_detail=ggac_detail)
+                                                            'program': '약 100분 공연'}, **kw):
+        return build.run(TODAY, self.dir, sources, detail=detail, gen=gen, poster_cache=self.cache, ggac_detail=ggac_detail, **kw)
 
     def test_place_photo_added_and_cached(self):
         calls = []
@@ -129,6 +129,40 @@ class BuildTest(unittest.TestCase):
         self.run_build({'starfield': lambda: [ev('키즈프로그램', 'starfield', place='스타필드 수원', image='https://img/1.jpg')]})
         data = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))
         self.assertEqual(data['events'][0]['summary'], '쿠키 만들기 14:00 (5~7세)')
+
+
+    def test_build_mall_tab_not_in_events_json(self):
+        it = MallItem('lotte:0406:1', 'lotte', '타임빌라스 의왕', '가을 피크닉 Pop-Up', '텔레토비',
+                      TODAY, TODAY, '잔디광장', 'https://l', 'play')
+        mp = self.dir / 'malls.json'
+        r = self.run_build({'suwon': lambda: [ev('홀리스타')]},
+                           malls_collect=lambda t: ([it], {'lotte': 5}, {}), malls_path=mp)
+        self.assertIn('텔레토비', (self.dir / 'index.html').read_text(encoding='utf-8'))
+        self.assertNotIn('텔레토비', (self.dir / 'events.json').read_text(encoding='utf-8'))
+        self.assertEqual(json.loads(mp.read_text(encoding='utf-8'))['malls'][0]['brand'], '텔레토비')
+        self.assertEqual(r['counts']['malls:lotte'], 5)
+
+    def test_build_mall_long_goes_to_html_only(self):
+        it = MallItem('lotte:0406:2', 'lotte', '롯데몰 광교', '상설 체험관', '',
+                      date(2026, 9, 1), date(2026, 12, 31), '', 'https://l', 'play')
+        self.run_build({'suwon': lambda: [ev('홀리스타')]}, malls_collect=lambda t: ([it], {}, {}), malls_path=self.dir / 'm.json')
+        self.assertIn('상설 체험관', (self.dir / 'index.html').read_text(encoding='utf-8'))
+        data = json.loads((self.dir / 'events.json').read_text(encoding='utf-8'))
+        self.assertNotIn('상설 체험관', json.dumps(data, ensure_ascii=False))
+
+    def test_build_reports_mall_counts(self):  # 0건·실패도 결과에 남는다
+        r = self.run_build({'suwon': lambda: [ev('홀리스타')]},
+                           malls_collect=lambda t: ([], {'lotte': 0}, {'hyundai': 'HTTPError: 500'}), malls_path=self.dir / 'm.json')
+        self.assertTrue(r['ok'])
+        self.assertEqual(r['counts']['malls:lotte'], 0)
+        self.assertEqual(r['errors']['malls:hyundai'], 'HTTPError: 500')
+
+    def test_build_mall_crash_keeps_site(self):
+        def boom(t): raise RuntimeError('x')
+        r = self.run_build({'suwon': lambda: [ev('홀리스타')]}, malls_collect=boom, malls_path=self.dir / 'm.json')
+        self.assertTrue(r['ok'])
+        self.assertIn('RuntimeError: x', r['errors']['malls'])
+        self.assertFalse((self.dir / 'm.json').exists())
 
 
 class PosterLineTest(unittest.TestCase):

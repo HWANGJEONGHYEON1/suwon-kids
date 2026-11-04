@@ -144,6 +144,18 @@ class RenderTest(unittest.TestCase):
         out = render.page([ev('가을 축제', '행궁동')], [], NOW, festivals={'suwon:가을 축제'})
         self.assertIn('<span class="b kind">축제</span>', out)
 
+    def test_mall_tab_and_card(self):
+        e = Event('lotte:0406:1', 'lotte', '[텔레토비] 가을 피크닉 Pop-Up', date(2026, 11, 4), date(2026, 11, 8), None,
+                  '타임빌라스 의왕 · 잔디광장', '경기도 의왕시 바라산로 1', 'https://l', '누구나', area='백화점')
+        html = render.page([e], [], datetime(2026, 11, 4, 5), (date(2026, 11, 4), date(2026, 11, 8)))
+        self.assertIn('data-r="malls">백화점', html)
+        self.assertIn('타임빌라스 의왕 · 잔디광장', html)
+
+    def test_mallnews_link_label(self):
+        e = Event('mallnews:1', 'mallnews', 'MLB키즈 팝업', date(2026, 11, 6), date(2026, 11, 6), None,
+                  '스타필드 수원 · 1층', '경기도 수원시 장안구 수성로 175', 'https://n', '누구나', area='백화점')
+        self.assertIn('기사 보기', render._card(e))
+
 
 if __name__ == '__main__':
     unittest.main()

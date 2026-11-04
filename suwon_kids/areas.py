@@ -14,12 +14,12 @@ CITY = re.compile(f"({'|'.join(NEAR_CITIES)})시")
 NEAR_TABS = [a['name'] for a in AREAS if a.get('near')] + NEAR_CITIES
 ORDER = [a['name'] for a in AREAS if not a.get('near')] + GU_NAMES + NEAR_TABS + ['기타']
 # 페이지 탭: 수원(수원 동네·구·기타) + 근교 동네·시 각각. 값은 URL #해시로 쓰는 영문 이름
-REGIONS = {'수원': 'suwon', '동탄': 'dongtan', '용인': 'yongin', '화성': 'hwaseong', '안양': 'anyang',
+REGIONS = {'수원': 'suwon', '백화점': 'malls', '동탄': 'dongtan', '용인': 'yongin', '화성': 'hwaseong', '안양': 'anyang',
            '의왕': 'uiwang', '오산': 'osan', '군포': 'gunpo'}
 
 
 def region(area: str | None) -> str:
-    return area if area in NEAR_TABS else '수원'
+    return area if area in NEAR_TABS or area == '백화점' else '수원'
 
 
 def assign(ev: Event) -> str:

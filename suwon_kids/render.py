@@ -146,7 +146,7 @@ def _card(ev: Event, festival: bool = False, day: date | None = None, show_area:
     rows += [(k, v) for k, v in (('연령', ev.age), ('가격', ev.price), ('대상', None if ev.source == 'kopis' else ev.target)) if v]
     dl = ''.join(f'<dt>{k}</dt><dd>{v if k == "주소" else escape(v)}</dd>' for k, v in rows)
     img = f'<img src="{escape(ev.image)}" alt="" loading="lazy">' if ev.image and ev.source == 'kopis' else ''
-    link = '기사 보기' if ev.source == 'naver' else '원문 보기'
+    link = '기사 보기' if ev.source in ('naver', 'mallnews') else '원문 보기'
     acts = ((f'<a class="primary" href="{escape(ev.booking)}" target="_blank" rel="noopener" data-goatcounter-click="booking" '
              f'data-goatcounter-title="{escape(display_title(ev.title))}">예매하기</a>' if ev.booking else '')
             + f'<a href="{escape(ev.url)}" target="_blank" rel="noopener">{link}</a>')

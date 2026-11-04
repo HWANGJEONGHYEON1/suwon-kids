@@ -8,8 +8,8 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Callable
 
-from suwon_kids import ai, areas, dedupe, festivals, filters, place_photo, render, summarize, week
-from suwon_kids.models import Event
+from suwon_kids import ai, areas, dedupe, festivals, filters, malls, place_photo, render, summarize, week
+from suwon_kids.models import Event, MallItem
 from suwon_kids.sources import anyang, ggcf, gunpo, gyeonggi, hwaseong, kopis, naver, starfield, suwon_portal, tourapi
 
 ROOT = Path(__file__).parent.parent
@@ -70,7 +70,9 @@ def _write(path: Path, text: str):
 def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_detail, gen=ai.generate,
         poster_cache: Path = ROOT / 'state/posters.json', now: datetime | None = None,
         ggac_detail=gyeonggi.fetch_ggac_detail, photo_lookup=None,
-        photo_cache: Path | None = None) -> dict:
+        photo_cache: Path | None = None,
+        malls_collect: Callable[[date], tuple[list[MallItem], dict, dict]] | None = None,
+        malls_path: Path | None = None) -> dict:
     rng = week.this_week(today)
     counts, errors, found = {}, {}, []
     for name, fetch in sources.items():
@@ -140,13 +142,26 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
             'events': [js(e) for e in sorted(events, key=lambda e: (e.start, e.title))],
             'long': [js(e) for e in sorted(long_events, key=lambda e: e.title)]}
     _write(out_dir / 'events.json', json.dumps(data, ensure_ascii=False, indent=1))
-    festivals = {e.id for e in kept if filters.is_host_exception(e.title, e.host)}
-    _write(out_dir / 'index.html', render.page(events, long_events, now, rng, festivals))
+    fest_ids = {e.id for e in kept if filters.is_host_exception(e.title, e.host)}
+    page_events, page_long = events, long_events  # 백화점은 HTML에만 더한다 (events.json 에는 넣지 않는다)
+    if malls_collect:
+        try:
+            items, mcounts, merrors = malls_collect(today)
+            counts.update({f'malls:{k}': v for k, v in mcounts.items()})
+            errors.update({f'malls:{k}': v for k, v in merrors.items()})
+            mall_evs = [e for e in map(malls.to_event, items) if week.overlaps(e, rng)]
+            page_events = events + [e for e in mall_evs if not week.is_long(e)]
+            page_long = long_events + [e for e in mall_evs if week.is_long(e)]
+            if malls_path:
+                malls.write(items, today, malls_path)
+        except Exception as e:  # 백화점이 죽어도 기존 사이트는 그대로
+            errors['malls'] = f'{type(e).__name__}: {e}'
+    _write(out_dir / 'index.html', render.page(page_events, page_long, now, rng, fest_ids))
     return {'ok': True, 'counts': counts, 'errors': errors}
 
 
 if __name__ == '__main__':
-    r = run(date.today(), ROOT / 'site', default_sources())
+    r = run(date.today(), ROOT / 'site', default_sources(), malls_collect=malls.collect, malls_path=ROOT / 'malls.json')
     try:
         r['festivals'] = festivals.write(date.today())
     except Exception as e:  # 축제 목록이 실패해도 앱 빌드는 그대로, 인스타는 지난 파일을 읽는다
