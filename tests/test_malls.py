@@ -27,6 +27,14 @@ class MallsTest(unittest.TestCase):
         self.assertTrue(malls.rule(item('곤충ㆍ파충류 POP-UP STORE')))
         self.assertFalse(malls.rule(item('카드사별 무이자 할부 혜택', '카드혜택')))
         self.assertFalse(malls.rule(item('스팀 세차장')))
+        # 어른 브랜드·식품·영화관·귀금속은 규칙에서 바로 뺀다 (2026-11-04 실제 목록)
+        self.assertFalse(malls.rule(item('특별 할인 이벤트!!', '롯데시네마 광교점')))
+        self.assertFalse(malls.rule(item('푸드 트레일러 Pop-Up', '쉐이크쉑')))
+        self.assertFalse(malls.rule(item('미국식 와일드 그릴 핫도그', '와그독')))
+        self.assertFalse(malls.rule(item('[타코빽] 타코야끼 POP-UP')))
+        self.assertFalse(malls.rule(item('자연방사 유정란', 'OGG')))
+        self.assertFalse(malls.rule(item('24K 돌반지 컬렉션', '골든듀')))
+        self.assertFalse(malls.rule(item('K2그룹전 [아이더] 슈퍼위크')))
         self.assertIsNone(malls.rule(item('[POP-UP STORE] 리틀티니', place='5층 캐리마켓 옆')))
 
     def test_kind(self):
