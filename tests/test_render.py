@@ -156,6 +156,16 @@ class RenderTest(unittest.TestCase):
                   '스타필드 수원 · 1층', '경기도 수원시 장안구 수성로 175', 'https://n', '누구나', area='백화점')
         self.assertIn('기사 보기', render._card(e))
 
+    def test_mall_title_keeps_brackets(self):  # 백화점 행사의 [브랜드]는 지우지 않는다
+        e = Event('lotte:1', 'lotte', '[디즈니베이비] POP-UP 스토어', date(2026, 11, 4), date(2026, 11, 8), None,
+                  '롯데몰 광교', '경기도 수원시 영통구 이의동 1338', 'https://l', '누구나', area='백화점')
+        html = render.page([e], [], datetime(2026, 11, 4, 5), (date(2026, 11, 4), date(2026, 11, 8)))
+        self.assertIn('<span class="t">[디즈니베이비] POP-UP 스토어</span>', html)
+
+    def test_non_mall_program_prefix_still_stripped(self):
+        e = ev('[경기도 공연장 상주단체 육성지원사업 UP STAGE] 공연', '용인')
+        self.assertIn('<span class="t">공연</span>', render.page([e], [], NOW))
+
 
 if __name__ == '__main__':
     unittest.main()

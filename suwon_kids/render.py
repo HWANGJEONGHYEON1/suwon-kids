@@ -106,8 +106,9 @@ def fmt_range(ev: Event) -> str:
     return fmt_day(ev.start) if ev.start == ev.end else f'{fmt_day(ev.start)}~{fmt_day(ev.end)}'
 
 
-def display_title(title: str) -> str:
-    return PROGRAM.sub('', title)
+def display_title(ev: Event) -> str:
+    """제목 앞 사업명 "[…]"을 지운다. 백화점은 "[디즈니베이비]" 같은 브랜드라 그대로 둔다."""
+    return ev.title if ev.area == '백화점' else PROGRAM.sub('', ev.title)
 
 
 def _kind(ev: Event, festival: bool) -> str | None:
@@ -134,7 +135,7 @@ def _card(ev: Event, festival: bool = False, day: date | None = None, show_area:
     meta = (f'<span class="b kind">{kind}</span>' if kind else '') + (f'<span>{escape(when)}</span>' if when else '')
     area = ev.area if show_area and ev.area and ev.area != '기타' and ev.area not in (ev.place or '') else None
     where = ' · '.join(x for x in (area, ev.place) if x)
-    head = (f'<summary><span class="t">{escape(display_title(ev.title))}</span>'
+    head = (f'<summary><span class="t">{escape(display_title(ev))}</span>'
             + (f'<span class="m">{meta}</span>' if meta else '')
             + (f'<span class="p">{escape(where)}</span>' if where else '') + '</summary>')
     where = ev.address or ev.place
@@ -148,7 +149,7 @@ def _card(ev: Event, festival: bool = False, day: date | None = None, show_area:
     img = f'<img src="{escape(ev.image)}" alt="" loading="lazy">' if ev.image and ev.source == 'kopis' else ''
     link = '기사 보기' if ev.source in ('naver', 'mallnews') else '원문 보기'
     acts = ((f'<a class="primary" href="{escape(ev.booking)}" target="_blank" rel="noopener" data-goatcounter-click="booking" '
-             f'data-goatcounter-title="{escape(display_title(ev.title))}">예매하기</a>' if ev.booking else '')
+             f'data-goatcounter-title="{escape(display_title(ev))}">예매하기</a>' if ev.booking else '')
             + f'<a href="{escape(ev.url)}" target="_blank" rel="noopener">{link}</a>')
     summary = f'<p class="s">{escape(ev.summary)}</p>' if ev.summary else ''
     return (f'<details class="row">{head}<div class="more">{summary}<div class="info"><dl>{dl}</dl>{img}</div>'
