@@ -1002,5 +1002,33 @@
  "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO와일드에리어현장행사": {
   "kid": true,
   "kind": "play"
+ },
+ "lotte:0406:SNM00000000000571185": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000570064": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570413": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570414": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570994": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000570850": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000571027": {
+  "kid": false,
+  "kind": null
  }
 }
