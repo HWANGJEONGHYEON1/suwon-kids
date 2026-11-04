@@ -990,5 +990,17 @@
  "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO와일드에리어글로벌기념현장이벤트": {
   "kid": true,
   "kind": "play"
+ },
+ "ak:30818": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬고와일드에리어글로벌기념현장이벤트": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO와일드에리어현장행사": {
+  "kid": true,
+  "kind": "play"
  }
 }
