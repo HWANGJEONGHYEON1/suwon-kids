@@ -4,11 +4,14 @@ import re
 from datetime import date, datetime
 
 from suwon_kids import http
-from suwon_kids.models import Event
+from suwon_kids.models import Event, MallItem
 
 SITE = 'https://www.starfield.co.kr'
 PAGE = f'{SITE}/suwon/eventBenefit/events'
 API = f'{SITE}/api/suwon/event/eventList.do?evt_gbn=event&lang=ko&pageIndex=1'
+BRAND_PAGE = f'{SITE}/suwon/eventBenefit/brand'
+BRAND_API = f'{SITE}/api/suwon/event/eventList.do?evt_gbn=brand&lang=ko&isPromotionShop=true&pageIndex='
+BRAND_MAX_PAGES = 3
 
 
 def fetch() -> list[dict]:
@@ -51,3 +54,56 @@ def to_events(row: dict) -> list[Event]:
         target='누구나',
         image=SITE + row['img_uri'] if row.get('img_uri') else None,
     ) for s, e in spans]
+
+
+def _title(raw: str) -> str:
+    return re.sub(r'\s+', ' ', re.sub(r'<br\s*/?>', ' ', raw or '', flags=re.I)).strip()
+
+
+def _dot_day(s: str) -> date:
+    return datetime.strptime(s[:10], '%Y.%m.%d').date()
+
+
+def brand_items(rows: list[dict]) -> list[MallItem]:
+    """브랜드 행사 목록. 끝이 2900년 이후인 상시 안내(2017.01.01 ~ 2999.12.31)는 버린다."""
+    out = []
+    for row in rows:
+        try:
+            start, end = _dot_day(row['evt_strt_dt']), _dot_day(row['evt_end_dt'])
+        except (KeyError, TypeError, ValueError):
+            continue
+        title = _title(row.get('evt_titl'))
+        if end.year >= 2900 or not (row.get('evt_seq') and title):
+            continue
+        out.append(MallItem(
+            id=f"starfield-brand:{row['evt_seq']}",
+            source='starfield',
+            mall='스타필드 수원',
+            title=title,
+            brand=None,
+            start=start,
+            end=end,
+            place='',
+            url=f"{BRAND_PAGE}/{row['evt_seq']}",
+        ))
+    return out
+
+
+def fetch_brand(today: date, get=http.get) -> list[MallItem]:
+    jar = http.new_jar()
+    get(BRAND_PAGE, jar=jar)
+    items, last_exc, ok, total = [], None, False, 1
+    page = 1
+    while page <= min(total, BRAND_MAX_PAGES):
+        try:
+            d = json.loads(get(f'{BRAND_API}{page}', headers={'Referer': BRAND_PAGE, 'X-Requested-With': 'XMLHttpRequest'},
+                               jar=jar).decode('utf-8'))
+            items += brand_items(d.get('data') or [])
+            total = int((d.get('paginationInfo') or {}).get('totalPageCount') or 1)
+            ok = True
+        except Exception as e:
+            last_exc = e
+        page += 1
+    if not ok and last_exc:
+        raise last_exc
+    return items

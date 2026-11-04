@@ -1,0 +1,732 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    
+<meta charset="UTF-8">
+<title>AK PLAZA 백화점</title><meta name="robots" content="index,follow">
+<meta name="description" content="일상을 새롭고 특별하게, AK플라자, AK플라자 백화점, AK플라자 쇼핑몰, 디지털AK플라자">
+<meta name="keywords" content="AK, AK PLAZA, AK플라자, AK PLAZA Department Store, AK백화점, AK플라자 백화점, AK플라자 쇼핑몰, AK플라자 휴무일, AK PLAZA 휴점일, AK플라자 영업시간, AK PLAZA 영업시간, 디지털AK플라자, AK 온라인 쇼핑몰, AK백화점몰">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:title" content="AK플라자">
+<meta property="og:image" content="/static/images/og_image.jpg">
+<meta property="og:description" content="일상을 새롭고 특별하게">
+<meta property="og:site_name" content="AK플라자">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="315">
+<link rel="shortcut icon" href="/static/images/favicon3.ico" type="image/x-icon">
+<link rel="icon" href="/static/images/favicon3.ico" type="image/x-icon">
+<link rel="stylesheet" href="/static/css/content.css?time=1793795239733" type="text/css">
+<link rel="stylesheet" href="/static/css/efuApi.css" type="text/css">
+<script type="text/javascript" src="/static/js/efuApi.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/static/js/efusioni.js?time=1793795239733"></script>
+<script type="text/javascript" src="/static/js/ui.js"></script>
+<script type="text/javascript" src="/static/js/slick.js"></script>
+<script type="text/javascript" src="/static/js/swiper.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="/static/js/member-common.js"></script>
+<script type="text/javascript">
+const clickCategory = (code) => {
+	var storeCode = $("input[name=storeCode]").val();	
+		
+	if(code == 'ALL'){
+		location.href = "list?store="+storeCode;		
+	}else{
+    	location.href = "list?category="+code+"&store="+storeCode;    	
+	}
+}
+
+$(document).ready(function(){
+	$("#btnId-Y").attr("class","hot");
+	$("#btnId-"+$("#category").val()).attr("class","on");
+	if ($("#category").val()==null || $("#category").val()==""){
+		$("#btnId-ALL").attr("class","on");	
+	}
+})
+
+</script>
+<style>
+ #news-option {
+    display: flex;
+    column-gap: 8px;
+    margin-top: 36px;
+    margin-bottom: -50px;
+    justify-content: flex-start;
+    width: 1280px;
+    flex-wrap: wrap;
+}
+
+#news-option input {
+    display: block;
+    height: 36px;
+    padding: 0px 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 30px;
+    line-height: 28px;
+    font-size: 16px;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+#news-option input.hot {
+    font-weight: 700;
+    color: #002d62;
+}
+
+#news-option input.on {
+    border: 0;
+    background-color: #002d62;
+    color: #fff;
+    border: 1px solid #002d62;
+    transition: 0.3s;
+    font-weight: 700;
+}
+
+</style>
+</head>
+<body>
+<div id="wrapper">
+    
+
+
+<header>
+	<script>
+	    
+	    setStore({params:{'showCloseYn':'N'}});
+	    
+
+	    function setStoreComplete(storeCode){
+	    	$("#setStoreForm input[name=storeCode]").val(storeCode);
+
+            ef.proc($("#setStoreForm"), function(result) {
+                if (result.succeed){
+                	document.location.reload();
+                	//customLayer.closeLayer();
+                }else{
+                	alert(result.message);
+                }
+            })
+	    }
+
+	    $(function(){
+	    	$("#headerSearchBtn").click(function(){
+	    		if($.trim($("#headerSearchWord").val()) == ""){
+		    		alert("검색어를 입력해 주세요.");
+		    		return false;
+		    	}
+
+	    		$("#headerSearchForm input[name=searchWord]").val($.trim($("#headerSearchWord").val()));
+	    		$("#headerSearchForm").submit();
+	    	});
+
+	    	$("#headerSearchWord").keyup(function(event){
+            	if(event.keyCode == 13){
+            		$("#headerSearchBtn").click();
+            	}
+            });
+	    });
+	</script>
+    <div class="headerWrap">
+        <div class="headerCont">
+            <h1><a href="/index"><span class="hide">AK PLAZA</span></a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/store/introduce">지점안내</a></li>
+                    <li class="on"><a href="/board/news/list">쇼핑&이벤트</a></li>
+                    <li><a href="https://culture.akplaza.com/main" target="_blank" title="새창">컬처</a></li>
+                    <li><a href="/card/card/members">카드&상품권</a></li>
+                    <li><a href="/customer/vip/standard">고객서비스</a></li>
+                    <li><a href="/esg/ethics/ethics">ESG</a></li>
+                </ul>
+                <i class="bar"></i>
+            </nav>
+            <ul class="userInfo">
+                
+                
+                <li><a href="/auth/login" class="ico_login">로그인</a></li>
+                <li><a href="https://www.akmembers.com/member/join/certify?source=plaza" class="ico_join" target="_blank">회원가입</a></li>
+                
+            </ul>
+            <form name="headerSearchForm" id="headerSearchForm" method="post" action="/search">
+            <input type="hidden" name="searchWord" value="">
+            </form>
+            <div class="search">
+                <input type="text" id="headerSearchWord" placeholder="검색어를 입력하세요.">
+                <a href="javascript:;" id="headerSearchBtn"><span class="hide">검색</span></a>
+            </div>
+            <div class="search_fixMode">
+                <a href="javascript:;" onclick="gotoSearch();"><span class="hide">검색</span></a>
+            </div>
+        </div>
+    </div>
+    <div id="gnbChild">
+        <div class="gnbChildWrap">
+            <ul>
+                <li>
+                    <strong>지점안내</strong>
+                    <ul class="typeA">
+                        <li>
+                            <strong>백화점</strong>
+                            <ul>
+                                <li><a href="/store/introduce?store=02">수원</a></li>
+                                <li><a href="/store/introduce?store=03">분당</a></li>
+                                <li><a href="/store/introduce?store=04">평택</a></li>
+                                <li><a href="/store/introduce?store=05">원주</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>쇼핑몰</strong>
+                            <ul>
+                                <li><a href="/store/introduce?store=51">홍대</a></li>
+                                <li><a href="/store/introduce?store=52">기흥</a></li>
+                                <li><a href="/store/introduce?store=11">광명</a></li>
+                                <li><a href="/store/introduce?store=12">금정</a></li>
+                                <li><a href="/store/introduce?store=53">세종</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>쇼핑&amp;이벤트</strong>
+                    <ul>
+                        <li><a href="/board/news/list">쇼핑뉴스</a></li>
+                        <li><a href="/board/event/list">사은&amp;이벤트</a></li>
+                        
+                        <li><a href="/board/winner/list">당첨자발표</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong><a href="https://culture.akplaza.com/main" target="_blank" class="outLink">컬처</a></strong>
+                </li>
+                <li>
+                    <strong>카드&상품권</strong>
+                    <ul>
+                        <li><a href="/card/card/members">카드</a></li>
+                        <li><a href="/card/giftCard/paper">상품권</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>고객서비스</strong>
+                    <ul>
+                        <li><a href="/customer/vip/standard">우수고객혜택</a></li>
+                        <li><a href="/customer/club/bakimom/introduce">AK멤버스 CLUB</a></li>
+                        <li><a href="/customer/faq">자주하는 질문</a></li>
+                        <li><a href="/customer/inquiry">1:1 문의</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>ESG</strong>
+                    <ul>
+                        <li><a href="/esg/ethics/ethics">윤리경영</a></li>
+                        <li><a href="/esg/social">사회공헌</a></li>
+                        <li><a href="/esg/campaign/define">Return To Green</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+    <section>
+        <div id="content">
+            
+
+			<ol id="location">
+                <li><a href="javascript:;">HOME</a></li>
+                
+                
+                <li><a href="javascript:;">쇼핑&이벤트</a></li>
+                
+                
+                <li><a href="javascript:;">백화점</a></li>
+                
+                
+            </ol>
+            <div id="pageTitle">
+                <h2>
+                    <strong>수원</strong>
+                    <a href="javascript:;" onclick="selectStore({params:{'storeCode':'02', 'link':'/board/news/list', 'storeType':'NEWS'}})" class="ico_arrow1"><span class="hide">more</span></a>
+                </h2>
+            </div>
+            
+            
+            <ul class="tabTypeA">
+                <li class="on"><a href="/board/news/list?store=02">쇼핑뉴스</a></li>
+                <li><a href="/board/event/list?store=02">사은&이벤트</a></li>
+                
+                <li><a href="/board/winner/list?store=02">당첨자발표</a></li>
+            </ul>
+            
+
+            <main>
+    			<input type="hidden" name="storeCode" value="02">
+    			<input type="hidden" id="category" name="category" value="">    			
+                <!-- 퍼블작업 영역 -->
+            	<link rel="stylesheet" href="/static/assets/global/css/component-global.css" type="text/css">
+               	<link rel="stylesheet" href="https://static-m.akplaza.com/static/assets/global/css/component-template.css" type="text/css">
+               	
+               	<div id="news-option">						               			                  
+	               
+	                   <input type="button" id="btnId-ALL" onclick="clickCategory('ALL')" name="categoryBtn" value="전체">
+	                
+	                   <input type="button" id="btnId-17" onclick="clickCategory('17')" name="categoryBtn" value="코리아 그랜드 페스티벌">
+	                
+	                   <input type="button" id="btnId-22" onclick="clickCategory('22')" name="categoryBtn" value="팝토피아">
+	                
+	                   <input type="button" id="btnId-01" onclick="clickCategory('01')" name="categoryBtn" value="화장품">
+	                
+	                   <input type="button" id="btnId-02" onclick="clickCategory('02')" name="categoryBtn" value="여성패션">
+	                
+	                   <input type="button" id="btnId-06" onclick="clickCategory('06')" name="categoryBtn" value="스포츠/골프">
+	                
+	                   <input type="button" id="btnId-03" onclick="clickCategory('03')" name="categoryBtn" value="남성패션">
+	                
+	                   <input type="button" id="btnId-04" onclick="clickCategory('04')" name="categoryBtn" value="영패션">
+	                
+	                   <input type="button" id="btnId-05" onclick="clickCategory('05')" name="categoryBtn" value="주얼리/시계">
+	                
+	                   <input type="button" id="btnId-08" onclick="clickCategory('08')" name="categoryBtn" value="수입/잡화">
+	                
+	                   <input type="button" id="btnId-07" onclick="clickCategory('07')" name="categoryBtn" value="유아동">
+	                
+	                   <input type="button" id="btnId-09" onclick="clickCategory('09')" name="categoryBtn" value="가전/가구">
+	                
+	                   <input type="button" id="btnId-10" onclick="clickCategory('10')" name="categoryBtn" value="침구/주방">
+	                
+	                   <input type="button" id="btnId-13" onclick="clickCategory('13')" name="categoryBtn" value="라이프스타일">
+	                
+	                   <input type="button" id="btnId-12" onclick="clickCategory('12')" name="categoryBtn" value="F&amp;B">
+	                
+	                   <input type="button" id="btnId-11" onclick="clickCategory('11')" name="categoryBtn" value="푸드홀">
+	                         			 				             				          
+			    </div>  
+               	
+            	<div class="viewList">
+	            	<!-- posts-display -->
+					<div class="posts-display comp-a" style="--style: a; --type: b; --display: c; --align: a; --column-count: 4;" data-component-module="shopping" data-component-module-badge="true" data-component-module-subject="true" data-component-module-summary="false" data-component-module-period="true" data-component-module-posted="false" data-component-module-writer="false" data-component-module-price-selling="false" data-component-module-discount-rate="false" data-component-module-price-bargain="false" data-component-module-swiper="fale" data-component-module-auto-play="fale">
+						<div class="posts-list">
+							
+								
+								
+									
+										<div class="posts-item" onclick="location.href='view?store=02&seq=30898'">
+											<div class="posts-wrap">
+												<div class="posts-figure">
+													<a class="posts-thumbnail" href="#"><img src="https://img-www.akplaza.com/upload/edm/news/30898/24e9c60f-0591-4277-a18a-42fceca63dd3.jpg" alt="[i store] 11월 프로모션"></a>
+												</div>
+												<div class="posts-inform">
+													<div class="posts-type">
+														
+															<span class="badge type-line"><span class="badge-name">수원</span></span>
+														
+														
+															<span class="badge type-fill"><span class="badge-name">AK&amp; 2F</span></span>
+														
+													</div>
+													<div class="posts-head">
+														<p class="posts-subject"><a class="posts-name" href="#">[i store] 11월 프로모션</a></p>
+														<p class="posts-summary"><a href="#"></a></p>
+													</div>
+													<div class="posts-info">
+														<p class="data-list">
+															<span class="data-item period">
+																<span class="head">기간</span>
+																<span class="body"><span class="start-date">2026.11.01</span> ~ 
+																<span class="end-date">2026.11.28</span></span>																
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										<div class="posts-item" onclick="location.href='view?store=02&seq=30854'">
+											<div class="posts-wrap">
+												<div class="posts-figure">
+													<a class="posts-thumbnail" href="#"><img src="https://img-www.akplaza.com/upload/edm/news/30854/5891a053-26b1-4a3e-a589-1ccfb9fd41a8.jpg" alt="[준오헤어 수원노보텔점] 블랙프라이데이EVENT"></a>
+												</div>
+												<div class="posts-inform">
+													<div class="posts-type">
+														
+															<span class="badge type-line"><span class="badge-name">수원</span></span>
+														
+														
+															<span class="badge type-fill"><span class="badge-name">AK&amp; 2F</span></span>
+														
+													</div>
+													<div class="posts-head">
+														<p class="posts-subject"><a class="posts-name" href="#">[준오헤어 수원노보텔점] 블랙프라이데이EVENT</a></p>
+														<p class="posts-summary"><a href="#"></a></p>
+													</div>
+													<div class="posts-info">
+														<p class="data-list">
+															<span class="data-item period">
+																<span class="head">기간</span>
+																<span class="body"><span class="start-date">2026.11.01</span> ~ 
+																<span class="end-date">2026.11.15</span></span>																
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										<div class="posts-item" onclick="location.href='view?store=02&seq=30850'">
+											<div class="posts-wrap">
+												<div class="posts-figure">
+													<a class="posts-thumbnail" href="#"><img src="https://img-www.akplaza.com/upload/edm/news/30850/31e5d8da-003c-4427-89f6-3f013427e75c.jpg" alt="[태그호이어] 신제품 출시"></a>
+												</div>
+												<div class="posts-inform">
+													<div class="posts-type">
+														
+															<span class="badge type-line"><span class="badge-name">수원</span></span>
+														
+														
+															<span class="badge type-fill"><span class="badge-name">1F</span></span>
+														
+													</div>
+													<div class="posts-head">
+														<p class="posts-subject"><a class="posts-name" href="#">[태그호이어] 신제품 출시</a></p>
+														<p class="posts-summary"><a href="#"></a></p>
+													</div>
+													<div class="posts-info">
+														<p class="data-list">
+															<span class="data-item period">
+																<span class="head">기간</span>
+																<span class="body"><span class="start-date">2026.11.01</span> ~ 
+																<span class="end-date">2026.11.30</span></span>																
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										<div class="posts-item" onclick="location.href='view?store=02&seq=30849'">
+											<div class="posts-wrap">
+												<div class="posts-figure">
+													<a class="posts-thumbnail" href="#"><img src="https://img-www.akplaza.com/upload/edm/news/30849/3e29f55f-d664-44d1-8072-5641b342eb6f.jpg" alt="[라로제] 메가스틱위크"></a>
+												</div>
+												<div class="posts-inform">
+													<div class="posts-type">
+														
+															<span class="badge type-line"><span class="badge-name">수원</span></span>
+														
+														
+															<span class="badge type-fill"><span class="badge-name">1F</span></span>
+														
+													</div>
+													<div class="posts-head">
+														<p class="posts-subject"><a class="posts-name" href="#">[라로제] 메가스틱위크</a></p>
+														<p class="posts-summary"><a href="#"></a></p>
+													</div>
+													<div class="posts-info">
+														<p class="data-list">
+															<span class="data-item period">
+																<span class="head">기간</span>
+																<span class="body"><span class="start-date">2026.11.01</span> ~ 
+																<span class="end-date">2026.11.11</span></span>																
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										<div class="posts-item" onclick="location.href='view?store=02&seq=30820'">
+											<div class="posts-wrap">
+												<div class="posts-figure">
+													<a class="posts-thumbnail" href="#"><img src="https://img-www.akplaza.com/upload/edm/news/30820/64149c61-dc7a-4646-96f1-79491fa7964f.jpg" alt="[i store] iPad mini·MacBook Pro 14·iMac 사전예약 프로모션"></a>
+												</div>
+												<div class="posts-inform">
+													<div class="posts-type">
+														
+															<span class="badge type-line"><span class="badge-name">수원</span></span>
+														
+														
+															<span class="badge type-fill"><span class="badge-name">AK&amp; 2F</span></span>
+														
+													</div>
+													<div class="posts-head">
+														<p class="posts-subject"><a class="posts-name" href="#">[i store] iPad mini·MacBook Pro 14·iMac 사전예약 프로모션</a></p>
+														<p class="posts-summary"><a href="#"></a></p>
+													</div>
+													<div class="posts-info">
+														<p class="data-list">
+															<span class="data-item period">
+																<span class="head">기간</span>
+																<span class="body"><span class="start-date">2026.10.29</span> ~ 
+																<span class="end-date">2026.11.05</span></span>																
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										<div class="posts-item" onclick="location.href='view?store=02&seq=30815'">
+											<div class="posts-wrap">
+												<div class="posts-figure">
+													<a class="posts-thumbnail" href="#"><img src="https://img-www.akplaza.com/upload/edm/news/30815/9827aa43-ec33-46c9-9efc-9ccbd5d79ab9.jpg" alt="[ECCO 에코] One By One 프로모션"></a>
+												</div>
+												<div class="posts-inform">
+													<div class="posts-type">
+														
+															<span class="badge type-line"><span class="badge-name">수원</span></span>
+														
+														
+															<span class="badge type-fill"><span class="badge-name">2F</span></span>
+														
+													</div>
+													<div class="posts-head">
+														<p class="posts-subject"><a class="posts-name" href="#">[ECCO 에코] One By One 프로모션</a></p>
+														<p class="posts-summary"><a href="#"></a></p>
+													</div>
+													<div class="posts-info">
+														<p class="data-list">
+															<span class="data-item period">
+																<span class="head">기간</span>
+																<span class="body"><span class="start-date">2026.10.23</span> ~ 
+																<span class="end-date">2026.11.08</span></span>																
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										<div class="posts-item" onclick="location.href='view?store=02&seq=30794'">
+											<div class="posts-wrap">
+												<div class="posts-figure">
+													<a class="posts-thumbnail" href="#"><img src="https://img-www.akplaza.com/upload/edm/news/30794/ab17fa74-77c5-4d85-bf59-ec6f46e4d99b.jpg" alt="[훠궈야] 훠궈 세트 프로모션"></a>
+												</div>
+												<div class="posts-inform">
+													<div class="posts-type">
+														
+															<span class="badge type-line"><span class="badge-name">수원</span></span>
+														
+														
+															<span class="badge type-fill"><span class="badge-name">5F</span></span>
+														
+													</div>
+													<div class="posts-head">
+														<p class="posts-subject"><a class="posts-name" href="#">[훠궈야] 훠궈 세트 프로모션</a></p>
+														<p class="posts-summary"><a href="#"></a></p>
+													</div>
+													<div class="posts-info">
+														<p class="data-list">
+															<span class="data-item period">
+																<span class="head">기간</span>
+																<span class="body"><span class="start-date">2026.10.28</span> ~ 
+																<span class="end-date">2026.11.30</span></span>																
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										<div class="posts-item" onclick="location.href='view?store=02&seq=30789'">
+											<div class="posts-wrap">
+												<div class="posts-figure">
+													<a class="posts-thumbnail" href="#"><img src="https://img-www.akplaza.com/upload/edm/news/30789/e3288dce-3fdf-47a1-b676-e4e29ea0d646.jpg" alt="[아이디] 코리아 그랜드 페스티벌"></a>
+												</div>
+												<div class="posts-inform">
+													<div class="posts-type">
+														
+															<span class="badge type-line"><span class="badge-name">수원</span></span>
+														
+														
+															<span class="badge type-fill"><span class="badge-name">AK&amp; 3F</span></span>
+														
+													</div>
+													<div class="posts-head">
+														<p class="posts-subject"><a class="posts-name" href="#">[아이디] 코리아 그랜드 페스티벌</a></p>
+														<p class="posts-summary"><a href="#"></a></p>
+													</div>
+													<div class="posts-info">
+														<p class="data-list">
+															<span class="data-item period">
+																<span class="head">기간</span>
+																<span class="body"><span class="start-date">2026.10.30</span> ~ 
+																<span class="end-date">2026.11.05</span></span>																
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+								
+														
+						</div>
+					</div>
+					<!-- //posts-display -->
+            	</div>
+            	<!-- //퍼블작업 영역 -->
+            </main>
+            
+	            <div class="paging">
+	            	<span><img src="/static/images/common/paging_l_2.png" alt=""></span><span><img src="/static/images/common/paging_l_1.png" alt=""></span><ul><li class="active"><span><strong>1</strong></span></li>
+<li><span><a href="/board/news/list?store=02&&page=2">2</a></span></li>
+<li><span><a href="/board/news/list?store=02&&page=3">3</a></span></li>
+<li><span><a href="/board/news/list?store=02&&page=4">4</a></span></li>
+<li><span><a href="/board/news/list?store=02&&page=5">5</a></span></li>
+<li><span><a href="/board/news/list?store=02&&page=6">6</a></span></li>
+<li><span><a href="/board/news/list?store=02&&page=7">7</a></span></li>
+<li><span><a href="/board/news/list?store=02&&page=8">8</a></span></li>
+<li><span><a href="/board/news/list?store=02&&page=9">9</a></span></li>
+<li><span><a href="/board/news/list?store=02&&page=10">10</a></span></li>
+</ul><span><a href="/board/news/list?store=02&&page=11"><img src="/static/images/common/paging_r_1_on.png" alt=""></a></span><span><a href="/board/news/list?store=02&&page=12"><img src="/static/images/common/paging_r_2_on.png" alt=""></a></span>
+	            </div>
+            
+        </div>
+    </section>
+    
+
+
+<div id="appBanner">
+    <div class="bannerWrap">
+        <h2>언제 어디서나 편리하게 만나는 <strong><a href="/etc/mobile">AK플라자 모바일 앱</a></strong></h2>
+        <div class="appMenu">
+            <a href="https://apps.apple.com/kr/app/ak-plaza-%EB%B0%B1%ED%99%94%EC%A0%90/id499453449" target="_blank" class="ico_apple"><span>App Store</span></a>
+            <a href="https://play.google.com/store/apps/details?id=com.ak.android.akplaza" target="_blank" class="ico_googleApp"><span>Google Play</span></a>
+            <img src="/static/images/common/appQrImg.png" alt="qr code">
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="footerWrap">
+        <nav>
+            <ul>
+                <li>
+                    <strong>백화점</strong>
+                    <ul>
+                        <li><a href="/store/introduce?store=02">수원</a></li>
+                        <li><a href="/store/introduce?store=03">분당</a></li>
+                        <li><a href="/store/introduce?store=04">평택</a></li>
+                        <li><a href="/store/introduce?store=05">원주</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>쇼핑몰</strong>
+                    <ul>
+                        <li><a href="/store/introduce?store=11">광명</a></li>
+                        <li><a href="/store/introduce?store=51">홍대</a></li>
+                        <li><a href="/store/introduce?store=52">기흥</a></li>
+                        <li><a href="/store/introduce?store=12">금정</a></li>
+                        <li><a href="/store/introduce?store=53">세종</a></li>
+                    </ul>
+                </li>
+                
+            </ul>
+        </nav>
+        <div class="logoArea">
+            <h2><span class="hide">AK PLAZA</span></h2>
+            <i class="ico_stripe"></i>
+        </div>
+        <div class="footerCont">
+            <article>
+                <ul class="footerMenu">
+                    <li><a href="/etc/company/ideology">회사소개</a></li>
+                    <li><a href="https://akplaza.recruiter.co.kr/appsite/company/index" target="_blank">채용</a></li>
+                    <li><a href="/esg/ethics/ethics">윤리경영</a></li>
+                    
+                        
+                        
+                            <li><a href="https://www.akmembers.com/policy/individual" target="_blank" class="on">개인정보처리방침</a></li>
+                            <li><a href="https://www.akmembers.com/policy/stipulation" target="_blank">회원약관</a></li>
+                        
+                    
+                    
+                     
+                	
+                	
+                		<li><a href="http://md.akplaza.com/main.ak" target="_blank">상품본부</a></li>
+	                    <li><a href="https://partner.akplaza.com:1443/index.jsp" target="_blank">협력업체</a></li>
+                	
+                
+                    
+                </ul>
+                <p>대표이사:
+                 
+                	
+                	
+                		이강용
+                	
+                
+                주소: 경기도 평택시 평택로 51    Copyrightⓒ2022 AK PLAZA Department Store All Rights Reserved.</p>
+            </article>
+            <article class="utilCont">
+                <select class="familySelect" style="width:146px;">
+                    <option value="">FAMILY SITE</option>
+                    <option value="https://www.aekyunggroup.co.kr/">AK홀딩스</option>
+                    
+                        
+                        
+                            <option value="https://www.akmembers.com">AK멤버스</option>
+                        
+                    
+                    <option value="https://culture.akplaza.com">문화아카데미</option>
+                    <option value="https://www.aekyungchemical.co.kr">애경케미칼</option>
+					<option value="https://www.jejuair.net/">제주항공</option>                    
+					<option value="https://akis.co.kr">AK아이에스</option>
+					<option value="https://amplus.co.kr">AMPLUS 자산개발</option>					
+                    <option value="https://www.atecltd.com/">에이텍</option>
+                    <option value="" >코스파</option>
+                </select>
+                <a href="/esg/campaign/define"><img src="/static/images/common/logo_green.png" alt="return to green all-ways"></a>
+            </article>
+        </div>
+    </div>
+</footer>
+<script>
+    $(function(){
+        $('.eui_familySelect >ul li a').on('click',function(){
+            if(!($(this).parent().index()==0)){
+            	if($('.familySelect option').eq($(this).parent().index()).val())
+            	{
+            		window.open($('.familySelect option').eq($(this).parent().index()).val())	
+            	}
+            }
+        })
+    })
+</script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68448330-18', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FGX5M7MSSK"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
+gtag('config', 'G-FGX5M7MSSK'); 
+</script>
+<!-- 구글 태그매니저 -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MMR9CWT');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMR9CWT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</div>
+</body>
+</html>
