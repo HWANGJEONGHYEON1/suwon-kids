@@ -11,6 +11,7 @@ MALL = '현대백화점 판교'
 PAGE = 'https://www.ehyundai.com/newPortal/SN/SN_0101000.do?branchCd=B00148000'
 API = 'https://www.ehyundai.com/newPortal/SN/GetCmsContentsAJX.do'
 TYPES = ('01', '03')  # 쇼핑뉴스, 문화이벤트
+STORE_CD = '480'  # 판교점. trgtStoreCd 는 여러 지점에 걸친 본사 캠페인도 480을 담아서 개최 지점(storeCd)으로 본다
 
 _DM_CODE = re.compile(r"curtMblDmCd\s*=\s*'([^']+)'")
 
@@ -41,6 +42,8 @@ def _place(it: dict) -> str:
 def parse(data: dict) -> list[MallItem]:
     out = []
     for it in ((data.get('result') or {}).get('items')) or []:
+        if str(it.get('storeCd') or '').strip() != STORE_CD:  # 다른 지점·본사(110) 개최는 판교 행사가 아니다
+            continue
         title = re.sub(r'\s+', ' ', it.get('evntCrdNm') or '').strip()
         start, end = _day(it.get('expsEvntStartDt')), _day(it.get('expsEvntEndDt'))
         if not (it.get('evntCrdCd') and title and start and end):  # 기간이 불확실하면 버린다

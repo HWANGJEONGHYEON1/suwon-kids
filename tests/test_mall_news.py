@@ -39,8 +39,41 @@ class MallNewsTest(unittest.TestCase):
         self.assertIsNone(mall_news.to_item(row(title=' '), ART))
         self.assertEqual(mall_news.to_item(row(place=None), ART).place, '')
 
-    def test_to_item_end_defaults_to_start(self):
-        self.assertEqual(mall_news.to_item(row(end=None), ART).end, date(2026, 11, 6))
+    def test_to_item_end_required(self):  # 종료일이 없으면 버린다
+        self.assertIsNone(mall_news.to_item(row(end=None), ART))
+        self.assertIsNone(mall_news.to_item(row(end=''), ART))
+
+    def test_to_item_end_must_be_in_article(self):  # 11월 1~3일 기사에서 end=12-31 같은 것
+        art = {**ART, 'text': '11월 1일부터 3일까지 스타필드 수원 1층에서 연다'}
+        self.assertIsNone(mall_news.to_item(row(start='2026-11-01', end='2026-12-31'), art))
+        self.assertEqual(mall_news.to_item(row(start='2026-11-01', end='2026-11-03'), art).end, date(2026, 11, 3))
+
+    def test_to_item_one_day_event_needs_no_second_date(self):
+        art = {**ART, 'text': '11월 6일 하루 스타필드 수원 1층에서 연다'}
+        self.assertEqual(mall_news.to_item(row(end='2026-11-06'), art).end, date(2026, 11, 6))
+
+    def test_to_item_mall_evidence(self):  # 스타필드 수원만 나온 기사를 의왕으로 답해도 버린다
+        self.assertIsNone(mall_news.to_item(row(mall='타임빌라스 의왕'), ART))
+        art = {**ART, 'title': '롯데 프리미엄 아울렛 의왕, 키즈 팝업', 'text': '11월 6일부터 15일까지 열린다'}
+        self.assertEqual(mall_news.to_item(row(mall='타임빌라스 의왕'), art).mall, '타임빌라스 의왕')
+        self.assertIsNone(mall_news.to_item(row(mall='스타필드 수원'), art))
+
+    def test_mall_evidence_rules(self):
+        ev = mall_news.has_evidence
+        self.assertTrue(ev('타임빌라스 의왕', '의왕 타임빌라스'))
+        self.assertTrue(ev('타임빌라스 의왕', '롯데 아울렛 의왕점'))
+        self.assertFalse(ev('타임빌라스 의왕', '의왕시 행사'))
+        self.assertTrue(ev('타임빌라스 수원', '타임빌라스 수원'))
+        self.assertFalse(ev('타임빌라스 수원', '타임빌라스 의왕'))
+        self.assertTrue(ev('롯데백화점 평촌', '롯데백화점 평촌점'))
+        self.assertTrue(ev('롯데몰 광교', '광교 롯데몰'))
+        self.assertFalse(ev('롯데몰 광교', '광교 갤러리아'))
+        self.assertTrue(ev('스타필드 수원', '스타필드 수원'))
+        self.assertFalse(ev('스타필드 수원', '스타필드 하남'))
+        self.assertTrue(ev('현대백화점 판교', '판교 현대백화점'))
+        self.assertTrue(ev('AK플라자 수원', 'AK플라자 수원점'))
+        self.assertTrue(ev('AK플라자 수원', 'ak플라자 수원'))
+        self.assertFalse(ev('AK플라자 수원', 'AK플라자 분당'))
 
     def test_fetch_queries_and_prompt(self):
         qs = []
@@ -74,12 +107,12 @@ class MallNewsTest(unittest.TestCase):
                 ('오늘 끝', '2026-11-01', '2026-11-04'), ('14일째 시작', '2026-11-18', '2026-11-19'),
                 ('15일째 시작', '2026-11-19', '2026-11-20')]
         raw = json.dumps([{'n': 0, 'mall': '스타필드 수원', 'title': t, 'start': s, 'end': e, 'place': ''} for t, s, e in rows])
-        res = result('팝업', '11월 1일 11월 3일 11월 18일 11월 19일', 'https://news.example/2')
+        res = result('스타필드 수원 팝업', '11월 1일 11월 3일 11월 4일 11월 18일 11월 19일 11월 20일', 'https://news.example/2')
         out = mall_news.fetch(TODAY, search=lambda q: res, gen=lambda p: raw)
         self.assertEqual(sorted(i.title for i in out), ['14일째 시작', '오늘 끝'])
 
     def test_fetch_batch_failure_skipped(self):
-        res = {'items': [dict(result(f'기사{i} 11월 6일', 't', f'https://news.example/{i}')['items'][0]) for i in range(25)]}
+        res = {'items': [dict(result(f'기사{i} 스타필드 수원 11월 6일', '11월 7일', f'https://news.example/{i}')['items'][0]) for i in range(25)]}
         calls = []
 
         def gen(p):
@@ -106,7 +139,7 @@ class MallNewsTest(unittest.TestCase):
             mall_news.fetch(TODAY, search=search, gen=lambda p: '[]')
 
     def test_fetch_partial_search_failure_tolerated(self):
-        res = result('팝업 11월 6일', 't', 'https://news.example/4')
+        res = result('스타필드 수원 팝업 11월 6일', '11월 7일', 'https://news.example/4')
 
         def search(q):
             if q.startswith('타임빌라스'):

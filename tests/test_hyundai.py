@@ -42,7 +42,7 @@ class HyundaiTest(unittest.TestCase):
 
     def test_place_variants(self):
         def item(**kw):
-            return {'evntCrdCd': 'X', 'evntCrdNm': 'a', 'expsEvntStartDt': '20261101000000',
+            return {'evntCrdCd': 'X', 'evntCrdNm': 'a', 'storeCd': '480', 'expsEvntStartDt': '20261101000000',
                     'expsEvntEndDt': '20261102000000', **kw}
         out = {i.id: i.place for i in hyundai.parse({'result': {'items': [
             item(evntCrdCd='A', evntFlrCd={'label': '미입력'}, evntPlceNm='열린광장'),
@@ -53,13 +53,23 @@ class HyundaiTest(unittest.TestCase):
         self.assertEqual(out, {'hyundai:A': '열린광장', 'hyundai:B': '3층', 'hyundai:C': '', 'hyundai:D': ''})
 
     def test_missing_dates_and_url_fallback(self):
-        base = {'evntCrdCd': 'X', 'evntCrdNm': 'a'}
+        base = {'evntCrdCd': 'X', 'evntCrdNm': 'a', 'storeCd': '480'}
         parse = lambda **kw: hyundai.parse({'result': {'items': [{**base, **kw}]}})
         self.assertEqual(parse(), [])
         self.assertEqual(parse(expsEvntStartDt='　', expsEvntEndDt='20261102000000'), [])
         self.assertEqual(parse(expsEvntStartDt='20261101000000', expsEvntEndDt=None), [])
         it = parse(expsEvntStartDt='20261101000000', expsEvntEndDt='20261102000000', onelink='')[0]
         self.assertEqual(it.url, hyundai.PAGE)
+
+    def test_other_branch_events_dropped(self):  # 본사(110) 캠페인은 trgtStoreCd에 480이 있어도 판교 행사가 아니다
+        titles = [i.title for i in hyundai.parse(DATA)]
+        self.assertFalse(any('어린이그림대회' in t or 'Christmas' in t for t in titles))
+        base = {'evntCrdCd': 'X', 'evntCrdNm': 'a', 'trgtStoreCd': '480', 'expsEvntStartDt': '20261101000000',
+                'expsEvntEndDt': '20261102000000'}
+        parse = lambda **kw: hyundai.parse({'result': {'items': [{**base, **kw}]}})
+        self.assertEqual(parse(storeCd='110'), [])
+        self.assertEqual(parse(), [])
+        self.assertEqual(len(parse(storeCd='480')), 1)
 
     def test_parse_empty(self):
         self.assertEqual(hyundai.parse({}), [])

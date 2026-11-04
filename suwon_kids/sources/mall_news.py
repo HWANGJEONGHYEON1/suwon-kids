@@ -12,6 +12,11 @@ from suwon_kids.sources import naver
 QUERY_NAMES = {'타임빌라스 의왕': '타임빌라스 의왕', '롯데아울렛 의왕': '타임빌라스 의왕', '타임빌라스 수원': '타임빌라스 수원',
                '롯데백화점 평촌점': '롯데백화점 평촌', '롯데몰 광교': '롯데몰 광교', '스타필드 수원': '스타필드 수원',
                '현대백화점 판교': '현대백화점 판교', 'AK플라자 수원': 'AK플라자 수원'}
+# 매장별 기사 근거: 칸마다 하나 이상 들어 있어야 한다 (AK는 대문자로 본다)
+EVIDENCE = {'타임빌라스 의왕': (('의왕',), ('타임빌라스', '아울렛', '롯데')), '타임빌라스 수원': (('타임빌라스',), ('수원',)),
+            '롯데백화점 평촌': (('평촌',), ('롯데',)), '롯데몰 광교': (('광교',), ('롯데',)),
+            '스타필드 수원': (('스타필드',), ('수원',)), '현대백화점 판교': (('판교',), ('현대',)),
+            'AK플라자 수원': (('AK',), ('수원',))}
 KEYWORDS = ('팝업', '키즈', '체험')
 AHEAD_DAYS = 14  # 오늘부터 이만큼 뒤까지 시작하는 행사만
 
@@ -20,7 +25,7 @@ PROMPT = """오늘은 {today}입니다. 아래는 백화점·쇼핑몰 관련 �
 매장: {malls}
 
 규칙:
-- 기사에 날짜가 적힌 행사만. 날짜가 없으면 뺍니다. "31일"처럼 월이 없으면 기사 발행일 기준으로 연·월을 채웁니다.
+- 기사에 시작일과 종료일이 모두 적힌 행사만. 날짜가 없거나 종료일을 모르면 뺍니다. "31일"처럼 월이 없으면 기사 발행일 기준으로 연·월을 채웁니다.
 - {today} 이전에 끝난 행사, 위 매장이 아닌 곳의 행사, 어른만 가는 행사, 일반 할인·세일은 뺍니다.
 - mall은 위 매장 이름 중 하나 그대로.
 - 기사에 없는 내용은 지어내지 말고, 모르면 null.
@@ -32,11 +37,18 @@ PROMPT = """오늘은 {today}입니다. 아래는 백화점·쇼핑몰 관련 �
 {articles}"""
 
 
+def has_evidence(mall: str, text: str) -> bool:
+    """기사에 그 매장을 가리키는 말이 있는가 (Gemini가 다른 매장 이름을 붙여도 걸러낸다)."""
+    text = text.upper()
+    return all(any(w.upper() in text for w in group) for group in EVIDENCE[mall])
+
+
 def to_item(row: dict, art: dict) -> MallItem | None:
     mall, title = row.get('mall'), (row.get('title') or '').strip()
-    start, end = naver._day(row.get('start')), naver._day(row.get('end') or row.get('start'))
+    start, end = naver._day(row.get('start')), naver._day(row.get('end'))
     source_text = f"{art['title']} {art['text']}"
-    if not (mall in MALLS and title and start and end and start <= end and naver.mentions(source_text, start)):
+    if not (mall in MALLS and title and start and end and start <= end and has_evidence(mall, source_text)
+            and naver.mentions(source_text, start) and (end == start or naver.mentions(source_text, end))):
         return None
     return MallItem(
         id=f"mallnews:{mall}:{start}:{re.sub(r'\W', '', title)}",

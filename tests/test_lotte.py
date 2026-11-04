@@ -50,6 +50,10 @@ class LotteTest(unittest.TestCase):
     def test_period_explicit_year(self):
         self.assertEqual(lotte.parse_period('26.10.19(월) ~ 27.2.28(일)', TODAY), (date(2026, 10, 19), date(2027, 2, 28)))
 
+    def test_period_explicit_start_year_yearless_end(self):  # 시작 해가 있으면 끝도 그 해 (오늘 기준으로 +1 하지 않는다)
+        self.assertEqual(lotte.parse_period('26.8.1(토) ~ 9.1(화)', TODAY), (date(2026, 8, 1), date(2026, 9, 1)))
+        self.assertEqual(lotte.parse_period('26.12.20(일) ~ 1.10(일)', TODAY), (date(2026, 12, 20), date(2027, 1, 10)))
+
     def test_period_whole_year(self):
         self.assertEqual(lotte.parse_period('1.6(화) ~ 12.31(목)', TODAY), (date(2026, 1, 6), date(2026, 12, 31)))
 

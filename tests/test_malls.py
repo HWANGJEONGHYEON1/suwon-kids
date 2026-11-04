@@ -44,6 +44,13 @@ class MallsTest(unittest.TestCase):
         self.assertIsNot(malls.rule(item('팝업', '텔레토비', '푸드코트 앞')), False)
         self.assertIsNot(malls.rule(item('[POP-UP STORE] 리틀티니', place='5층 가구 매장 옆')), False)
 
+    def test_rule_generic_experience_goes_to_gemini(self):  # '체험'만으로는 확정하지 않는다
+        for title in ('위스키 시음 체험', '푸드 체험', '과일 따기 체험', '쿠킹 체험'):
+            self.assertIsNone(malls.rule(item(title)), title)
+        self.assertIs(malls.rule(item('키즈 쿠킹 체험')), True)
+        self.assertIs(malls.rule(item('뽀로로 체험')), True)
+        self.assertIs(malls.rule(item('체험 이벤트', '카드혜택')), False)
+
     def test_kind(self):
         self.assertEqual(malls.kind_of(item('가을 피크닉 Pop-Up', '텔레토비')), 'play')
         self.assertEqual(malls.kind_of(item('Winter Early Bird', '나이키키즈')), 'shop')
@@ -85,6 +92,49 @@ class MallsTest(unittest.TestCase):
         self.assertEqual(sorted(i.id for i in malls.merge([a, b])), ['lotte:2', 'mallnews:2'])
         c = item('캐릭터 Pop-Up 팝업 오픈', source='mallnews', id='mallnews:3')  # '캐릭터'만 겹치면 같은 행사로 본다
         self.assertEqual([i.id for i in malls.merge([c, b])], ['lotte:2'])
+
+    def test_merge_official_same_brand_same_dates(self):  # 헨리코튼키즈 공식 두 건
+        a = item('런칭 팝업', '헨리코튼키즈', id='lotte:1')
+        b = item('헨리코튼키즈 오픈 기념 행사', '헨리코튼키즈', source='ak', id='ak:1')
+        self.assertEqual([i.id for i in malls.merge([a, b])], ['lotte:1'])
+
+    def test_merge_official_same_title_same_dates(self):
+        a = item('캐릭터 Pop-Up', id='lotte:1')
+        b = item('캐릭터  pop-up', source='ak', id='ak:1')
+        self.assertEqual(len(malls.merge([a, b])), 1)
+
+    def test_merge_official_different_dates_kept(self):  # 평촌 네파키즈: 겹치지만 다른 두 행사
+        a = item('인기상품 균일가전', '네파키즈', id='lotte:1', start=date(2026, 11, 1), end=date(2026, 11, 8))
+        b = item('인기상품 균일가전', '네파키즈', id='lotte:2', start=date(2026, 11, 5), end=date(2026, 11, 12))
+        self.assertEqual(len(malls.merge([a, b])), 2)
+
+    def test_merge_official_other_mall_kept(self):
+        a = item('런칭 팝업', '헨리코튼키즈', id='lotte:1')
+        b = item('런칭 팝업', '헨리코튼키즈', mall='롯데몰 광교', id='lotte:2')
+        self.assertEqual(len(malls.merge([a, b])), 2)
+
+    def test_merge_news_with_news(self):  # Pokémon GO 뉴스 두 건
+        a = item('Pokémon GO 팝업', source='mallnews', id='mallnews:b', start=date(2026, 11, 3), end=date(2026, 11, 9))
+        b = item('Pokémon GO 이벤트 체험', source='mallnews', id='mallnews:a', start=date(2026, 11, 5), end=date(2026, 11, 12))
+        self.assertEqual([i.id for i in malls.merge([b, a])], ['mallnews:b'])  # 시작이 빠른 쪽을 남긴다
+
+    def test_merge_news_with_news_different_events_kept(self):
+        a = item('Pokémon GO 팝업', source='mallnews', id='mallnews:1')
+        b = item('헬로키티 팝업', source='mallnews', id='mallnews:2')
+        c = item('Pokémon GO 팝업', source='mallnews', id='mallnews:3', mall='롯데몰 광교')
+        d = item('Pokémon GO 팝업', source='mallnews', id='mallnews:4', start=date(2026, 12, 1), end=date(2026, 12, 5))
+        self.assertEqual(len(malls.merge([a, b, c, d])), 4)
+
+    def test_collect_all_sources_fail_raises(self):  # 빈 결과로 malls.json 을 덮어쓰지 않게
+        def down(t):
+            raise RuntimeError('down')
+        with self.assertRaises(RuntimeError) as cm:
+            malls.collect(date(2026, 11, 4), {'lotte': down, 'ak': down}, gen=lambda p: '[]', cache_path=self.tmp / 'c.json')
+        self.assertIn('lotte', str(cm.exception))
+
+    def test_collect_zero_items_ok(self):  # 출처가 성공해서 0건인 것은 정상
+        items, counts, errors = malls.collect(date(2026, 11, 4), {'lotte': lambda t: []}, gen=lambda p: '[]', cache_path=self.tmp / 'c.json')
+        self.assertEqual((items, counts, errors), ([], {'lotte': 0}, {}))
 
     def test_collect_window_counts_errors(self):
         today = date(2026, 11, 4)

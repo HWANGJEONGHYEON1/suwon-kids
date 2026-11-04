@@ -17,7 +17,7 @@ BATCH = 20
 DROP = re.compile('카드|무이자|할부|사은|캐시백|멤버십|멤버스|마일리지|주차|세차|약국|입점|키오스크|상품권|웨딩|혼수')
 # 어른·식품 분야 낱말. 아이 낱말(KEEP)이 없을 때만, 브랜드·제목에서만 본다 (베이비푸드 팝업, 푸드코트 앞 같은 것을 살리려고)
 ADULT = re.compile('시네마|골프|화장품|뷰티|생활가전|가전제품|가구|푸드|떡집|청과|과일|핫도그|타코야끼|유정란|반지|주얼리|아이더|K2그룹')
-KEEP = re.compile('키즈|아동|유아|베이비|주니어|어린이|캐릭터|토이|장난감|레고|체험|곤충|파충류|공룡|텔레토비|뽀로로|티니핑|산리오|디즈니')
+KEEP = re.compile('키즈|아동|유아|베이비|주니어|어린이|캐릭터|토이|장난감|레고|곤충|파충류|공룡|텔레토비|뽀로로|티니핑|산리오|디즈니')
 SHOP = re.compile('할인|%|프로모션|promotion|신상품|균일가|아우터|early bird|brand week|시즌오프')
 PLAY = re.compile('팝업|pop-up|체험|공연|전시|캐릭터|곤충|파충류')
 COMMON = {'팝업', 'pop', 'up', 'store', '스토어', '오픈', 'open', '이벤트', '행사', '키즈', 'kids', '체험', '진행'}
@@ -43,7 +43,10 @@ def rule(it: MallItem) -> bool | None:
         return False
     if KEEP.search(text):
         return True
-    return False if ADULT.search(f'{it.brand or ""} {it.title}') else None
+    name = f'{it.brand or ""} {it.title}'
+    if '체험' in name:  # 일반 '체험'은 아이용인지 알 수 없다 (위스키 시음 체험, 과일 따기 체험) → Gemini
+        return None
+    return False if ADULT.search(name) else None
 
 
 def kind_of(it: MallItem) -> str | None:
@@ -98,19 +101,29 @@ def _words(it: MallItem) -> set[str]:
     return {p for p in parts if len(p) >= 2 and p not in COMMON}
 
 
+def _norm(s: str | None) -> str:
+    return re.sub(r'\W', '', (s or '').lower())
+
+
+def _same_official(a: MallItem, b: MallItem) -> bool:
+    """같은 매장·같은 기간이고 브랜드나 제목이 같으면 같은 행사 (기간이 겹치기만 하면 다른 행사일 수 있다)."""
+    return (a.mall == b.mall and a.start == b.start and a.end == b.end
+            and (_norm(a.title) == _norm(b.title) or (_norm(a.brand) != '' and _norm(a.brand) == _norm(b.brand))))
+
+
+def _same_news(a: MallItem, b: MallItem) -> bool:
+    return a.mall == b.mall and a.start <= b.end and b.start <= a.end and bool(_words(a) & _words(b))
+
+
 def merge(items: list[MallItem]) -> list[MallItem]:
-    """공식 출처를 먼저 두고, 뉴스 항목은 같은 매장·기간 겹침·낱말 공유인 공식 항목이 있으면 버린다."""
-    seen, official = set(), []
+    """공식 출처끼리는 같은 행사를 하나로, 뉴스 항목은 같은 매장·기간 겹침·낱말 공유인 항목(공식 우선, 뉴스끼리는 먼저 시작하는 쪽)이 있으면 버린다."""
+    seen, out = set(), []
     for it in items:
-        if it.source != 'mallnews' and it.id not in seen:
+        if it.source != 'mallnews' and it.id not in seen and not any(_same_official(o, it) for o in out):
             seen.add(it.id)
-            official.append(it)
-    out = list(official)
-    for it in items:
-        if it.source != 'mallnews' or it.id in seen:
-            continue
-        words = _words(it)
-        if not any(o.mall == it.mall and o.start <= it.end and it.start <= o.end and words & _words(o) for o in official):
+            out.append(it)
+    for it in sorted((i for i in items if i.source == 'mallnews'), key=lambda i: (i.start, i.id)):
+        if it.id not in seen and not any(_same_news(o, it) for o in out):
             seen.add(it.id)
             out.append(it)
     return out
@@ -148,6 +161,8 @@ def collect(today: date, sources: dict | None = None, gen=ai.generate,
             continue
         counts[name] = len(got)
         found += got
+    if errors and not counts:  # 성공한 출처가 없으면 빈 목록이 아니라 실패로 알려서 기존 malls.json 을 지키게 한다
+        raise RuntimeError(f'백화점 출처 모두 실패: {errors}')
     last = today + timedelta(days=LEAD_DAYS)
     near = [i for i in found if i.end >= today and i.start <= last]
     cache = _load(cache_path)

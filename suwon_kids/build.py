@@ -67,6 +67,22 @@ def _write(path: Path, text: str):
     tmp.replace(path)
 
 
+def _collect_malls(today: date, malls_collect, malls_path, counts: dict, errors: dict) -> list[MallItem]:
+    """백화점 수집 → malls.json. 실패해도 예외를 밖으로 내지 않고 errors 에 남긴다 (기존 malls.json 은 그대로)."""
+    if not malls_collect:
+        return []
+    try:
+        items, mcounts, merrors = malls_collect(today)
+        counts.update({f'malls:{k}': v for k, v in mcounts.items()})
+        errors.update({f'malls:{k}': v for k, v in merrors.items()})
+        if malls_path:
+            malls.write(items, today, malls_path)
+        return items
+    except Exception as e:  # 백화점이 죽어도 기존 사이트는 그대로
+        errors['malls'] = f'{type(e).__name__}: {e}'
+        return []
+
+
 def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_detail, gen=ai.generate,
         poster_cache: Path = ROOT / 'state/posters.json', now: datetime | None = None,
         ggac_detail=gyeonggi.fetch_ggac_detail, photo_lookup=None,
@@ -100,6 +116,7 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
         ev.area = areas.assign(ev)
     kept = dedupe.merge(kept)
     if not kept:
+        _collect_malls(today, malls_collect, malls_path, counts, errors)  # 기존 행사가 0건이어도 백화점 파일은 갱신
         return {'ok': False, 'counts': counts, 'errors': errors or {'all': '0건'}}
 
     cache = json.loads(poster_cache.read_text(encoding='utf-8')) if poster_cache.exists() else {}
@@ -143,19 +160,11 @@ def run(today: date, out_dir: Path, sources: dict, detail=suwon_portal.fetch_det
             'long': [js(e) for e in sorted(long_events, key=lambda e: e.title)]}
     _write(out_dir / 'events.json', json.dumps(data, ensure_ascii=False, indent=1))
     fest_ids = {e.id for e in kept if filters.is_host_exception(e.title, e.host)}
-    page_events, page_long = events, long_events  # 백화점은 HTML에만 더한다 (events.json 에는 넣지 않는다)
-    if malls_collect:
-        try:
-            items, mcounts, merrors = malls_collect(today)
-            counts.update({f'malls:{k}': v for k, v in mcounts.items()})
-            errors.update({f'malls:{k}': v for k, v in merrors.items()})
-            mall_evs = [e for e in map(malls.to_event, items) if week.overlaps(e, rng)]
-            page_events = events + [e for e in mall_evs if not week.is_long(e)]
-            page_long = long_events + [e for e in mall_evs if week.is_long(e)]
-            if malls_path:
-                malls.write(items, today, malls_path)
-        except Exception as e:  # 백화점이 죽어도 기존 사이트는 그대로
-            errors['malls'] = f'{type(e).__name__}: {e}'
+    # 백화점은 HTML에만 더한다 (events.json 에는 넣지 않는다)
+    mall_evs = [e for e in map(malls.to_event, _collect_malls(today, malls_collect, malls_path, counts, errors))
+                if week.overlaps(e, rng)]
+    page_events = events + [e for e in mall_evs if not week.is_long(e)]
+    page_long = long_events + [e for e in mall_evs if week.is_long(e)]
     _write(out_dir / 'index.html', render.page(page_events, page_long, now, rng, fest_ids))
     return {'ok': True, 'counts': counts, 'errors': errors}
 

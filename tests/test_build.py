@@ -5,7 +5,7 @@ from datetime import date
 from unittest import mock
 from pathlib import Path
 
-from suwon_kids import build, place_photo
+from suwon_kids import build, malls, place_photo
 from suwon_kids.models import Event, MallItem
 
 TODAY = date(2026, 10, 26)
@@ -156,6 +156,33 @@ class BuildTest(unittest.TestCase):
         self.assertTrue(r['ok'])
         self.assertEqual(r['counts']['malls:lotte'], 0)
         self.assertEqual(r['errors']['malls:hyundai'], 'HTTPError: 500')
+
+    def test_build_malls_written_even_when_main_sources_empty(self):  # 기존 행사 0건이어도 백화점은 갱신
+        it = MallItem('lotte:0406:3', 'lotte', '타임빌라스 의왕', '가을 피크닉 Pop-Up', '텔레토비',
+                      TODAY, TODAY, '잔디광장', 'https://l', 'play')
+        mp = self.dir / 'm.json'
+        r = self.run_build({'suwon': lambda: []}, malls_collect=lambda t: ([it], {'lotte': 1}, {}), malls_path=mp)
+        self.assertFalse(r['ok'])
+        self.assertEqual(r['counts']['malls:lotte'], 1)
+        self.assertEqual(json.loads(mp.read_text(encoding='utf-8'))['malls'][0]['brand'], '텔레토비')
+        self.assertFalse((self.dir / 'index.html').exists())  # 사이트는 그대로
+
+    def test_build_malls_crash_when_main_empty_still_not_ok(self):
+        def boom(t): raise RuntimeError('x')
+        r = self.run_build({'suwon': lambda: []}, malls_collect=boom, malls_path=self.dir / 'm.json')
+        self.assertFalse(r['ok'])
+        self.assertIn('RuntimeError: x', r['errors']['malls'])
+
+    def test_build_all_malls_sources_fail_keeps_old_file(self):
+        mp = self.dir / 'm.json'
+        mp.write_text('{"old": 1}', encoding='utf-8')
+
+        def collect(t):
+            return malls.collect(t, {'lotte': fail}, gen=lambda p: '[]', cache_path=self.dir / 'c.json')
+        r = self.run_build({'suwon': lambda: [ev('홀리스타')]}, malls_collect=collect, malls_path=mp)
+        self.assertTrue(r['ok'])
+        self.assertIn('lotte', r['errors']['malls'])
+        self.assertEqual(mp.read_text(encoding='utf-8'), '{"old": 1}')
 
     def test_build_mall_crash_keeps_site(self):
         def boom(t): raise RuntimeError('x')

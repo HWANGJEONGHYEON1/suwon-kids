@@ -25,7 +25,8 @@ _GO_URL = re.compile(r"goUrl\('([^']+)',\s*'([^']+)'\)")
 
 
 def parse_period(txt: str, today: date) -> tuple[date, date] | None:
-    """'10.28(수) ~ 11.8(일)' 같은 기간. 해가 없으면 오늘 기준으로 채운다. '11.3(화) OPEN'처럼 끝이 없으면 None."""
+    """'10.28(수) ~ 11.8(일)' 같은 기간. 해가 없으면 오늘 기준으로 채우고, 시작 해만 있으면 끝도 그 해(끝이 앞서면 다음 해).
+    '11.3(화) OPEN'처럼 끝이 없으면 None."""
     m = _PERIOD.search(txt or '')
     if not m:
         return None
@@ -33,6 +34,10 @@ def parse_period(txt: str, today: date) -> tuple[date, date] | None:
     try:
         if ey:
             end = date(2000 + int(ey), int(em), int(ed))
+        elif sy:
+            start = date(2000 + int(sy), int(sm), int(sd))
+            end = date(start.year, int(em), int(ed))
+            return (start, end if end >= start else end.replace(year=end.year + 1))
         else:
             end = date(today.year, int(em), int(ed))
             if end < today - timedelta(days=60):
