@@ -1262,5 +1262,133 @@
  "starfield-brand:EV202611050848003203": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0406:SNM00000000000571543": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000571072": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000571684": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000571075": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571781": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571605": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571359": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571083": {
+  "kid": true,
+  "kind": "play"
+ },
+ "lotte:0349:SNM00000000000569422": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571768": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571735": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571053": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571731": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571647": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571048": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571613": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571304": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571059": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571570": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000570778": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000569463": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000568981": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31032": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31023": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31020": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31018": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31017": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:타임빌라스 의왕:2026-10-30:서프라이스위크팝업": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO와일드에리어글로벌기념오프라인행사": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:PokémonGO현장행사": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO현장이벤트": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO와일드에리어글로벌한국현장이벤트": {
+  "kid": true,
+  "kind": "play"
  }
 }
