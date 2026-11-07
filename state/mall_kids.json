@@ -1390,5 +1390,21 @@
  "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO와일드에리어글로벌한국현장이벤트": {
   "kid": true,
   "kind": "play"
+ },
+ "lotte:0406:SNM00000000000571932": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571046": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571785": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571569": {
+  "kid": false,
+  "kind": null
  }
 }
