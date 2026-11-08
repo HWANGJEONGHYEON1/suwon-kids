@@ -1406,5 +1406,45 @@
  "lotte:0341:SNM00000000000571569": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0406:SNM00000000000571872": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000565576": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572051": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571927": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513592": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513764": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513766": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513775": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611513560": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬고와일드에리어글로벌기념오프라인행사": {
+  "kid": true,
+  "kind": "play"
  }
 }
