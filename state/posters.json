@@ -113,5 +113,36 @@
   "time": "",
   "venue": "D홀 B3",
   "price": ""
+ },
+ "https://www.starfield.co.kr/cdn/starfield_09/evt/20261109/IM20261109025239106456.jpg": {
+  "programs": [
+   {
+    "name": "아기돼지 삼형제",
+    "date": "11.7(토)",
+    "time": "",
+    "age": ""
+   },
+   {
+    "name": "유니크 앤 매직 파충류마술",
+    "date": "11.14(토)",
+    "time": "",
+    "age": ""
+   },
+   {
+    "name": "오즈를 찾아서",
+    "date": "11.21(수)",
+    "time": "",
+    "age": ""
+   },
+   {
+    "name": "엉클키드 서커스 챌린지",
+    "date": "11.28(토)",
+    "time": "",
+    "age": ""
+   }
+  ],
+  "time": "오후 2시/5시",
+  "venue": "3F 별마당 키즈",
+  "price": "무료"
  }
 }

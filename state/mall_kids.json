@@ -1446,5 +1446,73 @@
  "mallnews:타임빌라스 수원:2026-11-14:포켓몬고와일드에리어글로벌기념오프라인행사": {
   "kid": true,
   "kind": "play"
+ },
+ "lotte:0349:SNM00000000000571734": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571298": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571293": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570961": {
+  "kid": true,
+  "kind": "play"
+ },
+ "lotte:0341:SNM00000000000572235": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571879": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572198": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572210": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571986": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571516": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000540804": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000572213": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000571671": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬고와일드에리어글로벌기념체험미션포토존": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO현장행사": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:포켓몬GO와일드에리어글로벌현장이벤트": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:AK플라자 수원:2026-11-12:진격의거인TheFinalSeason팝업스토어": {
+  "kid": false,
+  "kind": null
  }
 }
