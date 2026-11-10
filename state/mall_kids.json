@@ -1514,5 +1514,77 @@
  "mallnews:AK플라자 수원:2026-11-12:진격의거인TheFinalSeason팝업스토어": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0406:SNM00000000000572542": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572538": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000569832": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572494": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572395": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572350": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572345": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572218": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572569": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572566": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000571706": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570016": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572251": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572348": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000571833": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000533817": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31053": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:타임빌라스 수원:2026-11-14:PokémonGO와일드에리어글로벌현장이벤트": {
+  "kid": true,
+  "kind": "play"
  }
 }
