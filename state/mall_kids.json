@@ -1850,5 +1850,221 @@
  "ak:31067": {
   "kid": true,
   "kind": "play"
+ },
+ "lotte:0406:SNM00000000000573019": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572486": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572952": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572947": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572769": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572564": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572574": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572370": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000572501": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572899": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572691": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572851": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572434": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572852": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573025": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572951": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572112": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572845": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572324": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000570085": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000572393": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000572408": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000572344": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611514547": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515417": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515118": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515123": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515053": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515045": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515050": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515047": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515046": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515043": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611514669": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515071": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515068": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515058": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515060": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515062": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515064": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515067": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515074": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515082": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515103": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515106": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515793": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515502": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515112": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515044": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802611514709": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802611515332": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515116": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515419": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31163": {
+  "kid": false,
+  "kind": null
  }
 }
