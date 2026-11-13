@@ -2066,5 +2066,81 @@
  "ak:31163": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0406:SNM00000000000573204": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "lotte:0406:SNM00000000000572811": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000573207": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000573112": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572661": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000573126": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572819": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572752": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572754": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572725": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572690": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573101": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572839": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572517": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572034": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000572032": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31273": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31270": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:AK플라자 수원:2026-11-13:아이스브르르팝업스토어": {
+  "kid": true,
+  "kind": "play"
  }
 }
