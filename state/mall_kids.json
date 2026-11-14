@@ -2142,5 +2142,37 @@
  "mallnews:AK플라자 수원:2026-11-13:아이스브르르팝업스토어": {
   "kid": true,
   "kind": "play"
+ },
+ "lotte:0406:SNM00000000000573361": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000573316": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000570658": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573322": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573341": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573279": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573257": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515981": {
+  "kid": false,
+  "kind": null
  }
 }
