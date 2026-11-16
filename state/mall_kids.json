@@ -2206,5 +2206,25 @@
  "ak:31129": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0349:SNM00000000000573571": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000572987": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573641": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573284": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31285": {
+  "kid": false,
+  "kind": null
  }
 }
