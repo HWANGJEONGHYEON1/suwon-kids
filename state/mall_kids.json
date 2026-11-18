@@ -2294,5 +2294,69 @@
  "starfield-brand:EV202611171520433277": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0406:SNM00000000000574267": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000573896": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000573911": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000573700": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000574017": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000573895": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000573813": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000573957": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574016": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000573978": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574088": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573537": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000573984": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:스타필드 수원:2026-11-18:골든크리스마스그랜드아트리움전시": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:스타필드 수원:2026-11-18:골든크리스마스별마당도서관전시": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:스타필드 수원:2026-11-13:골든크리스마스": {
+  "kid": true,
+  "kind": "play"
  }
 }
