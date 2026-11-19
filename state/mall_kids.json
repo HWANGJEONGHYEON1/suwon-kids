@@ -2358,5 +2358,405 @@
  "mallnews:스타필드 수원:2026-11-13:골든크리스마스": {
   "kid": true,
   "kind": "play"
+ },
+ "lotte:0406:SNM00000000000574438": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000574328": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000574343": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000574366": {
+  "kid": true,
+  "kind": "play"
+ },
+ "lotte:0406:SNM00000000000574284": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000574100": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000573839": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000573810": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000573184": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:ENT00000000000012877": {
+  "kid": true,
+  "kind": "play"
+ },
+ "lotte:0349:SNM00000000000567463": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574200": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000565553": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "lotte:0349:SNM00000000000574398": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574375": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574085": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574307": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574210": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574362": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574520": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573355": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574460": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574414": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574359": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573478": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574333": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573961": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574299": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574135": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573847": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000573835": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:ENT00000000000012870": {
+  "kid": true,
+  "kind": "play"
+ },
+ "lotte:0355:SNM00000000000574473": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000574471": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000574469": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000574480": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000574400": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000574076": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000573721": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000573209": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000573815": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000573758": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516363": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802611516608": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516339": {
+  "kid": true,
+  "kind": "play"
+ },
+ "hyundai:E4802611516358": {
+  "kid": true,
+  "kind": "play"
+ },
+ "hyundai:E4802611516362": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516479": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "hyundai:E4802611516352": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611515338": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516089": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516394": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516094": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516372": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516431": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31504": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31501": {
+  "kid": true,
+  "kind": "play"
+ },
+ "ak:31500": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31493": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31492": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31491": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "ak:31490": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31489": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31463": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31460": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31462": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31461": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31458": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31448": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31446": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31444": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31442": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31440": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31437": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31439": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31436": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31435": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31434": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31433": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31432": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31431": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31430": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31429": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31426": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31425": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31428": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31427": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31399": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31393": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31392": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31411": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31410": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31409": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31408": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31407": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31405": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31404": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31403": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31402": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31401": {
+  "kid": false,
+  "kind": null
  }
 }
