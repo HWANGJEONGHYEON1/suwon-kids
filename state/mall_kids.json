@@ -2870,5 +2870,29 @@
  "mallnews:현대백화점 판교:2026-11-19:수야무연말팝업": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0406:SNM00000000000574757": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574792": {
+  "kid": true,
+  "kind": "shop"
+ },
+ "lotte:0341:SNM00000000000574773": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0355:SNM00000000000574752": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:스타필드 수원:2026-11-18:9m골드트리전시": {
+  "kid": true,
+  "kind": "play"
+ },
+ "mallnews:현대백화점 판교:2026-11-19:수야무연말팝업스토어": {
+  "kid": true,
+  "kind": "play"
  }
 }
