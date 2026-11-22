@@ -2894,5 +2894,21 @@
  "mallnews:현대백화점 판교:2026-11-19:수야무연말팝업스토어": {
   "kid": true,
   "kind": "play"
+ },
+ "hyundai:E4802611516568": {
+  "kid": false,
+  "kind": null
+ },
+ "hyundai:E4802611516558": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31400": {
+  "kid": false,
+  "kind": null
+ },
+ "starfield-brand:EV202611201520333311": {
+  "kid": false,
+  "kind": null
  }
 }
