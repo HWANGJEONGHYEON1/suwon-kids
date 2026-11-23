@@ -2910,5 +2910,33 @@
  "starfield-brand:EV202611201520333311": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0406:SNM00000000000575169": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000575146": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574710": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574951": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575090": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31621": {
+  "kid": false,
+  "kind": null
+ },
+ "mallnews:스타필드 수원:2026-11-13:위시크리스마스체험형인터렉티브콘텐츠": {
+  "kid": true,
+  "kind": "play"
  }
 }
