@@ -2938,5 +2938,33 @@
  "mallnews:스타필드 수원:2026-11-13:위시크리스마스체험형인터렉티브콘텐츠": {
   "kid": true,
   "kind": "play"
+ },
+ "lotte:0349:SNM00000000000575389": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000575342": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000575235": {
+  "kid": true,
+  "kind": "play"
+ },
+ "lotte:0349:SNM00000000000574513": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575189": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574802": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31398": {
+  "kid": false,
+  "kind": null
  }
 }
