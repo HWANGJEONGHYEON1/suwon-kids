@@ -2966,5 +2966,45 @@
  "ak:31398": {
   "kid": false,
   "kind": null
+ },
+ "lotte:0406:SNM00000000000575664": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000575629": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000575563": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000575500": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000575182": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000575203": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575759": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575604": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575698": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575259": {
+  "kid": false,
+  "kind": null
  }
 }
