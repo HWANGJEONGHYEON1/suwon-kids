@@ -3326,5 +3326,65 @@
  "mallnews:AK플라자 수원:2026-12-05:주술회전팝업스토어": {
   "kid": true,
   "kind": "play"
+ },
+ "lotte:0406:SNM00000000000575890": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000575858": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000576111": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000575572": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0406:SNM00000000000575570": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574586": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0349:SNM00000000000574183": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000576082": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000576074": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575820": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000576025": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575306": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000575176": {
+  "kid": false,
+  "kind": null
+ },
+ "lotte:0341:SNM00000000000574168": {
+  "kid": false,
+  "kind": null
+ },
+ "ak:31781": {
+  "kid": true,
+  "kind": "play"
  }
 }
